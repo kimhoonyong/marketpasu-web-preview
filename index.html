@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0c1524">
+  <meta name="description" content="마켓파수 별도 시험 웹 — 가상 뉴스만 보여주는 데모. 실제 Google 로그인과 Firebase 연결 없음.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>마켓파수 · 웹 시험화면 (데모)</title>
+  <link rel="stylesheet" href="./site.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="마켓파수 시험 화면 처음으로">
+      <div class="brandmark" aria-hidden="true">S<span>.</span></div>
+      <div class="brandcopy"><strong>StockNewsMonitor</strong><small>MARKET PASU · WEB PREVIEW</small></div>
+    </a>
+    <div class="top-actions">
+      <span class="status-pill"><span class="signal" aria-hidden="true"></span>가상 데이터 데모</span>
+    </div>
+  </header>
+  <main>
+    <section class="disclaimer" role="note">
+      <strong>안전한 분리 시험 환경</strong>
+      <p>이 화면은 <b>가상 데이터만</b> 보여줍니다. 실제 뉴스 수집, Firebase 접속, Google 로그인, AI·텔레그램 발송 및 결제는 실행되지 않습니다.</p>
+    </section>
+    <section class="hero">
+      <div>
+        <div class="overline"><span class="overline-line"></span>PERSONAL MONITORING STATION · PREVIEW</div>
+        <h1>뉴스의 변화와<br><em>재노출 이력을 확인하세요.</em></h1>
+        <p>처음 보도된 시점과 다시 관측된 시점을 비교하고, 반복 보도·제목 변경 의심을 구분해 보는 마켓파수의 PC·휴대폰용 시험 화면입니다.</p>
+        <div class="hero-actions">
+          <button class="primary" type="button" id="focus-news">샘플 뉴스 확인 <span aria-hidden="true">↗</span></button>
+          <span class="account-note">Google 로그인·실제 뉴스 조회는 다음 단계에서 별도 검증</span>
+        </div>
+      </div>
+      <div class="hero-right" aria-hidden="true">
+        <div class="orb"><div class="orb-ring"></div><div class="orb-center">LIVE<span>PREVIEW</span></div></div>
+        <p>READ ONLY / SYNTHETIC NEWS</p>
+      </div>
+    </section>
+    <section class="overview" aria-label="데모 뉴스 통계">
+      <div class="metric"><div class="metric-label">표시된 샘플 <small>01</small></div><strong id="metric-total">—</strong><small>선택한 조건 기준</small></div>
+      <div class="metric"><div class="metric-label">검토 필요 <small>02</small></div><strong id="metric-review">—</strong><small>검증되지 않은 정보</small></div>
+      <div class="metric"><div class="metric-label">제목 변경 의심 <small>03</small></div><strong id="metric-changed">—</strong><small>비교용 가상 기록</small></div>
+      <div class="metric"><div class="metric-label">재노출 검토 <small>04</small></div><strong id="metric-repeat">—</strong><small>과거 관측일 비교</small></div>
+    </section>
+    <section class="feed" id="news" aria-labelledby="news-title">
+      <div class="section-heading">
+        <div><div class="overline tight">REALTIME MONITOR MOCK-UP</div><h2 id="news-title">뉴스 모니터</h2></div>
+        <button type="button" id="reset-filters" class="ghost">↻ 필터 초기화</button>
+      </div>
+      <div class="search-intro"><strong>종목·뉴스 검색</strong><span>가상 기사만 검색합니다. 결과는 실제 증권 정보가 아닙니다.</span></div>
+      <div class="filters">
+        <label class="field"><span>검색 유형</span><select id="search-mode">
+          <option value="all">통합 검색</option><option value="stock">종목 검색</option><option value="news">뉴스 제목 검색</option>
+        </select></label>
+        <label class="field search-field"><span>검색어</span><input type="search" id="search-input" placeholder="가상기업·키워드 검색" autocomplete="off"></label>
+        <label class="field"><span>상태 필터</span><select id="filter-select">
+          <option value="all">모든 상태</option><option value="review">검토 필요</option><option value="changed">제목 변경 의심</option><option value="repeat">재노출 검토</option><option value="normal">일반</option>
+        </select></label>
+      </div>
+      <div class="feed-subline"><span id="search-summary" role="status" aria-live="polite">조회 대기</span><span>가상 뉴스 · 서버 읽기 0건 · 최대 20개 샘플</span></div>
+      <p class="notice" role="note">운영 Firestore와 분리되어 있어 로그인하거나 새 뉴스를 수집하지 않습니다. 신뢰성 확인을 위한 가상 화면입니다.</p>
+      <div class="article-list" id="article-list" aria-live="polite"></div>
+      <div class="empty-state" id="empty-state" hidden><strong>조건에 맞는 가상 뉴스가 없습니다.</strong><p>검색어를 바꾸거나 필터를 초기화하세요.</p></div>
+    </section>
+    <section class="next-steps" aria-labelledby="next-title">
+      <div><div class="overline tight">NEXT VALIDATION</div><h2 id="next-title">다음에 연결할 기능</h2></div>
+      <div class="steps">
+        <div><span class="step-no">01</span><strong>Google 로그인</strong><p>시험용 프로젝트와 사용자 권한을 별도로 준비한 후 활성화합니다.</p></div>
+        <div><span class="step-no">02</span><strong>실제 뉴스 조회</strong><p>Firestore 보안 규칙·읽기 비용을 확인한 뒤 연결합니다.</p></div>
+        <div><span class="step-no">03</span><strong>운영 승인</strong><p>보안·비용·장애 감시 검증 후 별도 승인으로 결정합니다.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer><span>STOCKNEWSMONITOR <b>●</b> WEB PREVIEW</span><span>합성 데이터 전용 · 어떠한 클라우드 접근도 없음</span></footer>
+</div>
+</body>
+</html>
