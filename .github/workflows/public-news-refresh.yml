@@ -41,12 +41,12 @@ jobs:
         run: python3 scripts/update-public-news.py
       - name: Publish news snapshot only when changed
         run: |
-          if git diff --quiet -- market/news.json; then
+          if git diff --quiet -- market/news.json market/history.json && [ -z "$(git ls-files --others --exclude-standard -- market/history.json)" ]; then
             echo 'Unchanged news snapshot. No publish.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- market/news.json
+          git add -- market/news.json market/history.json
           git commit -m 'Update public RSS headlines (personal market page)'
           git push
