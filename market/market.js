@@ -110,7 +110,7 @@ function articleCard(item){
 function updateExternalSearchLink(){
   const link=q("external-news");
   const word=elements.search.value.trim();
-  const query=word || (currentFilter==="watch" ? watchKeywords.slice(0,3).join(" OR ") : "");
+  const query=word || (currentFilter==="watch" ? (elements.focus.value || watchKeywords.slice(0,3).join(" OR ")) : "");
   link.hidden=!query;
   if(!query)return;
   link.href="https://news.google.com/search?q="+encodeURIComponent(query)+"&hl=ko&gl=KR&ceid=KR%3Ako";
