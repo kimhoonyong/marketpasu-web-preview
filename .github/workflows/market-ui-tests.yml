@@ -22,6 +22,7 @@ jobs:
           node --check market/market.js
           node --check market/feed-model.mjs
           node --test tests/feed-model.test.mjs
+          node --test tests/late-news-risk.test.mjs
       - name: Verify RSS archive code without fetching news
         run: |
           python3 -m py_compile scripts/update-public-news.py
