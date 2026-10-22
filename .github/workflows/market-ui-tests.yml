@@ -36,3 +36,5 @@ jobs:
         run: |
           python3 -m py_compile scripts/update-public-news.py
           python3 -m unittest discover -s tests -p 'test_public_news.py' -v
+          python3 -m py_compile integrations/kiwoom/rest_minutes.py
+          python3 -m unittest discover -s tests -p 'test_kiwoom_minutes.py' -v
