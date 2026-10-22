@@ -1,0 +1,48 @@
+name: MarketPasu integrated v0.2 offline safety
+on:
+  push:
+    branches: ['work/marketpasu-integrated-v02']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: marketpasu-integrated-v02-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline-safety:
+    if: github.ref == 'refs/heads/work/marketpasu-integrated-v02'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout isolated branch without persistent credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Setup Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Protect existing live v0.1, demo, and auth pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "kimhoonyong/marketpasu-web-preview"
+          test "$GITHUB_REF" = "refs/heads/work/marketpasu-integrated-v02"
+          git fetch --no-tags --depth=1 origin main
+          changed="$(git diff --name-only FETCH_HEAD HEAD)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -Ev '^(integrated-v02/|\.github/workflows/integrated-v02-check\.yml$|$)'; then
+            echo 'HOLD_EXISTING_PUBLIC_ASSETS_CHANGED'
+            exit 1
+          fi
+          echo 'MARKETPASU_V02_EXISTING_PAGES_UNTOUCHED:PASS'
+      - name: Run syntax and offline behavior checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check integrated-v02/integrated-app.mjs
+          node --check integrated-v02/data-model.mjs
+          node --check integrated-v02/auth-state.mjs
+          node --check integrated-v02/integrated.test.mjs
+          node --test integrated-v02/integrated.test.mjs
+          echo 'MARKETPASU_V02_OFFLINE_TEST_PASS:PRODUCTION_HOLD'
