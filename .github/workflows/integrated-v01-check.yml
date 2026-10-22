@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: marketpasu-integrated-v01-\${{ github.ref }}
+  group: marketpasu-integrated-v01-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   offline-safety:
