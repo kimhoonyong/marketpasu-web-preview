@@ -35,6 +35,23 @@ class PublicNewsTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             mod.parse_rss(b"<notrss/>", "test", NOW)
 
+    def test_duplicate_across_topics_keeps_both_topic_tags(self):
+        a = {"id": "one", "title": "삼성전자 실적", "publisher": "연합뉴스",
+             "url": "https://news.google.com/a", "topic": "삼성전자",
+             "published_at": "2026-10-22T03:00:00+00:00"}
+        b = dict(a, id="two", url="https://news.google.com/b", topic="코스피")
+        merged = mod.consolidate_articles([a, b])
+        self.assertEqual(len(merged), 1)
+        self.assertEqual(merged[0]["topics"], ["삼성전자", "코스피"])
+
+    def test_distinct_publisher_or_changed_headline_stays_visible(self):
+        a = {"id": "one", "title": "코스피 상승", "publisher": "연합뉴스",
+             "url": "https://news.google.com/a", "topic": "코스피",
+             "published_at": "2026-10-22T03:00:00+00:00"}
+        b = dict(a, id="two", url="https://news.google.com/b", publisher="다른 신문")
+        c = dict(a, id="three", url="https://news.google.com/c", title="코스피 하락")
+        self.assertEqual(len(mod.consolidate_articles([a, b, c])), 3)
+
     def test_rss_only_public_https(self):
         self.assertTrue(mod.feed_url("코스피").startswith("https://news.google.com/rss/search?"))
         self.assertIn("q=", mod.feed_url("코스피"))

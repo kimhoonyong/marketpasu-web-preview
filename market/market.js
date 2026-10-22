@@ -1,17 +1,34 @@
+import {uniqueArticles,visibleArticles} from "./feed-model.mjs";
 const q = (id) => document.getElementById(id);
 const elements = {
-  search:q("search"),watchlist:q("watchlist"),save:q("save-watch"),
+  search:q("search"),watchlist:q("watchlist"),save:q("save-watch"),focus:q("keyword-focus"),
   status:q("feed-status"),count:q("count"),refresh:q("refresh"),
   articles:q("articles"),empty:q("empty")
 };
 const STORAGE_KEY = "marketpasu_personal_keywords_v1";
 const VIEW_KEY = "marketpasu_personal_news_view_v1";
+const READ_KEY = "marketpasu_read_articles_v1";
+const KNOWN_KEY = "marketpasu_known_articles_v1";
 const MAX_ITEMS = 80;
 let allItems = [];
 let currentFilter = "all";
-try {currentFilter = localStorage.getItem(VIEW_KEY) === "watch" ? "watch" : "all";} catch {}
+try {const saved=localStorage.getItem(VIEW_KEY);currentFilter=["all","watch","unread"].includes(saved)?saved:"all";} catch {}
+function loadIDs(key){try {const ids=JSON.parse(localStorage.getItem(key)||"[]");return new Set(Array.isArray(ids)?ids.filter(v=>typeof v==="string").slice(-450):[]);}catch{return new Set();}}
+function saveIDs(key,ids){try {localStorage.setItem(key,JSON.stringify([...ids].slice(-450)));}catch{}}
+let readIds=loadIDs(READ_KEY);
+let knownIds=loadIDs(KNOWN_KEY);
+let newIds=new Set();
 let watchKeywords = [];
 let busy = false;
+function setRead(id,read){if(read)readIds.add(id);else readIds.delete(id);saveIDs(READ_KEY,readIds);newIds.delete(id);}
+function populateFocus(){
+  const before=elements.focus.value;
+  const all=node("option","","모든 관심 키워드");all.value="";
+  const options=[all,...watchKeywords.map(value=>{const option=node("option","",value);option.value=value;return option;})];
+  elements.focus.replaceChildren(...options);
+  elements.focus.value=watchKeywords.includes(before)?before:"";
+  elements.focus.disabled=watchKeywords.length===0;
+}
 
 function readKeywords(){
   try {
@@ -50,7 +67,8 @@ function normalizeRows(payload){
       id:clean(row?.id,90),title,url,
       publisher:clean(row?.publisher,90)||"출처 미상",
       published:clean(row?.published_at,45),
-      topic:clean(row?.topic,60)||"시장"
+      topic:clean(row?.topic,60)||"시장",
+      topics:Array.isArray(row?.topics)?row.topics.slice(0,12).map(v=>clean(v,60)).filter(Boolean):[]
     };
   }).filter(Boolean).sort((a,b)=>Date.parse(b.published||0)-Date.parse(a.published||0));
 }
@@ -61,23 +79,38 @@ function node(tag,className,text){
   return elem;
 }
 function articleCard(item){
-  const article=node("article","article");
+  const article=node("article","article"+(readIds.has(item.id)?" is-read":""));
   const meta=node("div","meta");
   meta.append(node("span","topic",item.topic),node("span","",item.publisher),
     node("span","",dateText(item.published)));
+  const read=readIds.has(item.id);
+  const readState=node("span","read-tag"+(read?" completed":""),read?"읽음":"안 읽음");
+  meta.append(readState);
+  if(newIds.has(item.id)&&!read)meta.append(node("span","new-tag","새로 추가됨"));
   const title=node("h3","",item.title);
+  const actions=node("div","article-actions");
   const link=node("a","original","기사 원문 보기 ↗");
   link.href=item.url;
   link.target="_blank";
   link.rel="noopener noreferrer";
   link.setAttribute("aria-label",item.title+" 기사 원문 보기");
-  article.append(meta,title,link);
+  link.addEventListener("click",()=>{
+    setRead(item.id,true);
+    // Let the browser open the source link before rebuilding article cards.
+    setTimeout(render,0);
+  });
+  const toggle=node("button","mark-read",read?"읽지 않음으로":"읽음 표시");
+  toggle.type="button";
+  toggle.addEventListener("click",()=>{setRead(item.id,!readIds.has(item.id));render();});
+  actions.append(link,toggle);
+  article.append(meta,title,actions);
+  if(item.topics.length>1)article.append(node("p","topic-more","관련 주제: "+item.topics.join(" · ")));
   return article;
 }
 function updateExternalSearchLink(){
   const link=q("external-news");
   const word=elements.search.value.trim();
-  const query=word || (currentFilter==="watch" ? watchKeywords.slice(0,3).join(" OR ") : "");
+  const query=word || (currentFilter==="watch" ? (elements.focus.value || watchKeywords.slice(0,3).join(" OR ")) : "");
   link.hidden=!query;
   if(!query)return;
   link.href="https://news.google.com/search?q="+encodeURIComponent(query)+"&hl=ko&gl=KR&ceid=KR%3Ako";
@@ -86,18 +119,16 @@ function updateExternalSearchLink(){
 }
 function render(){
   updateExternalSearchLink();
-  const term=elements.search.value.trim().toLocaleLowerCase("ko-KR");
-  const terms=watchKeywords.map(v=>v.toLocaleLowerCase("ko-KR"));
-  const rows=allItems.filter(item=>{
-    const haystack=[item.title,item.publisher,item.topic].join(" ").toLocaleLowerCase("ko-KR");
-    return (!term || haystack.includes(term)) &&
-      (currentFilter!=="watch" || terms.some(word=>haystack.includes(word)));
+  const rows=visibleArticles(allItems,{
+    search:elements.search.value,filter:currentFilter,
+    watchKeywords,focus:elements.focus.value,readIds
   });
   const fragment=document.createDocumentFragment();
   for(const item of rows)fragment.append(articleCard(item));
   elements.articles.replaceChildren(fragment);
   elements.empty.hidden=rows.length!==0;
-  elements.count.textContent="표시 "+rows.length+"건 / 전체 "+allItems.length+"건";
+  const unread=allItems.filter(item=>!readIds.has(item.id)).length;
+  elements.count.textContent="표시 "+rows.length+"건 / 전체 "+allItems.length+"건 · 안 읽은 뉴스 "+unread+"건";
 }
 async function loadNews(){
   if(busy)return;
@@ -110,7 +141,10 @@ async function loadNews(){
     const data=await response.json();
     const rows=normalizeRows(data);
     if(rows.length===0)throw new Error("표시 가능한 기사가 없습니다");
-    allItems=rows;
+    allItems=uniqueArticles(rows);
+    newIds=knownIds.size===0?new Set():new Set(allItems.filter(item=>!knownIds.has(item.id)).map(item=>item.id));
+    for(const item of allItems)knownIds.add(item.id);
+    saveIDs(KNOWN_KEY,knownIds);
     const when = data.updated_at && Number.isFinite(Date.parse(data.updated_at)) ?
       "자동 갱신 "+dateText(data.updated_at) :
       "첫 확인 기사 기준일 "+(clean(data.snapshot_date,10)||"미확인");
@@ -133,9 +167,14 @@ elements.save.addEventListener("click",()=>{
   watchKeywords=values;
   elements.watchlist.value=values.join(", ");
   elements.save.textContent=writeKeywords(values)?"저장됨":"저장 제한 · 현재 탭에만 적용";
+  populateFocus();
   render();
 });
 elements.search.addEventListener("input",render);
+elements.focus.addEventListener("change",()=>{
+  if(elements.focus.value){currentFilter="watch";try{localStorage.setItem(VIEW_KEY,currentFilter);}catch{}syncFilterButtons();}
+  render();
+});
 function syncFilterButtons(){
   for(const child of document.querySelectorAll("[data-filter]")){
     const selected=child.dataset.filter===currentFilter;
@@ -145,12 +184,13 @@ function syncFilterButtons(){
 }
 for(const btn of document.querySelectorAll("[data-filter]")){
   btn.addEventListener("click",()=>{
-    currentFilter=btn.dataset.filter==="watch"?"watch":"all";
+    currentFilter=["watch","unread"].includes(btn.dataset.filter)?btn.dataset.filter:"all";
     try {localStorage.setItem(VIEW_KEY,currentFilter);} catch {}
     syncFilterButtons();
     render();
   });
 }
+populateFocus();
 syncFilterButtons();
 elements.refresh.addEventListener("click",loadNews);
 render();

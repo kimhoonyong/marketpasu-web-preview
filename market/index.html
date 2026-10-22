@@ -30,7 +30,9 @@
       <div class="chips" role="group" aria-label="보기 방식">
         <button class="chip selected" data-filter="all" type="button" aria-pressed="true">전체 뉴스</button>
         <button class="chip" data-filter="watch" type="button" aria-pressed="false">내 관심 키워드</button>
+        <button class="chip" data-filter="unread" type="button" aria-pressed="false">안 읽은 뉴스</button>
       </div>
+      <label class="focus-field" for="keyword-focus"><strong>관심 종목별 보기</strong><select id="keyword-focus" aria-label="관심 종목 선택"><option value="">모든 관심 키워드</option></select></label>
     </section>
     <section class="feed" aria-labelledby="feed-heading">
       <div class="feed-heading">
@@ -47,7 +49,8 @@
       <summary>현재 제공 범위 · 운영 안내</summary>
       <p>이 화면은 공개 기사 제목·발행처·발행시각·원문 링크만 제공합니다. 뉴스 원문은 언론사 사이트에서 읽습니다. 각 기사에 대한 사실 확인, 제목 변경·재노출 판정, 투자 추천을 제공하지 않습니다.</p>
       <p>뉴스 파일은 GitHub Pages에서 제공되며 주기적 공개 RSS 수집 작업으로 갱신하도록 설계했습니다. 갱신 실패 시 과거 목록이 남을 수 있습니다. <strong>반드시 ‘기사 기준일’을 확인하세요.</strong> 새 소식 버튼은 기존 파일을 다시 읽는 기능으로, 즉시 외부 뉴스를 새로 수집하지는 않습니다.</p>
-      <p>관심 키워드는 현재 브라우저에만 저장됩니다. 가입·결제·Firebase 운영 데이터 조회·AI API·텔레그램 발송은 이 화면에서 하지 않습니다. 기존 인증 시험은 상단 링크로 계속 이용할 수 있습니다.</p>
+      <p>읽음 표시는 기사 원문 링크를 누르거나 「읽음 표시」 버튼을 누르면 기록됩니다. 새로 추가된 기사 표시는 이 기기에서 이전에 받아본 목록과 비교한 결과이며, 발행 시점의 속보를 뜻하지 않습니다.</p>
+      <p>관심 키워드와 읽음 표시는 현재 브라우저에만 저장되며 다른 PC·휴대폰과 동기화되지 않습니다. 가입·결제·Firebase 운영 데이터 조회·AI API·텔레그램 발송은 이 화면에서 하지 않습니다. 기존 인증 시험은 상단 링크로 계속 이용할 수 있습니다.</p>
     </details>
   </main>
   <footer>MARKET PASU · PERSONAL MVP <span>공개 기사 링크만 제공 · 투자 권유 아님</span></footer>
