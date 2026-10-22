@@ -230,7 +230,8 @@ ui.fetch.addEventListener("click",async()=>{
   }catch(err){
     if(!signedIn||uid!==accountUid)return;
     trialReadState="failed";
-    setAuthBadge(STATES.denied,"denied");
+    const isDenied=String(err?.code||"")==="permission-denied";
+    setAuthBadge(isDenied?STATES.denied:"조회 확인 실패","denied");
     ui.feedback.textContent=friendlyError(err)+" 이 페이지의 재시도는 잠겨 있습니다.";
   }finally{setBusy(false);render();}
 });
