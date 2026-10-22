@@ -28,6 +28,10 @@ jobs:
           node --check market/flow-ui.mjs
           node --test tests/accumulation-evidence.test.mjs
           node --test tests/minute-csv.test.mjs
+          node --check market/stock-hints.mjs
+          node --check market/market-bar-cache.mjs
+          node --check market/local-bar-store.mjs
+          node --test tests/stock-cache.test.mjs
       - name: Verify RSS archive code without fetching news
         run: |
           python3 -m py_compile scripts/update-public-news.py
