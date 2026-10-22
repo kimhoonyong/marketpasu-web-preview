@@ -1,0 +1,106 @@
+.integrated .integrated-hero{min-height:270px;padding-top:34px;padding-bottom:30px}
+.integrated .integrated-hero h1{font-size:clamp(30px,3.4vw,45px);line-height:1.28;margin:18px 0 12px}
+.integrated .integrated-hero p{margin-bottom:18px}
+.source-selector{display:flex;gap:10px;flex-wrap:wrap}
+.source-button{font:inherit;border-radius:10px;border:1px solid #3d6174;padding:12px 19px;background:#172b41;color:#bad1dd;min-height:48px;font-weight:750}
+.source-button.current{background:#86edd0;color:#0b3430;border-color:#86edd0}
+.source-button:focus-visible{outline:2px solid #8cf8d8;outline-offset:2px}
+.small-orb{width:162px;height:162px}.small-orb .orb-center{font-size:24px}
+.auth-panel{padding:24px;margin-bottom:28px;border:1px solid #3e7669;border-radius:17px;background:#17283b}
+.auth-heading{display:flex;gap:20px;justify-content:space-between;align-items:center}
+.auth-heading h2{margin:6px 0 4px;font-size:23px}
+.auth-chip{font-size:12px;font-weight:750;border:1px solid #587a8e;border-radius:30px;padding:6px 12px;white-space:nowrap;color:#b5d7e6}
+.auth-chip.approved{border-color:#58aa8c;color:#a4f4d8}
+.auth-chip.denied{border-color:#bd8a55;color:#ffd9a6}
+.auth-panel p{color:#b5ccd9;font-size:13px}
+#auth-info{margin:12px 0;background:#102d40;border:1px solid #2f596d;padding:11px 13px;border-radius:9px}
+#account-state{font-weight:700;color:#dbebf2}
+.uid-line{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 0}
+.uid-line>span{font-size:12px;color:#9bb6c9}
+.uid-line code{font-size:12px;max-width:100%;overflow-wrap:anywhere;color:#b0e8d7}
+.uid-line .ghost{padding:8px 12px}
+.auth-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.auth-actions .ghost,.auth-actions .primary{min-height:45px}
+.integrated button:disabled{opacity:.48;cursor:not-allowed}
+.auth-hint{max-width:780px}
+.trial-feedback{min-height:38px;padding:11px 13px;background:#113046;border:1px solid #3b6075;border-radius:9px;white-space:pre-wrap}
+.integrated .empty-state[hidden],.integrated .auth-panel[hidden]{display:none!important}
+@media(max-width:650px){
+ .integrated .integrated-hero{padding-top:30px}.integrated .integrated-hero h1{font-size:33px}
+ .source-selector{display:grid;grid-template-columns:1fr}.source-button{width:100%}
+ .auth-panel{padding:17px 14px}.auth-heading{align-items:flex-start;flex-direction:column;gap:8px}
+ .auth-heading h2{font-size:20px}.auth-actions{display:grid;grid-template-columns:1fr}
+ .auth-actions button{width:100%}.uid-line{align-items:flex-start}
+}
+
+
+/* v0.2 readability fixes — scoped so v0.1 and the original demo stay unchanged. */
+.integrated-v02{font-size:16px;line-height:1.7}
+.integrated-v02 .disclaimer p{font-size:14px;line-height:1.75}
+.integrated-v02 .disclaimer strong{font-size:14px}
+.integrated-v02 .integrated-hero p{font-size:16px;line-height:1.7}
+.integrated-v02 .auth-panel p{font-size:15px;line-height:1.75}
+.integrated-v02 #account-state{font-size:15px}
+.integrated-v02 .auth-hint{font-size:14px}
+.integrated-v02 .uid-line>span,.integrated-v02 .uid-line code{font-size:13px}
+.integrated-v02 .auth-chip{font-size:13px}
+.integrated-v02 .source-button{font-size:15px}
+.integrated-v02 .auth-actions button{font-size:15px;font-weight:750}
+.integrated-v02 .search-intro span{font-size:14px}
+.integrated-v02 .search-intro strong{font-size:15px}
+.integrated-v02 .field span{font-size:13px}
+.integrated-v02 .field input,.integrated-v02 .field select{font-size:16px;min-height:51px}
+.integrated-v02 .feed-subline{font-size:13px;line-height:1.55}
+.integrated-v02 .notice{font-size:14px;line-height:1.7}
+.integrated-v02 .article h3{font-size:19px}
+.integrated-v02 .article p{font-size:14px}
+.integrated-v02 .article-top,.integrated-v02 .article-stats{font-size:13px;line-height:1.6}
+.integrated-v02 .article details{font-size:14px}
+.integrated-v02 .detail-grid strong{font-size:13px}
+.integrated-v02 .metric-label{font-size:14px}
+.integrated-v02 .metric>small{font-size:12px}
+.integrated-v02 .steps p{font-size:14px}
+.integrated-v02 footer{font-size:12px;line-height:1.5}
+.integrated-v02 .ghost,.integrated-v02 .primary{font-size:14px;min-height:47px}
+.integrated-v02 :is(button,input,select,a):focus-visible{outline:3px solid #85f1d0;outline-offset:3px}
+@media(max-width:580px){
+  .integrated-v02.app-shell{padding:0 14px}
+  .integrated-v02 .topbar{height:auto;min-height:78px;flex-wrap:wrap;gap:8px;padding:12px 0}
+  .integrated-v02 .brandcopy strong{font-size:16px}
+  .integrated-v02 .brandcopy small{font-size:10px;letter-spacing:.3px}
+  .integrated-v02 .status-pill{font-size:11px}
+  .integrated-v02 .disclaimer{gap:6px}
+  .integrated-v02 .disclaimer p{font-size:14px}
+  .integrated-v02 .integrated-hero{padding:27px 0}
+  .integrated-v02 .integrated-hero h1{font-size:clamp(28px,8vw,38px);letter-spacing:-1.2px}
+  .integrated-v02 .integrated-hero p{font-size:15px}
+  .integrated-v02 .overline{letter-spacing:1.2px;font-size:10px}
+  .integrated-v02 .auth-panel{padding:17px}
+  .integrated-v02 .auth-heading h2{font-size:22px}
+  .integrated-v02 .auth-actions button{min-height:54px}
+  .integrated-v02 .source-button{min-height:54px}
+  .integrated-v02 .uid-line{gap:6px 12px}
+  .integrated-v02 .uid-line code{font-size:13px}
+  .integrated-v02 .overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .integrated-v02 .metric{min-height:119px;padding:15px}
+  .integrated-v02 .metric-label{font-size:12px;gap:3px}
+  .integrated-v02 .metric-label small{font-size:10px}
+  .integrated-v02 .metric strong{font-size:33px}
+  .integrated-v02 .metric>small{font-size:12px}
+  .integrated-v02 .feed{padding:17px 14px}
+  .integrated-v02 .field input,.integrated-v02 .field select{min-height:54px}
+  .integrated-v02 .feed-subline{font-size:13px}
+  .integrated-v02 .notice{font-size:14px}
+  .integrated-v02 .article{padding:16px}
+  .integrated-v02 .article h3{font-size:18px}
+  .integrated-v02 .article p{font-size:14px}
+  .integrated-v02 .article-top,.integrated-v02 .article-stats{font-size:13px}
+  .integrated-v02 .ghost{min-height:47px}
+  .integrated-v02 .next-steps .steps>div{padding:17px}
+}
+@media(max-width:350px){
+  .integrated-v02 .overview{grid-template-columns:1fr 1fr}
+  .integrated-v02 .metric{padding:11px}
+  .integrated-v02 .metric-label{font-size:11px}
+  .integrated-v02 .status-pill{font-size:10px}
+}
