@@ -19,3 +19,11 @@
 .mark-read{padding:8px 11px;background:#1b3346;border:1px solid #496b7f;border-radius:8px;color:#c9e6f2;font-size:13px;min-height:42px;font-weight:750}
 .topic-more{margin:12px 0 0;font-size:12px;color:#94b0c2}
 @media(max-width:580px){.mark-read{min-height:47px;font-size:14px}.chip{flex:1 1 118px}}
+
+/* Public RSS observation evidence: explicitly not a repost verdict. */
+.history-caption{font-size:14px;color:#a7c7d2;margin:-2px 0 16px;line-height:1.6}
+.observations{margin-top:13px;padding:11px 12px;border-top:1px solid #3e5868;background:#112839;border-radius:8px}
+.observations summary{cursor:pointer;color:#9ce8c9;font-size:14px;font-weight:800}
+.observations p{font-size:13px;color:#c1d3df;margin:8px 0 2px;line-height:1.65}
+.observations .history-disclaimer{font-size:12px;color:#9eb7c7}
+.observations .change-notice{color:#ffe0ac}

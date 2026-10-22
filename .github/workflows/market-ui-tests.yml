@@ -1,0 +1,28 @@
+name: MarketPasu personal web offline checks
+
+on:
+  pull_request:
+    paths:
+      - 'market/**'
+      - 'scripts/update-public-news.py'
+      - 'tests/**'
+      - '.github/workflows/market-ui-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify JavaScript syntax and offline regressions
+        run: |
+          node --check market/market.js
+          node --check market/feed-model.mjs
+          node --test tests/feed-model.test.mjs
+      - name: Verify RSS archive code without fetching news
+        run: |
+          python3 -m py_compile scripts/update-public-news.py
+          python3 -m unittest discover -s tests -p 'test_public_news.py' -v

@@ -8,6 +8,7 @@ If the feed is unavailable, fail without replacing the last usable snapshot.
 from __future__ import annotations
 
 import datetime as dt
+import concurrent.futures
 import hashlib
 import json
 import pathlib
@@ -18,9 +19,13 @@ from email.utils import parsedate_to_datetime
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DEST = ROOT / "market" / "news.json"
-TOPICS = ["코스피", "삼성전자", "SK하이닉스", "테슬라", "명신산업", "코스닥", "한국 증시"]
-MAX_PER_TOPIC = 7
-MAX_TOTAL = 42
+HISTORY_DEST = ROOT / "market" / "history.json"
+TOPICS = ["코스피", "삼성전자", "SK하이닉스", "테슬라", "명신산업", "코스닥", "한국 증시",
+          "현대차", "NAVER", "엔비디아", "LG전자", "환율"]
+MAX_PER_TOPIC = 6
+MAX_TOTAL = 60
+MAX_HISTORY_ITEMS = 400
+HISTORY_DAYS = 30
 KST = dt.timezone(dt.timedelta(hours=9))
 
 
@@ -108,22 +113,100 @@ def consolidate_articles(rows: list[dict]) -> list[dict]:
     return unique
 
 
+
+def balanced_articles(rows: list[dict], topics: list[str], limit: int) -> list[dict]:
+    """Keep a couple of stories per tracked subject, then fill by recency."""
+    chosen = []
+    ids = set()
+    for topic in topics:
+        count = 0
+        for item in rows:
+            if item["id"] in ids or topic not in item.get("topics", [item.get("topic")]):
+                continue
+            chosen.append(item)
+            ids.add(item["id"])
+            count += 1
+            if count >= 2 or len(chosen) >= limit:
+                break
+        if len(chosen) >= limit:
+            break
+    for item in rows:
+        if len(chosen) >= limit:
+            break
+        if item["id"] not in ids:
+            chosen.append(item)
+            ids.add(item["id"])
+    return sorted(chosen, key=lambda item: item["published_at"], reverse=True)
+
+
+def update_history(old: dict, items: list[dict], today: str) -> dict:
+    """Keep dated RSS observations, not publisher deletion or repost claims."""
+    parsed_today = dt.date.fromisoformat(today)
+    earliest = (parsed_today - dt.timedelta(days=HISTORY_DAYS - 1)).isoformat()
+    records = old.get("records", {}) if isinstance(old, dict) else {}
+    if not isinstance(records, dict):
+        records = {}
+    trimmed = {}
+    for key, item in records.items():
+        if not isinstance(key, str) or not isinstance(item, dict):
+            continue
+        dates = item.get("dates", [])
+        dates = sorted(set(d for d in dates if isinstance(d, str) and earliest <= d <= today)) if isinstance(dates, list) else []
+        if dates:
+            trimmed[key] = {
+                "dates": dates,
+                "titles": [str(t)[:220] for t in item.get("titles", [])[-3:] if isinstance(t, str)] if isinstance(item.get("titles"), list) else []
+            }
+    for item in items:
+        ident = item["id"]
+        record = trimmed.setdefault(ident, {"dates": [], "titles": []})
+        if today not in record["dates"]:
+            record["dates"].append(today)
+            record["dates"].sort()
+        # A changed title for the same RSS link is only a suspected variation.
+        if item["title"] not in record["titles"]:
+            record["titles"].append(item["title"])
+            record["titles"] = record["titles"][-3:]
+    # Bound the long-lived public archive by last observation date.
+    newest = sorted(trimmed.items(), key=lambda kv: kv[1]["dates"][-1], reverse=True)
+    return {"version": 1, "retention_days": HISTORY_DAYS, "records": dict(newest[:MAX_HISTORY_ITEMS])}
+
+
+def decorate_observations(items: list[dict], history: dict) -> list[dict]:
+    result = []
+    for item in items:
+        dates = history["records"][item["id"]]["dates"]
+        titles = history["records"][item["id"]]["titles"]
+        result.append({**item, "first_observed": dates[0],
+                       "last_observed": dates[-1],
+                       "observed_days": len(dates),
+                       "title_variants": len(titles)})
+    return result
+
+
+def fetch_topic(topic: str, now: dt.datetime) -> list[dict]:
+    request = urllib.request.Request(
+        feed_url(topic), headers={"User-Agent": "Mozilla/5.0 (compatible; MarketPasuPersonal/0.2)"}
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=9) as response:
+            raw = response.read(1_500_001)
+            if len(raw) > 1_500_000:
+                raise ValueError("FEED_TOO_LARGE")
+        return parse_rss(raw, topic, now)
+    except (OSError, ET.ParseError, ValueError) as exc:
+        print(f"Feed unavailable: {topic}: {type(exc).__name__}")
+        return []
+
+
 def update_snapshot(now: dt.datetime | None = None) -> bool:
     now = now or dt.datetime.now(dt.timezone.utc)
     rows = []
-    for topic in TOPICS:
-        request = urllib.request.Request(
-            feed_url(topic), headers={"User-Agent": "Mozilla/5.0 (compatible; MarketPasuPersonal/0.1)"}
-        )
-        try:
-            with urllib.request.urlopen(request, timeout=9) as response:
-                raw = response.read(1_500_001)
-                if len(raw) > 1_500_000:
-                    raise ValueError("FEED_TOO_LARGE")
-            rows.extend(parse_rss(raw, topic, now))
-        except (OSError, ET.ParseError, ValueError) as exc:
-            print(f"Feed unavailable: {topic}: {type(exc).__name__}")
-    unique = consolidate_articles(rows)[:MAX_TOTAL]
+    # Bounded 4-worker concurrency: keeps 12 subjects responsive if a feed times out.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        for batch in pool.map(lambda topic: fetch_topic(topic, now), TOPICS):
+            rows.extend(batch)
+    unique = balanced_articles(consolidate_articles(rows), TOPICS, MAX_TOTAL)
     if len(unique) < 3:
         raise RuntimeError("TOO_FEW_PUBLIC_ARTICLES_NO_WRITE")
 
@@ -132,24 +215,35 @@ def update_snapshot(now: dt.datetime | None = None) -> bool:
         old_rows = existing.get("items", [])
     except (OSError, ValueError, TypeError):
         old_rows = []
-    # Avoid no-op updates and unnecessary Pages deployments.
-    if unique == old_rows:
+    try:
+        old_history = json.loads(HISTORY_DEST.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        old_history = {}
+    today = now.astimezone(KST).date().isoformat()
+    history = update_history(old_history, unique, today)
+    enriched = decorate_observations(unique, history)
+    # Avoid unnecessary publication when all displayed fields and the history match.
+    if enriched == old_rows and history == old_history:
         print("News contents unchanged")
         return False
 
     payload = {
-        "version": 1,
+        "version": 2,
         "source": "google_news_rss_public",
         "snapshot_date": now.astimezone(KST).date().isoformat(),
         "updated_at": now.isoformat(),
         "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
-        "items": unique,
+        "items": enriched,
     }
     DEST.parent.mkdir(parents=True, exist_ok=True)
     tmp = DEST.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     tmp.replace(DEST)
-    print(f"Updated {len(unique)} public article links")
+    if history != old_history:
+        history_tmp = HISTORY_DEST.with_suffix(".json.tmp")
+        history_tmp.write_text(json.dumps(history, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        history_tmp.replace(HISTORY_DEST)
+    print(f"Updated {len(unique)} public article links and 30-day observation index")
     return True
 
 

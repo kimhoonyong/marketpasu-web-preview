@@ -52,6 +52,42 @@ class PublicNewsTests(unittest.TestCase):
         c = dict(a, id="three", url="https://news.google.com/c", title="코스피 하락")
         self.assertEqual(len(mod.consolidate_articles([a, b, c])), 3)
 
+    def test_balanced_stock_coverage(self):
+        articles = []
+        for topic in ["테슬라", "NAVER", "LG전자"]:
+            for i in range(5):
+                articles.append({"id": f"{topic}-{i}", "topic": topic,
+                    "topics": [topic], "published_at": f"2026-10-22T0{5-i}:00:00+00:00",
+                    "title": f"{topic} {i}", "publisher": "테스트", "url": f"https://example.com/{topic}/{i}"})
+        selected = mod.balanced_articles(articles, ["테슬라", "NAVER", "LG전자"], 6)
+        self.assertEqual(len(selected), 6)
+        for topic in ["테슬라", "NAVER", "LG전자"]:
+            self.assertGreaterEqual(sum(topic in item["topics"] for item in selected), 2)
+
+    def test_observed_days_only_once_per_day(self):
+        item = {"id": "fixed", "title": "원문 1", "publisher": "검증"}
+        first = mod.update_history({}, [item], "2026-10-22")
+        again = mod.update_history(first, [item], "2026-10-22")
+        self.assertEqual(again, first)
+        later = mod.update_history(again, [item], "2026-10-23")
+        viewed = mod.decorate_observations([item], later)[0]
+        self.assertEqual(viewed["observed_days"], 2)
+        self.assertEqual(viewed["first_observed"], "2026-10-22")
+        self.assertEqual(viewed["last_observed"], "2026-10-23")
+        self.assertEqual(viewed["title_variants"], 1)
+
+    def test_changed_title_same_link_not_verified_as_repost(self):
+        first = mod.update_history({}, [{"id": "fixed", "title": "실적 발표"}], "2026-10-22")
+        changed = mod.update_history(first, [{"id": "fixed", "title": "실적발표"}], "2026-10-23")
+        self.assertEqual(mod.decorate_observations([{"id": "fixed"}], changed)[0]["title_variants"], 2)
+        self.assertEqual(len(changed["records"]["fixed"]["titles"]), 2)
+
+    def test_prunes_observations_beyond_30_days(self):
+        first = mod.update_history({}, [{"id": "old", "title": "과거 기사"}], "2026-09-01")
+        later = mod.update_history(first, [{"id": "new", "title": "최근 기사"}], "2026-10-22")
+        self.assertNotIn("old", later["records"])
+        self.assertIn("new", later["records"])
+
     def test_rss_only_public_https(self):
         self.assertTrue(mod.feed_url("코스피").startswith("https://news.google.com/rss/search?"))
         self.assertIn("q=", mod.feed_url("코스피"))

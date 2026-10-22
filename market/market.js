@@ -68,7 +68,11 @@ function normalizeRows(payload){
       publisher:clean(row?.publisher,90)||"출처 미상",
       published:clean(row?.published_at,45),
       topic:clean(row?.topic,60)||"시장",
-      topics:Array.isArray(row?.topics)?row.topics.slice(0,12).map(v=>clean(v,60)).filter(Boolean):[]
+      topics:Array.isArray(row?.topics)?row.topics.slice(0,15).map(v=>clean(v,60)).filter(Boolean):[],
+      firstObserved:clean(row?.first_observed,10),
+      lastObserved:clean(row?.last_observed,10),
+      observedDays:Number.isSafeInteger(row?.observed_days)&&row.observed_days>0&&row.observed_days<=30?row.observed_days:0,
+      titleVariants:Number.isSafeInteger(row?.title_variants)&&row.title_variants>0&&row.title_variants<=3?row.title_variants:0
     };
   }).filter(Boolean).sort((a,b)=>Date.parse(b.published||0)-Date.parse(a.published||0));
 }
@@ -105,6 +109,18 @@ function articleCard(item){
   actions.append(link,toggle);
   article.append(meta,title,actions);
   if(item.topics.length>1)article.append(node("p","topic-more","관련 주제: "+item.topics.join(" · ")));
+  if(item.firstObserved && item.lastObserved){
+    const details=node("details","observations");
+    details.append(node("summary","","이 기사 관측 이력 보기"));
+    const body=node("p","","처음 관측 "+item.firstObserved+" · 최근 관측 "+item.lastObserved+
+      " · 최근 30일 서로 다른 관측일 "+item.observedDays+"일");
+    details.append(body);
+    if(item.titleVariants>1)details.append(node("p","change-notice",
+      "같은 RSS 링크에서 제목 표현 차이가 기록됐습니다. 제목 변경 여부는 검증되지 않았습니다."));
+    details.append(node("p","history-disclaimer",
+      "마켓파수가 수집한 날짜만 나타냅니다. 기사 삭제·재발행·재탕 확정 자료가 아닙니다."));
+    article.append(details);
+  }
   return article;
 }
 function updateExternalSearchLink(){
