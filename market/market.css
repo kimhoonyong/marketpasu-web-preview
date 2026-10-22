@@ -42,3 +42,37 @@
 .related-publisher{display:block;color:#97b6c8;font-size:13px;margin-top:3px}
 .history-caption a{color:#9aefcd;text-underline-offset:4px}
 @media(max-width:580px){.feed-heading{align-items:flex-start;flex-direction:column}.feed-actions{justify-content:stretch;width:100%}.feed-actions>button{flex:1;min-width:135px;white-space:normal}}
+
+
+/* News-to-market evidence panel. Browser-local; no upload or remote financial API. */
+.flow-panel{margin:20px 0 24px;padding:18px 20px;background:#15293b;border:1px solid #4b7f8b;border-radius:16px}
+.flow-panel>summary{font-size:19px;font-weight:850;cursor:pointer;color:#a5f0d6}
+.flow-panel>.flow-body{padding-top:12px}
+.flow-body>p{font-size:15px;color:#c3d9e4;line-height:1.75}
+.flow-warning{color:#ffd99d!important;font-size:14px;background:#322d29;border:1px solid #70593c;padding:10px 12px;border-radius:9px}
+.flow-form{display:grid;gap:13px;margin:16px 0}
+.flow-form>label:not(.flow-check){display:flex;flex-direction:column;gap:6px;font-size:15px}
+.flow-form>label>strong{font-weight:780}
+.flow-form input:not([type="checkbox"]),.flow-form select,.flow-form textarea{min-height:49px;width:100%;padding:10px 12px;border:1px solid #537185;background:#0b1b2b;color:#f0f7fc;border-radius:9px;font:inherit}
+.flow-form textarea{min-height:125px;resize:vertical;font-family:ui-monospace,"Consolas",monospace;font-size:13px;line-height:1.5}
+.flow-form input[type="file"]{font-size:14px}
+.flow-check{display:flex;align-items:flex-start;gap:10px;color:#d4e6ef;font-size:15px;line-height:1.6}
+.flow-check input{width:20px;height:20px;flex:0 0 20px;accent-color:#76e3c2;margin-top:2px}
+.flow-run{padding:11px 18px;min-height:51px;border-radius:10px;border:1px solid #72d9b8;background:#84e9c4;color:#082d2a;font-size:17px;font-weight:850}
+.flow-example{margin:14px 0;padding:11px 12px;border:1px solid #365c70;border-radius:9px}
+.flow-example summary{font-size:14px;font-weight:750;color:#a3e9d1;cursor:pointer}
+.flow-example pre{overflow-x:auto;font-size:12px;line-height:1.65;color:#d5e9f4;white-space:pre;padding:12px;background:#0b1c2c;border-radius:8px}
+.flow-example p{font-size:13px;color:#adbeca}
+.flow-result{margin-top:15px;padding:16px;border-radius:10px;background:#0f2333;border:1px solid #3f6476;overflow-wrap:anywhere}
+.flow-result p{font-size:14px;line-height:1.65}
+.flow-result h3{margin:0 0 12px;font-size:20px;line-height:1.5}
+.flow-unknown{color:#e8c88f}.flow-evidence{color:#a7efd6}
+.flow-result .flow-caption{color:#bad5e3}
+.flow-result .flow-error{color:#ffc0ad;font-weight:760}
+.flow-signals{padding-left:21px;margin:9px 0 20px}
+.flow-signals li{padding:4px 0}
+.flow-metrics summary{cursor:pointer;color:#9ae9ce;font-weight:760}
+.flow-metrics dl{display:grid;grid-template-columns:minmax(0,2fr) minmax(85px,1fr);gap:6px 16px;font-size:14px}
+.flow-metrics dt{color:#b1cedc}.flow-metrics dd{margin:0;font-variant-numeric:tabular-nums;text-align:right;color:#e5f6f5}
+.flow-note{font-size:13px!important;color:#afc5d3}
+@media(max-width:580px){.flow-panel{padding:15px 13px}.flow-panel>summary{font-size:18px}.flow-form textarea{font-size:12px}.flow-form{gap:12px}}
