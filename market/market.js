@@ -1,16 +1,19 @@
-import {uniqueArticles,visibleArticles} from "./feed-model.mjs";
+import {uniqueArticles,visibleArticles,groupRelatedReports} from "./feed-model.mjs";
 const q = (id) => document.getElementById(id);
 const elements = {
   search:q("search"),watchlist:q("watchlist"),save:q("save-watch"),focus:q("keyword-focus"),
   status:q("feed-status"),count:q("count"),refresh:q("refresh"),
-  articles:q("articles"),empty:q("empty")
+  articles:q("articles"),empty:q("empty"),groupToggle:q("group-toggle")
 };
 const STORAGE_KEY = "marketpasu_personal_keywords_v1";
 const VIEW_KEY = "marketpasu_personal_news_view_v1";
 const READ_KEY = "marketpasu_read_articles_v1";
 const KNOWN_KEY = "marketpasu_known_articles_v1";
+const GROUP_KEY = "marketpasu_group_related_v1";
 const MAX_ITEMS = 80;
 let allItems = [];
+let groupedView = true;
+try {groupedView = localStorage.getItem(GROUP_KEY)!=="off";} catch {}
 let currentFilter = "all";
 try {const saved=localStorage.getItem(VIEW_KEY);currentFilter=["all","watch","unread"].includes(saved)?saved:"all";} catch {}
 function loadIDs(key){try {const ids=JSON.parse(localStorage.getItem(key)||"[]");return new Set(Array.isArray(ids)?ids.filter(v=>typeof v==="string").slice(-450):[]);}catch{return new Set();}}
@@ -82,7 +85,7 @@ function node(tag,className,text){
   if(text!==undefined)elem.textContent=String(text);
   return elem;
 }
-function articleCard(item){
+function articleCard(item,related=[]){
   const article=node("article","article"+(readIds.has(item.id)?" is-read":""));
   const meta=node("div","meta");
   meta.append(node("span","topic",item.topic),node("span","",item.publisher),
@@ -109,6 +112,24 @@ function articleCard(item){
   actions.append(link,toggle);
   article.append(meta,title,actions);
   if(item.topics.length>1)article.append(node("p","topic-more","관련 주제: "+item.topics.join(" · ")));
+  if(related.length){
+    const details=node("details","related-reports");
+    details.append(node("summary","","관련 보도 "+related.length+"건 펼치기 · 제목 유사성 기준"));
+    details.append(node("p","related-note","같은 사건을 다룬 것으로 추정한 보도입니다. 원문별 내용은 다를 수 있습니다."));
+    const items=node("ul","related-list");
+    for(const other of related){
+      const li=node("li","");
+      const a=node("a","related-link",other.title);
+      a.href=other.url;
+      a.target="_blank";
+      a.rel="noopener noreferrer";
+      a.addEventListener("click",()=>{setRead(other.id,true);setTimeout(render,0);});
+      li.append(a,node("span","related-publisher",other.publisher+" · "+dateText(other.published)));
+      items.append(li);
+    }
+    details.append(items);
+    article.append(details);
+  }
   if(item.firstObserved && item.lastObserved){
     const details=node("details","observations");
     details.append(node("summary","","이 기사 관측 이력 보기"));
@@ -139,12 +160,18 @@ function render(){
     search:elements.search.value,filter:currentFilter,
     watchKeywords,focus:elements.focus.value,readIds
   });
+  const groups=groupedView?groupRelatedReports(rows):rows.map(item=>[item]);
   const fragment=document.createDocumentFragment();
-  for(const item of rows)fragment.append(articleCard(item));
+  for(const reports of groups)fragment.append(articleCard(reports[0],reports.slice(1)));
   elements.articles.replaceChildren(fragment);
   elements.empty.hidden=rows.length!==0;
   const unread=allItems.filter(item=>!readIds.has(item.id)).length;
-  elements.count.textContent="표시 "+rows.length+"건 / 전체 "+allItems.length+"건 · 안 읽은 뉴스 "+unread+"건";
+  const collapsed=rows.length-groups.length;
+  elements.count.textContent=groupedView
+    ?"표시 "+groups.length+"개 · 원문 "+rows.length+"건 · 관련 보도 "+collapsed+"건 묶음 · 안 읽은 뉴스 "+unread+"건"
+    :"표시 "+rows.length+"건 / 전체 "+allItems.length+"건 · 안 읽은 뉴스 "+unread+"건";
+  elements.groupToggle.textContent=groupedView?"원문 전체 보기":"관련 보도 묶어 보기";
+  elements.groupToggle.setAttribute("aria-pressed",String(groupedView));
 }
 async function loadNews(){
   if(busy)return;
@@ -208,6 +235,11 @@ for(const btn of document.querySelectorAll("[data-filter]")){
 }
 populateFocus();
 syncFilterButtons();
+elements.groupToggle.addEventListener("click",()=>{
+  groupedView=!groupedView;
+  try {localStorage.setItem(GROUP_KEY,groupedView?"on":"off");} catch {}
+  render();
+});
 elements.refresh.addEventListener("click",loadNews);
 render();
 loadNews();
