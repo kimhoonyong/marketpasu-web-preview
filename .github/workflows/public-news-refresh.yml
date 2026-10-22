@@ -35,6 +35,7 @@ jobs:
           node --check market/market.js
           node --check market/feed-model.mjs
           node --test tests/feed-model.test.mjs
+          node --test tests/late-news-risk.test.mjs
           python3 -m py_compile scripts/update-public-news.py
           python3 -m unittest discover -s tests -p 'test_public_news.py' -v
       - name: Refresh bounded public headline snapshot
