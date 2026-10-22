@@ -41,3 +41,59 @@ export function visibleArticles(rows,{filter="all",search="",watchKeywords=[],fo
     return watchKeywords.some(word=>matchesKeyword(item,word));
   });
 }
+
+/**
+ * Group probable coverage of the same event for presentation only.
+ * Every source article remains accessible. This is not verification that
+ * publishers copied one another or that an article was reposted.
+ */
+function compactTitle(value) {
+  return normalizedHeadline(value)
+    .replace(/\[[^\]]{1,20}\]/g," ")
+    .replace(/[^가-힣a-z0-9]/g,"");
+}
+function trigrams(value) {
+  const result=new Set();
+  for(let i=0;i<=value.length-3;i++)result.add(value.slice(i,i+3));
+  return result;
+}
+function headlineSimilarity(left,right) {
+  const a=trigrams(compactTitle(left));
+  const b=trigrams(compactTitle(right));
+  if(!a.size||!b.size)return {dice:0,cover:0};
+  let overlap=0;
+  for(const piece of a)if(b.has(piece))overlap++;
+  return {dice:2*overlap/(a.size+b.size),cover:overlap/Math.min(a.size,b.size)};
+}
+function numericClaims(title) {
+  // Preserve decimals but treat thousands separators consistently.
+  const standardized=String(title||"").replace(/(\d),(?=\d{3}(?:\D|$))/g,"$1");
+  return new Set((standardized.match(/\d+(?:\.\d+)?/g)||[])
+    .filter(value=>value!=="2026"&&value!=="2025"));
+}
+function relatedSameEvent(a,b) {
+  const aTime=Date.parse(a.published||a.published_at||"");
+  const bTime=Date.parse(b.published||b.published_at||"");
+  if(!Number.isFinite(aTime)||!Number.isFinite(bTime)||
+    Math.abs(aTime-bTime)>36*60*60*1000)return false;
+
+  const numbersA=numericClaims(a.title);
+  const numbersB=numericClaims(b.title);
+  // Contradictory figures usually mean a different report or time snapshot.
+  if(numbersA.size&&numbersB.size&&![...numbersA].some(n=>numbersB.has(n)))return false;
+  const similarity=headlineSimilarity(a.title,b.title);
+  const topicsA=new Set([a.topic,...(a.topics||[])]);
+  const sharedTopic=[b.topic,...(b.topics||[])].some(topic=>topic&&topicsA.has(topic));
+  return (similarity.dice>=0.54&&similarity.cover>=0.48) ||
+    (sharedTopic&&similarity.dice>=0.40&&similarity.cover>=0.47);
+}
+export function groupRelatedReports(rows) {
+  if(!Array.isArray(rows))return [];
+  const groups=[];
+  for(const item of rows) {
+    const group=groups.find(list=>list.length<8 && list.some(other=>relatedSameEvent(item,other)));
+    if(group)group.push(item);
+    else groups.push([item]);
+  }
+  return groups;
+}
