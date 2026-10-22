@@ -11,6 +11,7 @@ function elem(tag,className="",value=""){
 }
 const STATUS_LABELS={
   NOT_ASSESSABLE:"분석 보류 — 필요한 자료 부족",
+  FIRST_PUBLICATION_UNVERIFIED:"원문 최초 보도시각 미확인 — 수급 수치만 참고",
   ACCUMULATION_LIKE_CLUES:"뉴스 이전 매수·거래 집중의 유사 흔적 관측",
   POST_NEWS_DISTRIBUTION_WATCH:"뉴스 전 급등·이후 매도 압력 주의",
   POST_NEWS_SELL_PRESSURE_WATCH:"뉴스 이후 매도 주도 체결 신호 주의",
