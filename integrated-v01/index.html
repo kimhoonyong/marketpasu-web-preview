@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#0c1524">
+  <meta name="description" content="마켓파수 통합 웹 v0.1 — 합성 뉴스와 독립 Firebase 로그인 시험 전용">
+  <title>마켓파수 · 통합 웹 v0.1 (시험)</title>
+  <link rel="stylesheet" href="../site.css">
+  <link rel="stylesheet" href="./integrated.css">
+  <script type="module" src="./integrated-app.mjs"></script>
+</head>
+<body>
+<div class="app-shell integrated">
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="기존 마켓파수 가상 대시보드로 이동">
+      <div class="brandmark" aria-hidden="true">S<span>.</span></div>
+      <div class="brandcopy"><strong>StockNewsMonitor</strong><small>MARKET PASU · INTEGRATED v0.1</small></div>
+    </a>
+    <span class="status-pill"><span class="signal" aria-hidden="true"></span>분리 시험본 · 운영 아님</span>
+  </header>
+  <main>
+    <section class="disclaimer" role="note">
+      <strong>가상 뉴스 + 독립 인증</strong>
+      <p>두 모드를 분리합니다. <b>가상 뉴스 8건</b>은 서버에 연결하지 않고 볼 수 있습니다.
+        시험 DB 조회는 <code>marketpasu-auth-trial</code>에서 Google 로그인 및 승인 회원에게만 수동 1회 제공됩니다.
+        수집·AI·텔레그램·결제·운영 뉴스 접근은 하지 않습니다. 이 페이지 주소는 공개되어 있습니다.</p>
+    </section>
+    <section class="hero integrated-hero">
+      <div>
+        <div class="overline"><span class="overline-line"></span>PERSONAL MONITORING STATION · INTEGRATION TEST</div>
+        <h1>뉴스의 변화와<br><em>재노출 이력을 확인하세요.</em></h1>
+        <p>검색·필터는 브라우저에서 처리합니다. 실제 시험 Firestore는 명시적인 조회 버튼을 눌러야만 읽습니다.</p>
+        <div class="source-selector" role="group" aria-label="데이터 출처 선택">
+          <button type="button" id="mode-demo" class="source-button current" aria-pressed="true">가상 뉴스 8건</button>
+          <button type="button" id="mode-trial" class="source-button" aria-pressed="false">Google 로그인 · 시험 DB</button>
+        </div>
+      </div>
+      <div class="hero-right" aria-hidden="true"><div class="orb small-orb"><div class="orb-center">SAFE<span>TRIAL</span></div></div></div>
+    </section>
+    <section id="auth-panel" class="auth-panel" aria-labelledby="auth-heading" hidden>
+      <div class="auth-heading">
+        <div><div class="overline tight">SEPARATE FIREBASE AUTH</div><h2 id="auth-heading">Google 로그인 · 승인 상태 확인</h2></div>
+        <span class="auth-chip" id="auth-badge">연결 준비 중</span>
+      </div>
+      <p id="auth-info" role="status" aria-live="polite">독립 Firebase 연결을 확인 중입니다.</p>
+      <p id="account-state">Google 계정 미연결 · 인증 전</p>
+      <div class="uid-line"><span>시험용 UID</span><code id="trial-uid">로그인 후 표시</code>
+        <button type="button" id="copy-uid" class="ghost" disabled>UID 복사</button></div>
+      <div class="auth-actions">
+        <button type="button" id="sign-in" class="primary" disabled>Google 계정으로 시험 로그인</button>
+        <button type="button" id="sign-out" class="ghost" disabled>로그아웃</button>
+        <button type="button" id="fetch-trial" class="ghost" disabled>승인 회원 · 최대 10건 한 번 읽기</button>
+      </div>
+      <p class="auth-hint">로그인만으로 승인 여부가 확정되지는 않습니다. 읽기 성공 시에만 권한을 확인합니다.
+        첫 조회는 1회로 제한되며, 새로고침 시 이 제한이 초기화될 수 있습니다.</p>
+      <p class="trial-feedback" id="trial-feedback" role="status" aria-live="polite">Google 로그인 후 직접 시험 조회를 누르세요.</p>
+    </section>
+    <section class="overview" aria-label="현재 선택된 뉴스 목록 통계">
+      <div class="metric"><div class="metric-label">표시된 뉴스 <small>01</small></div><strong id="metric-total">—</strong><small id="metric-total-help">가상 뉴스 기준</small></div>
+      <div class="metric"><div class="metric-label">검토 필요 <small>02</small></div><strong id="metric-review">—</strong><small>가상 뉴스 분류만 해당</small></div>
+      <div class="metric"><div class="metric-label">제목 변경 의심 <small>03</small></div><strong id="metric-changed">—</strong><small>가상 뉴스 분류만 해당</small></div>
+      <div class="metric"><div class="metric-label">재노출 검토 <small>04</small></div><strong id="metric-repeat">—</strong><small>가상 뉴스 분류만 해당</small></div>
+    </section>
+    <section class="feed" id="news" aria-labelledby="news-title">
+      <div class="section-heading">
+        <div><div class="overline tight" id="feed-mode-label">OFFLINE DEMO · ZERO CLOUD READS</div><h2 id="news-title">뉴스 모니터</h2></div>
+        <button type="button" id="reset-filters" class="ghost">↻ 필터 초기화</button>
+      </div>
+      <div class="search-intro"><strong>뉴스 검색</strong><span id="search-help">현재 표시된 가상 데이터 안에서만 검색합니다.</span></div>
+      <div class="filters">
+        <label class="field"><span>검색 유형</span>
+          <select id="search-mode"><option value="all">통합 검색</option><option value="stock">종목 / 발행처</option><option value="news">뉴스 제목</option></select></label>
+        <label class="field search-field"><span>검색어</span>
+          <input type="search" id="search-input" placeholder="종목·기사 제목 검색" autocomplete="off"></label>
+        <label class="field"><span>상태 필터</span>
+          <select id="filter-select"><option value="all">모든 상태</option>
+          <option value="review">검토 필요</option><option value="changed">제목 변경 의심</option>
+          <option value="repeat">재노출 검토</option><option value="normal">일반</option></select></label>
+      </div>
+      <div class="feed-subline"><span id="search-summary" role="status" aria-live="polite">표시 준비 중</span>
+        <span id="read-summary">가상 뉴스 · 서버 조회 0회</span></div>
+      <p class="notice" id="feed-notice">이 목록은 합성 데이터입니다. 실제 증권·언론 정보가 아닙니다.</p>
+      <div class="article-list" id="article-list" aria-live="polite"></div>
+      <div class="empty-state" id="empty-state" hidden><strong id="empty-title">조건에 맞는 뉴스가 없습니다.</strong><p id="empty-description">검색어 또는 필터를 확인하세요.</p></div>
+    </section>
+    <section class="next-steps">
+      <div><div class="overline tight">SAFETY BOUNDARIES</div><h2>시험 환경 보호</h2></div>
+      <div class="steps">
+        <div><span class="step-no">01</span><strong>별도 Firebase</strong><p>로그인은 marketpasu-auth-trial만 사용합니다. 운영 프로젝트 접근 불가.</p></div>
+        <div><span class="step-no">02</span><strong>수동·단발 조회</strong><p>최대 10건 / 페이지당 1회 시도. 자동 갱신·쓰기·로그 없음.</p></div>
+        <div><span class="step-no">03</span><strong>권한은 서버에서</strong><p>Google 인증 및 trialMembers 승인 여부는 Firestore 규칙이 검증합니다.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer><span>STOCKNEWSMONITOR · INTEGRATED TRIAL v0.1</span><span>실제 뉴스 수집 없음 · 운영 Firebase 미연결</span></footer>
+</div>
+</body>
+</html>
