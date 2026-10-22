@@ -27,3 +27,18 @@
 .observations p{font-size:13px;color:#c1d3df;margin:8px 0 2px;line-height:1.65}
 .observations .history-disclaimer{font-size:12px;color:#9eb7c7}
 .observations .change-notice{color:#ffe0ac}
+
+/* Personal news: conservative related-report grouping. */
+.feed-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.group-toggle{min-height:48px;padding:9px 13px;border:1px solid #467386;border-radius:10px;background:#132a3e;color:#dcf1f9;font-size:14px;font-weight:750}
+.group-toggle[aria-pressed="true"]{border-color:#73d9bd}
+.related-reports{margin-top:14px;border:1px solid #38637a;border-radius:10px;padding:12px;background:#112737}
+.related-reports summary{font-weight:800;color:#99ebd6;font-size:15px;cursor:pointer}
+.related-reports .related-note{color:#b6cada;font-size:13px;margin:9px 0}
+.related-list{margin:0;padding:0 0 0 20px}
+.related-list li{padding:8px 0;border-bottom:1px solid #2d4a5c}
+.related-list li:last-child{border-bottom:0}
+.related-link{color:#d4f8f1;font-size:15px;line-height:1.55;text-underline-offset:4px}
+.related-publisher{display:block;color:#97b6c8;font-size:13px;margin-top:3px}
+.history-caption a{color:#9aefcd;text-underline-offset:4px}
+@media(max-width:580px){.feed-heading{align-items:flex-start;flex-direction:column}.feed-actions{justify-content:stretch;width:100%}.feed-actions>button{flex:1;min-width:135px;white-space:normal}}

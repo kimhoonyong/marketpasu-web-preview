@@ -19,7 +19,7 @@
     <section class="intro">
       <p class="eyebrow">내가 편하게 보는 뉴스</p>
       <h1>실제 시장 뉴스부터 <em>바로 확인하세요.</em></h1>
-      <p>기사 제목을 확인하고 원문으로 이동합니다. 자동 갱신과 검색부터 시작하며, AI 판단은 아직 하지 않습니다.</p>
+      <p>Google 뉴스의 공개 RSS 검색 결과에서 기사 제목과 언론사별 원문 링크를 가져옵니다. 같은 이슈는 관련 보도로 묶어 볼 수 있습니다.</p>
       <div class="state-line"><span class="dot" aria-hidden="true"></span><span id="feed-status" role="status">실제 뉴스 목록 불러오는 중…</span></div>
     </section>
     <section class="controls" aria-label="관심 뉴스 검색">
@@ -37,9 +37,9 @@
     <section class="feed" aria-labelledby="feed-heading">
       <div class="feed-heading">
         <div><h2 id="feed-heading">뉴스 목록</h2><p id="count" aria-live="polite">불러오는 중…</p></div>
-        <button id="refresh" type="button" class="refresh">새 소식 확인 <span aria-hidden="true">↻</span></button>
+        <div class="feed-actions"><button id="group-toggle" type="button" class="group-toggle" aria-pressed="true">원문 전체 보기</button><button id="refresh" type="button" class="refresh">새 소식 확인 <span aria-hidden="true">↻</span></button></div>
       </div>
-      <p class="history-caption">현재 12개 주요 주제에서 공개 뉴스를 모으며, 기사별 관측 이력은 수집 시점부터 기록합니다. 개인 관심 키워드 저장만으로 자동 수집 대상이 늘어나지는 않습니다.</p>
+      <p class="history-caption">뉴스 출처: <a href="https://news.google.com/" target="_blank" rel="noopener noreferrer">Google 뉴스 RSS</a> · 12개 검색 주제 · 4시간 간격 수집. 제목이 비슷한 사건은 화면에서만 묶으며 각 언론사 원문은 보존합니다. 개인 관심 키워드 저장만으로 수집 대상이 늘어나지는 않습니다.</p>
       <div id="articles" class="articles"></div>
       <div id="empty" class="empty" hidden>
         <strong>표시할 기사가 없습니다.</strong>
@@ -48,6 +48,7 @@
     </section>
     <details class="details">
       <summary>현재 제공 범위 · 운영 안내</summary>
+      <p>Google 뉴스 RSS는 뉴스 검색 중계 출처이며, 화면에 표시된 각 언론사가 개별 보도의 발행처입니다. 동일 이슈 추정 기능은 기사 제목과 보도 시각만을 비교하므로, 보도 내용의 동일성·표절·재탕을 확정하지 않습니다. 모든 원문을 보려면 「원문 전체 보기」를 누르세요.</p>
       <p>이 화면은 공개 기사 제목·발행처·발행시각·원문 링크만 제공합니다. 뉴스 원문은 언론사 사이트에서 읽습니다. 각 기사에 대한 사실 확인, 제목 변경·재노출 판정, 투자 추천을 제공하지 않습니다.</p>
       <p>뉴스 파일은 GitHub Pages에서 제공되며 주기적 공개 RSS 수집 작업으로 갱신하도록 설계했습니다. 갱신 실패 시 과거 목록이 남을 수 있습니다. <strong>반드시 ‘기사 기준일’을 확인하세요.</strong> 새 소식 버튼은 기존 파일을 다시 읽는 기능으로, 즉시 외부 뉴스를 새로 수집하지는 않습니다.</p>
       <p>「기사 관측 이력」의 처음·최근 날짜는 마켓파수가 RSS에서 확인한 날입니다. 기사 최초 보도일, 실제 재발행, 언론사 원문 삭제 시점이 아닙니다. 관측 기록은 최근 30일 범위에서만 유지합니다.</p>
