@@ -76,3 +76,11 @@
 .flow-metrics dt{color:#b1cedc}.flow-metrics dd{margin:0;font-variant-numeric:tabular-nums;text-align:right;color:#e5f6f5}
 .flow-note{font-size:13px!important;color:#afc5d3}
 @media(max-width:580px){.flow-panel{padding:15px 13px}.flow-panel>summary{font-size:18px}.flow-form textarea{font-size:12px}.flow-form{gap:12px}}
+
+
+/* Optional local minute-bar reuse and manual stock verification. */
+.flow-cache-status{margin:0;padding:10px 12px;border:1px solid #3c6572;border-radius:8px;color:#bde3e8;font-size:14px;line-height:1.6;background:#0c2432}
+.flow-cache-actions{display:flex;justify-content:flex-start;gap:8px}
+.flow-delete{background:#1e2b36;color:#e0c6be;border:1px solid #86645b;border-radius:9px;padding:9px 12px;min-height:43px;font-size:13px;font-weight:700}
+#flow-stock-hint{margin:-5px 0 1px;background:#132f3e;border-left:3px solid #7adab9;padding:9px 12px;color:#bce4e2}
+.flow-check strong{font-weight:800;color:#c9f9e9}
