@@ -84,3 +84,12 @@
 .flow-delete{background:#1e2b36;color:#e0c6be;border:1px solid #86645b;border-radius:9px;padding:9px 12px;min-height:43px;font-size:13px;font-weight:700}
 #flow-stock-hint{margin:-5px 0 1px;background:#132f3e;border-left:3px solid #7adab9;padding:9px 12px;color:#bce4e2}
 .flow-check strong{font-weight:800;color:#c9f9e9}
+
+/* Long-window market evidence lives beside minute view, never silently combined. */
+.daily-study{margin:24px 0 12px;padding:17px;border:1px solid #426477;border-radius:13px;background:#122b3c}
+.daily-study h3{font-size:19px;line-height:1.4;color:#b5efda;margin:0 0 8px}
+.daily-study>p{font-size:14px;color:#bfd4e0;line-height:1.7}
+.daily-study .daily-stats{display:grid;grid-template-columns:minmax(115px,1fr) minmax(130px,1.3fr);gap:9px;padding:12px 0}
+.daily-stats dt{color:#a8c4d5;font-size:14px}
+.daily-stats dd{margin:0;text-align:right;font-size:14px;color:#e4f6ef;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+@media(max-width:580px){.daily-study{padding:12px}.daily-stats{grid-template-columns:1fr}.daily-stats dd{text-align:left;padding-bottom:7px;border-bottom:1px solid #34505d}}
