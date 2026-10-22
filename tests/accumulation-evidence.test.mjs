@@ -106,3 +106,10 @@ test("negative trade quantities and missing aggressor data are not taken as vali
   assert.equal(r.metrics.buyInitiatedShareBeforePct,null);
   assert.notEqual(r.status,"ACCUMULATION_LIKE_CLUES");
 });
+
+test("RSS timestamp alone never yields pre-publication accumulation claim",()=>{
+  const r=assessNewsAccumulationEvidence({...base,earliestSourceVerified:false,bars:minuteRows()});
+  assert.equal(r.status,"FIRST_PUBLICATION_UNVERIFIED");
+  assert.ok(r.metrics.turnoverBaselineRatio>1);
+  assert.ok(r.notes.some(n=>n.includes("판정하지 않습니다")));
+});

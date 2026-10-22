@@ -152,5 +152,9 @@ export function assessNewsAccumulationEvidence({
     postSells?"POST_NEWS_SELL_PRESSURE_WATCH":"NO_CLEAR_EVIDENCE";
   if(result.status==="NO_CLEAR_EVIDENCE")
     result.notes.push("뚜렷한 패턴이 검출되지 않아도 매집이나 출회를 배제하는 것은 아닙니다.");
+  if(!earliestSourceVerified){
+    result.status="FIRST_PUBLICATION_UNVERIFIED";
+    result.notes.push("확인된 최초 원문 게시시각이 없어, RSS 시각 이전 움직임을 뉴스에 앞선 매집이나 출회로 판정하지 않습니다.");
+  }
   return result;
 }
