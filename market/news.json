@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "source": "verified_editorial_snapshot",
+  "snapshot_date": "2026-10-22",
+  "updated_at": null,
+  "update_note": "첫 공개판은 2026-10-22 확인된 실제 기사 제목과 원문 링크입니다. 자동 갱신은 별도 배포 작업에서 수행합니다.",
+  "items": [
+    {
+      "id": "seed-1",
+      "title": "[특징주] 55조 자사주 매수 끝났다…삼성전자·SK하이닉스 약세",
+      "publisher": "뉴스핌",
+      "url": "https://www.newspim.com/news/view/20261022000569",
+      "published_at": "2026-10-22T11:01:00+09:00",
+      "topic": "삼성전자"
+    },
+    {
+      "id": "seed-2",
+      "title": "[특징주] 삼전·닉스, 하락 출발 후 낙폭 줄이며 반등 시도",
+      "publisher": "연합뉴스",
+      "url": "https://www.yna.co.kr/amp/view/AKR20261022042400008",
+      "published_at": "2026-10-22T09:24:00+09:00",
+      "topic": "SK하이닉스"
+    },
+    {
+      "id": "seed-3",
+      "title": "삼전닉스, 여기가 바닥인가···증권가 “코스피 W자 바닥 확인, 삼전닉스 11월 반등” 전망",
+      "publisher": "경향신문",
+      "url": "https://www.khan.co.kr/article/202610221022001",
+      "published_at": "2026-10-22T10:22:00+09:00",
+      "topic": "코스피"
+    },
+    {
+      "id": "seed-4",
+      "title": "[마켓뷰] AI 투심 개선 vs 차익 실현…코스피 향방은",
+      "publisher": "연합뉴스",
+      "url": "https://www.yna.co.kr/amp/view/AKR20261022022400008",
+      "published_at": "2026-10-22T08:02:00+09:00",
+      "topic": "코스피"
+    },
+    {
+      "id": "seed-5",
+      "title": "[KFT 모닝 브리프] 2026.10.22 — 오늘 꼭 알아야 할 국내외 경제뉴스",
+      "publisher": "한국금융신문",
+      "url": "https://www.fntimes.com/html/view.php?ud=202610220707347027141825007d_18",
+      "published_at": "2026-10-22T07:07:00+09:00",
+      "topic": "시장"
+    },
+    {
+      "id": "seed-6",
+      "title": "[2026 국감] 이억원 “솔리다임 중복상장 대상…5대 의무 이행해야”",
+      "publisher": "데일리안",
+      "url": "https://www.dailian.co.kr/news/view/1704628/2026-%EA%B5%AD%EA%B0%90-%EC%9D%B4%EC%96%B5%EC%9B%90-%EC%86%94%EB%A6%AC%EB%8B%A4%EC%9E%84-%EC%A4%91%EB%B3%B5%EC%83%81-2026",
+      "published_at": "2026-10-22T11:45:00+09:00",
+      "topic": "SK하이닉스"
+    }
+  ]
+}
