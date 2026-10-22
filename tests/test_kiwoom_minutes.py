@@ -24,7 +24,7 @@ class KiwoomReadOnlyTests(unittest.TestCase):
         # A synthetically consistent OHLC row: signed prices encode direction.
         result = m.decode_minutes({"stk_min_pole_chart_qry": [
             item("20261022090000", close="-78800", open_="-78850",
-                 high="-78900", low="-78700")
+                 high="-78700", low="-78900")
         ]}, "005930", DATE)
         self.assertEqual(len(result), 0)  # invalid OHLC is refused
         result = m.decode_minutes({"stk_min_pole_chart_qry": [
