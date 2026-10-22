@@ -11,7 +11,7 @@ test("demo: exactly 8 fictional records offline",()=>{
   assert.equal(demoMetrics(SAMPLE_NEWS).repeat,2);
   assert.equal(demoMetrics(SAMPLE_NEWS).changed,2);
   assert.equal(filterIntegrated(SAMPLE_NEWS,{source:"demo",status:"repeat"}).length,2);
-  assert.equal(filterIntegrated(SAMPLE_NEWS,{source:"demo",text:"로봇",mode:"stock"}).length,1);
+  assert.equal(filterIntegrated(SAMPLE_NEWS,{source:"demo",text:"가상기업 F",mode:"stock"}).length,1);
   assert.equal(filterIntegrated(SAMPLE_NEWS,{source:"demo",text:"제품",mode:"news"}).length>0,true);
 });
 test("trial: count capped at 10 even when caller passes more rows",()=>{
