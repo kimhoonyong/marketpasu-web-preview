@@ -2,9 +2,24 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-22",
-  "updated_at": "2026-10-22T11:15:09.967410+00:00",
+  "updated_at": "2026-10-22T11:27:33.997058+00:00",
   "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
   "items": [
+    {
+      "id": "3b920a7671554a486189",
+      "title": "코스닥 승강제 최상위 리그…자격되면 숫자 제한 안둔다",
+      "publisher": "매일경제 마켓",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE84LVpsQmRNakowRHpEYXpLNzNWdXVpU3dRX1BJZ0IwdEVINU54WnJjeDZsS2FkTFl3UWs1UWVQbEVnNFAzVjUzblFuLWFVYVFFVlE?oc=5",
+      "published_at": "2026-10-22T11:08:23+00:00",
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
     {
       "id": "daeb8c90d4a1b6da8ea2",
       "title": "충북교육청, 꿈이 다른 시작! 결이 다른 인재를 키우는 직업교육 ‘2026. 충북직업교육종합축제’ 개막",
@@ -51,6 +66,21 @@
       "title_variants": 1
     },
     {
+      "id": "3a13fe5045cc26f24be6",
+      "title": "스페이스X·테슬라합병에 '중국'복병…테슬라 중국공장 운명은?",
+      "publisher": "한국경제",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5yaW93ODJ2VUdLaE1KaEVLZ3ZiWUVrZDByTnFvWTloMFJqdFJCX0V5NDNraXVPV0k5WERuRDZTaHpXejZJVUdteFpyam5xTE15dzNLRTRWdXh4dw?oc=5",
+      "published_at": "2026-10-22T10:44:12+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "5d73cecafcdd8d026b66",
       "title": "저평가 차츰 해소하는 원화…9월 실질실효환율 석달째 상승",
       "publisher": "연합인포맥스",
@@ -59,6 +89,21 @@
       "topic": "환율",
       "topics": [
         "환율"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "13f83c425eef2603317d",
+      "title": "미국 최대 자동차 공장 노리는 현대차, 조지아 서베너 배후지서 물길 먼저 텄다",
+      "publisher": "글로벌이코노믹",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQN0wwcDVfX3lKTXN0Z2JoWlVvVnRCM0ZIZ08wMEZ5LThjN0plUkZ3WFlMYkdrQ09lQXNTX1dkSmxSZUlYd184Q2R2YnJaRVNsX0dCUExqRUM5Nkh1OWo3SG1uZFJWZWY3T2o0YUJvY3BRR3h5TkZXY1RCaV80eWR1MWF0MHJQSW5S?oc=5",
+      "published_at": "2026-10-22T10:17:17+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
       ],
       "first_observed": "2026-10-22",
       "last_observed": "2026-10-22",
@@ -81,26 +126,11 @@
       "title_variants": 1
     },
     {
-      "id": "c2b172524d14d049ccda",
-      "title": "테슬라와 스페이스 X의 합병, 일론 머스크가 노리는 것은?",
-      "publisher": "다나와 자동차",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5uYWZhQkpvcjY4alJ3b2swQ1pVVFpJSjlJVVJNRDk2ZEV2MDdIdGdJVG9iUzBjMnFJOEphVXVlSTNYOGJuSmdPN0M5V2xNT3NISmEwSzZwQkVYbWJSeFE4UWh5WGpsck0yMXhV?oc=5",
-      "published_at": "2026-10-22T09:40:10+00:00",
-      "topic": "테슬라",
-      "topics": [
-        "테슬라"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "66c94004439cff4cd622",
-      "title": "공공 AI칩 99.98%가 엔비디아…산업부, 내달 ‘국산 우선구매’ 협약 맺는다",
-      "publisher": "서울경제",
-      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1oLU9zeGd3cFMwV1JnNHA3MjZ0cy1na3h3ZElGTklzNmx5WmhqaTZvWDJ6RzNPMnRCTWdKUDg4QVJnTGl1dEl6XzlCTW9iQWZxYVHSAVNBVV95cUxPQkJ2SEZ1dXpwMjc1MWlpaDZCMzllaFI2alBLUl9yYlhwTHU3RUFjSks5cmNLVEhTeTFHR0JyejRnM1NBLXpnR1d5Z3BzR2FKVVZONA?oc=5",
-      "published_at": "2026-10-22T09:02:22+00:00",
+      "id": "1cc468e29ad7ef09c676",
+      "title": "도이치텔레콤·노키아·엔비디아, AI로 5G 업링크 속도 15% 향상…AI-RAN 상용화 가속",
+      "publisher": "인공지능신문",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE01bHEwUEdGckppRm1waEVRTExNSzRxeXoyTnphRE5lZmF5WEdKdE1zekFNUV9haXp6b0JUWGFZMlM4WGRnQ0h0bThyY0ZTSVJGQTdacjN5ZTNpVVVwWE5wOWJ4ZWVOX0U?oc=5",
+      "published_at": "2026-10-22T09:10:38+00:00",
       "topic": "엔비디아",
       "topics": [
         "엔비디아"
@@ -134,6 +164,21 @@
       "topic": "코스피",
       "topics": [
         "코스피"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "7ca663c4c9bbd82f8984",
+      "title": "SK하이닉스, 대규모 자사주 매입 마무리…추가 주주환원에 '눈길'",
+      "publisher": "연합인포맥스",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBWNVgtVlFvR3JpWjkwM3lIdFEtTFlsLUc2eTdXZzlxQXE3UXlPUnpuSWlLa0hmbm83YTYxZ0lFb2NEeHZZUWVKMEg2djNiNElfME1Jdl8tTW8wTWgyX1JQRFB3Z1h6d3hLNC15a0V5X2o?oc=5",
+      "published_at": "2026-10-22T08:58:13+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
       ],
       "first_observed": "2026-10-22",
       "last_observed": "2026-10-22",
@@ -194,21 +239,6 @@
       "topic": "LG전자",
       "topics": [
         "LG전자"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "d8dd83d61ad807455560",
-      "title": "코스피·코스닥 3%대 동반 급락…투자심리 위축",
-      "publisher": "팍스경제TV",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9NQTFhTk9PTk9wWkVOaUZXZXQ3TTA2TnpmOUtJX0lIb1pITU1mNXZkTi1DVFZHbTVIZDAyXzJ3a0hUaXVNRTE0V2xBdGM4QzZXQjh4OTMwdmQ1cE1PRnNfQVFfcDA0Mnkw?oc=5",
-      "published_at": "2026-10-22T08:30:16+00:00",
-      "topic": "코스닥",
-      "topics": [
-        "코스닥"
       ],
       "first_observed": "2026-10-22",
       "last_observed": "2026-10-22",
@@ -440,21 +470,6 @@
       "last_observed": "2026-10-22",
       "observed_days": 1,
       "title_variants": 2
-    },
-    {
-      "id": "c29755e796bdf27a9974",
-      "title": "현대차 유럽 판매 13% ‘뚝’…중국 3사 점유율, 현대차·기아 넘었다",
-      "publisher": "경향신문",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9RY2xJbHZJZVdSRVFNc3hFZmJvNWhFQ1JXcDliMEI0WXhWc0pRT3JwRnJMaGxaNkhwbkZWbkp5WmJRRWpybkxha01LWmhvU09uVU5FckxmTFhid9IBX0FVX3lxTE1fZFV6YmNfeFNHV2FMQ0N3Ql9oXzNVM25HQmxzbkxFV1ZKdWpmbllDQTA3aFhoaVhpenRxaDdIM1ZOWUhBYURyN0x1bFVpOFZXNHhBM2lpWV9XdTU3SW9n?oc=5",
-      "published_at": "2026-10-22T07:16:00+00:00",
-      "topic": "현대차",
-      "topics": [
-        "현대차"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
     },
     {
       "id": "d77fdbcb949691388983",
@@ -827,21 +842,6 @@
       "topic": "코스피",
       "topics": [
         "코스피"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "d4ae2a819bff34b7d4e1",
-      "title": "이억원 \"솔리다임 중복상장 규제대상‥SK하이닉스 등 의무 발생\"",
-      "publisher": "MBC 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1qaTBBZjFldjA3M29JSWY5Qk5XX0J3OFNsc094NXJQQzZHZVJKYnE2aHdOV1hPQjdVTTZ5cVM5X0lBV1ltWm15QzVDZmRrOTRfTUFjWWY5V2x3NXM0aUIzckhfLU0xOTctRDFhM2dPUWpPbGF50gF0QVVfeXFMTl9ic2d0cjZOYW1fWUgzM3NucWxlSEI1dEMxVGpyS0FrV3RPNUU4V2lUMEpMdG5JXzY2UWNTV0x2WjdwQnZ1TlZWU292R0hWWjQzdEFnQkVQdEI4eEtQNFpRMVVBWkxKNHdMR3QxMFFHRzVoVDE?oc=5",
-      "published_at": "2026-10-22T02:51:24+00:00",
-      "topic": "SK하이닉스",
-      "topics": [
-        "SK하이닉스"
       ],
       "first_observed": "2026-10-22",
       "last_observed": "2026-10-22",
