@@ -1,10 +1,12 @@
 import {uniqueArticles,visibleArticles,groupRelatedReports} from "./feed-model.mjs";
+import {setupFlowAnalyzer} from "./flow-ui.mjs";
 const q = (id) => document.getElementById(id);
 const elements = {
   search:q("search"),watchlist:q("watchlist"),save:q("save-watch"),focus:q("keyword-focus"),
   status:q("feed-status"),count:q("count"),refresh:q("refresh"),
   articles:q("articles"),empty:q("empty"),groupToggle:q("group-toggle")
 };
+const flow=setupFlowAnalyzer();
 const STORAGE_KEY = "marketpasu_personal_keywords_v1";
 const VIEW_KEY = "marketpasu_personal_news_view_v1";
 const READ_KEY = "marketpasu_read_articles_v1";
@@ -109,7 +111,10 @@ function articleCard(item,related=[]){
   const toggle=node("button","mark-read",read?"읽지 않음으로":"읽음 표시");
   toggle.type="button";
   toggle.addEventListener("click",()=>{setRead(item.id,!readIds.has(item.id));render();});
-  actions.append(link,toggle);
+  const flowButton=node("button","mark-read","뉴스·수급 비교");
+  flowButton.type="button";
+  flowButton.addEventListener("click",()=>flow.selectArticle(item.id));
+  actions.append(link,toggle,flowButton);
   article.append(meta,title,actions);
   if(item.topics.length>1)article.append(node("p","topic-more","관련 주제: "+item.topics.join(" · ")));
   if(related.length){
@@ -185,6 +190,7 @@ async function loadNews(){
     const rows=normalizeRows(data);
     if(rows.length===0)throw new Error("표시 가능한 기사가 없습니다");
     allItems=uniqueArticles(rows);
+    flow.setArticles(allItems);
     newIds=knownIds.size===0?new Set():new Set(allItems.filter(item=>!knownIds.has(item.id)).map(item=>item.id));
     for(const item of allItems)knownIds.add(item.id);
     saveIDs(KNOWN_KEY,knownIds);
