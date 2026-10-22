@@ -34,6 +34,39 @@
       </div>
       <label class="focus-field" for="keyword-focus"><strong>관심 종목별 보기</strong><select id="keyword-focus" aria-label="관심 종목 선택"><option value="">모든 관심 키워드</option></select></label>
     </section>
+    <details id="money-flow-panel" class="flow-panel">
+      <summary>뉴스 전후 수급 분석 · 분봉 CSV</summary>
+      <div class="flow-body">
+        <p>뉴스가 나오기 <strong>2시간 전부터 이후 30분까지</strong> 가격·거래량·거래대금과 체결 방향을 분석합니다. 이 기능은 현재 내 PC·휴대폰 브라우저에서만 실행됩니다.</p>
+        <p class="flow-warning">뉴스 시간은 Google 뉴스 RSS 게시시각이므로 최초 보도시각이 아닐 수 있습니다. 결과는 매집·세력·시세조종의 확정 판정이 아닙니다.</p>
+        <form id="flow-form" class="flow-form">
+          <label for="flow-article"><strong>분석할 뉴스</strong>
+            <select id="flow-article" required><option value="">위 뉴스 목록이 불러와진 뒤 선택하세요</option></select>
+          </label>
+          <label for="flow-ticker"><strong>종목코드 (직접 확인)</strong>
+            <input id="flow-ticker" type="text" maxlength="12" placeholder="예: 005930" autocomplete="off" required>
+          </label>
+          <label for="flow-file"><strong>1분봉 CSV 파일 또는 아래에 내용 붙여넣기</strong>
+            <input id="flow-file" type="file" accept=".csv,text/csv">
+          </label>
+          <label for="flow-paste"><strong>분봉 데이터 (처리 후 서버로 전송하지 않음)</strong>
+            <textarea id="flow-paste" rows="5" spellcheck="false" placeholder="일시,종목코드,시가,고가,저가,종가,거래량,거래대금,매수주도체결량,매도주도체결량"></textarea>
+          </label>
+          <label class="flow-check"><input id="flow-kst" type="checkbox" checked> CSV에 시간대 표기가 없으면 한국시간(KST, UTC+09:00)으로 해석</label>
+          <label class="flow-check"><input id="flow-match" type="checkbox" required> 선택한 뉴스와 CSV의 종목이 같은지 직접 확인했습니다.</label>
+          <label class="flow-check"><input id="flow-side" type="checkbox"> CSV의 매수·매도 체결량은 실제 매수·매도 주도 체결 분류값임을 확인했습니다. (미확인 시 해당 지표 제외)</label>
+          <button class="flow-run" type="submit">뉴스 전후 수급 비교하기</button>
+        </form>
+        <details class="flow-example">
+          <summary>CSV 예시와 데이터 기준 보기</summary>
+          <pre>일시,종목코드,시가,고가,저가,종가,거래량,거래대금,매수주도체결량,매도주도체결량
+2026-10-22 09:00,005930,100,101,99,100,250,25000,180,70
+2026-10-22 09:01,005930,100,102,99,101,320,32000,200,120</pre>
+          <p>위 예시는 열 형식 설명용 가상 데이터입니다. 유효한 판정을 하려면 해당 뉴스 시각 전후에 연속된 실제 1분봉이 충분히 있어야 합니다. 원문 게시시각, 종목, 매수·매도 주도 체결량의 출처를 검증하지 못한 경우 그 한계를 표시합니다.</p>
+        </details>
+        <div id="flow-result" class="flow-result" aria-live="polite"><p>분봉 자료가 아직 없습니다. 뉴스와 CSV를 선택하면 분석을 시작할 수 있습니다.</p></div>
+      </div>
+    </details>
     <section class="feed" aria-labelledby="feed-heading">
       <div class="feed-heading">
         <div><h2 id="feed-heading">뉴스 목록</h2><p id="count" aria-live="polite">불러오는 중…</p></div>
