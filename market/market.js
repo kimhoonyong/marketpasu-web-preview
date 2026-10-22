@@ -5,9 +5,11 @@ const elements = {
   articles:q("articles"),empty:q("empty")
 };
 const STORAGE_KEY = "marketpasu_personal_keywords_v1";
+const VIEW_KEY = "marketpasu_personal_news_view_v1";
 const MAX_ITEMS = 80;
 let allItems = [];
 let currentFilter = "all";
+try {currentFilter = localStorage.getItem(VIEW_KEY) === "watch" ? "watch" : "all";} catch {}
 let watchKeywords = [];
 let busy = false;
 
@@ -72,7 +74,18 @@ function articleCard(item){
   article.append(meta,title,link);
   return article;
 }
+function updateExternalSearchLink(){
+  const link=q("external-news");
+  const word=elements.search.value.trim();
+  const query=word || (currentFilter==="watch" ? watchKeywords.slice(0,3).join(" OR ") : "");
+  link.hidden=!query;
+  if(!query)return;
+  link.href="https://news.google.com/search?q="+encodeURIComponent(query)+"&hl=ko&gl=KR&ceid=KR%3Ako";
+  link.textContent=word ? "Google 뉴스에서 ‘"+clean(word,35)+"’ 더 찾아보기 ↗"
+    : "Google 뉴스에서 관심 종목 더 찾아보기 ↗";
+}
 function render(){
+  updateExternalSearchLink();
   const term=elements.search.value.trim().toLocaleLowerCase("ko-KR");
   const terms=watchKeywords.map(v=>v.toLocaleLowerCase("ko-KR"));
   const rows=allItems.filter(item=>{
@@ -123,17 +136,22 @@ elements.save.addEventListener("click",()=>{
   render();
 });
 elements.search.addEventListener("input",render);
+function syncFilterButtons(){
+  for(const child of document.querySelectorAll("[data-filter]")){
+    const selected=child.dataset.filter===currentFilter;
+    child.classList.toggle("selected",selected);
+    child.setAttribute("aria-pressed",String(selected));
+  }
+}
 for(const btn of document.querySelectorAll("[data-filter]")){
   btn.addEventListener("click",()=>{
-    currentFilter=btn.dataset.filter;
-    for(const child of document.querySelectorAll("[data-filter]")){
-      const selected=child.dataset.filter===currentFilter;
-      child.classList.toggle("selected",selected);
-      child.setAttribute("aria-pressed",String(selected));
-    }
+    currentFilter=btn.dataset.filter==="watch"?"watch":"all";
+    try {localStorage.setItem(VIEW_KEY,currentFilter);} catch {}
+    syncFilterButtons();
     render();
   });
 }
+syncFilterButtons();
 elements.refresh.addEventListener("click",loadNews);
 render();
 loadNews();
