@@ -1,0 +1,47 @@
+name: MarketPasu integrated v0.1 isolated checks
+on:
+  push:
+    branches: ['work/marketpasu-integrated-v01']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: marketpasu-integrated-v01-\${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  offline-safety:
+    if: github.ref == 'refs/heads/work/marketpasu-integrated-v01'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout reviewed isolated branch without persistent credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Confirm protected live pages remain unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "kimhoonyong/marketpasu-web-preview"
+          test "$GITHUB_REF" = "refs/heads/work/marketpasu-integrated-v01"
+          git fetch --no-tags --depth=1 origin main
+          changed="$(git diff --name-only FETCH_HEAD HEAD)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -Ev '^(integrated-v01/|\.github/workflows/integrated-v01-check\.yml$|$)'; then
+            echo 'HOLD_PROTECTED_MAIN_ASSETS_CHANGED'
+            exit 1
+          fi
+          echo 'MARKETPASU_EXISTING_PAGES_UNTOUCHED:PASS'
+      - name: JavaScript syntax and isolated model/UX tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check integrated-v01/integrated-app.mjs
+          node --check integrated-v01/data-model.mjs
+          node --check integrated-v01/integrated.test.mjs
+          node --test integrated-v01/integrated.test.mjs
+          echo 'MARKETPASU_INTEGRATED_V01_OFFLINE_PASS:PRODUCTION_HOLD'
