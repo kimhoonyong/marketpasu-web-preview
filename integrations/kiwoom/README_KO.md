@@ -29,3 +29,26 @@
 
 공식 자료: https://github.com/Kiwoom-Securities/Kiwoom-REST-API
 키움 REST 가이드: https://openapi.kiwoom.com/intro/serviceInfo
+
+## 다음 단계: 기존 Kiwoom Scout 인증환경 안전 진단
+- PC에서 이 폴더에 있는 RUN_MARKETPASU_KIWOOM_CHECK.cmd를 더블클릭합니다.
+- 출력은 기존 프로그램 및 파일의 **이름·존재 여부**만 확인합니다. 인증정보·토큰·계좌내역은 열거나 출력하지 않습니다.
+- 기존 Kiwoom Scout Lite의 인증파일 후보: %LOCALAPPDATA%\KiwoomScoutLite\rest_credentials.dat (Windows DPAPI).
+- 기존 ThemeManager의 인증파일 후보: ThemeManager\data\kiwoom_rest_credentials.bin. secure_credentials.py 및 rest_autostore.py 모듈이 있다면 재사용 연결 대상입니다.
+- ThemeManager 실행기 run_kiwoom_rest_collector.bat와 RUN_THEMEMANAGER.bat도 이름만 확인합니다.
+- 점검 결과 PREFLIGHT_ONLY_NOT_LIVE_AUTHENTICATION은 인증 성공을 뜻하지 않습니다.
+- 직접 로컬 경로를 알려야 할 때는 KIWOOM_SCOUT_ROOT 또는 KIWOOM_THEME_ROOT 환경변수로 추가할 수 있습니다.
+- 이 작업만으로 기존 인증모듈 호출을 추측해 실행하거나 개인키를 복호화하지 않습니다.
+
+## 키움 실시간 0B 체결 참고자료 (실제 수신 기록이 있을 때)
+- 공식 주식체결 타입 0B FID: 20 체결시간, 10 현재가, 15 거래량, 1315 매도체결량_단건, 1316 매수체결량_단건, 1030/1031 기타 체결량 필드.
+- 과거의 Kiwoom NXT Live Probe 로그 등 0B REAL JSONL이 있으면 로컬에서 다음 명령을 실행합니다.
+    py -3 realtime_0b_observe.py --input "C:\경로\실제_0B로그.jsonl" --ticker 005930
+- 로그에 메시지 수신일이 없다면 --date YYYY-MM-DD를 지정할 수 있지만 날짜는 미검증으로 기록됩니다.
+- 생성되는 두 파일은 _TICK_OBSERVED.csv와 _MINUTE_OBSERVED_ONLY.csv입니다.
+- 이 파일은 실제 체결을 **포착한 일부 표본**일 수 있습니다. 누락·중복/재접속 가능성이 있어 시장 전체 분당 거래량·거래대금이나 투자자 순매수가 아닙니다.
+- 그래서 완전한 OHLC 1분봉으로 위장하지 않았고 마켓파수 분봉 분석 화면에도 그대로 투입되지 않도록 다른 열 형식으로 만들었습니다.
+- 키움 REST 0B WebSocket 신규 실시간 수신 연결 및 기존 Scout 자격정보 재사용은 PC 진단/실전 수신검증 이후에만 연결합니다.
+- 사용자가 기존 프로그램 파일을 삭제하거나 다른 Windows 계정으로 인증정보를 옮길 필요는 없습니다.
+
+참고: 키움 공식 실시간 0B 예제 https://github.com/Kiwoom-Securities/Kiwoom-REST-API/blob/main/examples/국내주식/실시간시세/subscribe_domestic_stock_trade_async.py
