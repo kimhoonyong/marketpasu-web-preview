@@ -82,6 +82,32 @@ def feed_url(topic: str) -> str:
     return "https://news.google.com/rss/search?" + query
 
 
+def consolidate_articles(rows: list[dict]) -> list[dict]:
+    """Combine exact same publisher/title or identical URL across RSS topic queries.
+
+    Keep all topic tags. Similar stories or different reporting sources are
+    intentionally not treated as verified duplicates or reprints.
+    """
+    by_url = {}
+    by_title_and_source = {}
+    unique = []
+    for item in sorted(rows, key=lambda r: r["published_at"], reverse=True):
+        title_key = " ".join(item["title"].casefold().split())
+        source_key = " ".join(item["publisher"].casefold().split())
+        fingerprint = (title_key, source_key)
+        existing = by_url.get(item["url"]) or by_title_and_source.get(fingerprint)
+        if existing is None:
+            existing = dict(item)
+            existing["topics"] = [item["topic"]]
+            unique.append(existing)
+        else:
+            if item["topic"] not in existing["topics"]:
+                existing["topics"].append(item["topic"])
+        by_url[item["url"]] = existing
+        by_title_and_source[fingerprint] = existing
+    return unique
+
+
 def update_snapshot(now: dt.datetime | None = None) -> bool:
     now = now or dt.datetime.now(dt.timezone.utc)
     rows = []
@@ -97,16 +123,7 @@ def update_snapshot(now: dt.datetime | None = None) -> bool:
             rows.extend(parse_rss(raw, topic, now))
         except (OSError, ET.ParseError, ValueError) as exc:
             print(f"Feed unavailable: {topic}: {type(exc).__name__}")
-    seen_titles = set()
-    unique = []
-    for item in sorted(rows, key=lambda r: r["published_at"], reverse=True):
-        key = item["title"].casefold().replace(" ", "")
-        if key in seen_titles:
-            continue
-        seen_titles.add(key)
-        unique.append(item)
-        if len(unique) >= MAX_TOTAL:
-            break
+    unique = consolidate_articles(rows)[:MAX_TOTAL]
     if len(unique) < 3:
         raise RuntimeError("TOO_FEW_PUBLIC_ARTICLES_NO_WRITE")
 
