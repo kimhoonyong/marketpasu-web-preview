@@ -49,6 +49,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_public_news.py' -v
           python3 -m py_compile integrations/kiwoom/rest_minutes.py
           python3 -m unittest discover -s tests -p 'test_kiwoom_minutes.py' -v
+          python3 -m py_compile integrations/kiwoom/scout_preflight.py integrations/kiwoom/realtime_0b_observe.py
+          python3 -m unittest discover -s tests -p 'test_kiwoom_scout_bridge.py' -v
       - name: Refresh bounded public headline snapshot
         run: python3 scripts/update-public-news.py
       - name: Publish news snapshot only when changed
