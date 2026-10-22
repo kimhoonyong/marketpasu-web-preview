@@ -4,3 +4,18 @@
 .search-note{font-size:14px;line-height:1.6;margin:-5px 0 3px;color:#a7c0d0}
 .search-note a{color:#94f0d0;font-weight:800;text-underline-offset:4px;margin-left:5px}
 .search-note a[hidden]{display:none!important}
+
+/* Read/unread and stock-by-stock browsing - browser-local, no new server reads. */
+.focus-field{display:flex;flex-direction:column;gap:6px}
+.focus-field strong{font-size:16px}
+.focus-field select{min-height:50px;width:100%;padding:10px 13px;border:1px solid #41657c;border-radius:10px;background:#0e1d2d;color:#e8f6ff;font-size:16px}
+.focus-field select:disabled{opacity:.55}
+.article.is-read{opacity:.74;background:#112230}
+.article.is-read h3{color:#b2c4d2}
+.read-tag,.new-tag{display:inline-block;border:1px solid #527c89;border-radius:7px;padding:2px 8px;color:#d1f8ef;font-size:12px;font-weight:800}
+.read-tag.completed{color:#c2cbd2;border-color:#425869}
+.new-tag{border-color:#c8a553;color:#ffe1a3;background:#4e3920}
+.article-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.mark-read{padding:8px 11px;background:#1b3346;border:1px solid #496b7f;border-radius:8px;color:#c9e6f2;font-size:13px;min-height:42px;font-weight:750}
+.topic-more{margin:12px 0 0;font-size:12px;color:#94b0c2}
+@media(max-width:580px){.mark-read{min-height:47px;font-size:14px}.chip{flex:1 1 118px}}
