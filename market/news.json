@@ -2,7 +2,7 @@
   "version": 1,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-22",
-  "updated_at": "2026-10-22T04:48:42.595755+00:00",
+  "updated_at": "2026-10-22T05:03:56.347623+00:00",
   "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
   "items": [
     {
@@ -11,7 +11,11 @@
       "publisher": "서울신문",
       "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1OZjdmTlR4N0hidDR0RkRrZkF2MWxCN0d0U3RJdU9OTUZtbTlZMjVkbmxVWDhHTVI2UThHdVJnbXBDR1czamJKSnN1RzQwZHpoRkhpRWVXUC1RbTYwM3BXMEFlR1kyQnFNWURCdk02R2ZQeThCWElqd3ZvcEhxQQ?oc=5",
       "published_at": "2026-10-22T04:24:00+00:00",
-      "topic": "삼성전자"
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자",
+        "SK하이닉스"
+      ]
     },
     {
       "id": "b75c5a278712f64146cb",
@@ -19,7 +23,10 @@
       "publisher": "서울신문",
       "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5Cem9RTEpGSElnMmN3RlVqaUs5UHVnVjE4bnRvYzFHYUc4Y3NTc3FETktDTVpwellkMlZ6OFRnOVJkMGVhckVYbXFCUVlzT3FKOFUwa2pRUXBkS0lEblFFY2MweGRENHFUVVc2UzY2Y215dkRoQmE5U3hiMlZ0Zw?oc=5",
       "published_at": "2026-10-22T04:23:44+00:00",
-      "topic": "코스닥"
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ]
     },
     {
       "id": "fc4e88b2c9902ea6874e",
@@ -27,7 +34,10 @@
       "publisher": "디일렉",
       "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFAwdUFkQWw4NUZNT0t0MVZjS2JfaXVHc18wZmNiRmlYenVRZTdtRXNJNDBzS2d0eGNBVkFFUTRJdkZnbVlXWll0M3dMWU5TWkhyNk9IYW5lSW5lcVIzdUV1WWFUbHNydw?oc=5",
       "published_at": "2026-10-22T04:18:52+00:00",
-      "topic": "테슬라"
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
     },
     {
       "id": "eba27c38cbb20f1d7faa",
@@ -35,15 +45,10 @@
       "publisher": "신아일보",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5wcGt0V1BVOHd2MmhvbHcxMTBEc0syT1IwcXVhWWE0ZlVoVjI0YzBCdHVKMEstcHZKYUhZa2RiQTVNMlZEajhNZGF6UVpGYkZUS0xNOTM0dWprZzREVGpRRkxDdlg2MTVaNXUzTWJsaWQ?oc=5",
       "published_at": "2026-10-22T04:18:45+00:00",
-      "topic": "삼성전자"
-    },
-    {
-      "id": "d6ed1399b52f2f2c69a6",
-      "title": "\"고금리 버티면 내년 코스피 8500\"…믿어도 될까?",
-      "publisher": "한국경제",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBXVlpSSlExckJXMTF1MTJjVDMyMUt4MFlyNDJwWEtQUmpCX2xlbjZOVWcxNjVXNFVXU3FybzFDTldybnVpLWp1c29RdWxTWUNSZ3YwNzFwcGFEdw?oc=5",
-      "published_at": "2026-10-22T04:01:44+00:00",
-      "topic": "코스피"
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
+      ]
     },
     {
       "id": "0e812909a420d440b51b",
@@ -51,15 +56,10 @@
       "publisher": "Investing.com 한국어",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE02bjBfRk4zZ216OG9UR0R5RHV4MnR6RVcxRWx0MTczUFplUm9Nb0UteTB4WGp5alJsNnVFWlpiVVVOQnNON1FPY3JBSGdCVlZoaEEtVGVTNWVUekxRdHNOUWhSd2lTTFVwZEVuS1JaelI?oc=5",
       "published_at": "2026-10-22T03:55:00+00:00",
-      "topic": "한국 증시"
-    },
-    {
-      "id": "ee05ae9ffc540ae9acd0",
-      "title": "스페이스X 합병설에 웃는 테슬라...뮤즈 인기에도 소송 악재에 우는 메타",
-      "publisher": "YTN",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9QTmw1RFVNQnhUVDl5VURjZUppRnJrZnZWRlhDZTFZaEdGQk1tbzhfQmxSc2djRnJJSnVEb2NjcEtwUC03bGJMMXlRYlc5QWcwVWFNc0gxM1Q2eWNLWkE?oc=5",
-      "published_at": "2026-10-22T03:52:00+00:00",
-      "topic": "테슬라"
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ]
     },
     {
       "id": "1739df9689bd385f2785",
@@ -67,15 +67,43 @@
       "publisher": "Chosunbiz",
       "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZ0Z1ZDlSOWRLZFVLT1Z2YkJWTDFmZHZjOXlkYkw2MndkREM1ZEtZT2gxaHRtRkdzc00tVHV2ZnhrQVZEUk9GXzJTWk5xMThfc3hjcng2blFtUHJpMmpHREhkZC1ZbVRtZHlybHFIN1hqd21iWGYzVWtVMGc0VklkT3Rn0gGWAUFVX3lxTE1iTTlBZTMtVmZkbHVYcDZudjI2M2lEVTBReFlscHgxRno0eTJicUFKYVE3ZTNNOUtwMEJXN2pvQUpmd0ItT3JOMXA3VExLaEZaMmF5RnNLTi1EaVljR3JaOUFFcTBJVElnNVB6VkV4Q3EzSWdiZUVhRVlzUmlsWDFvbHVCOVgxVUJxMmtPVjU2VXpNbzdUZw?oc=5",
       "published_at": "2026-10-22T03:03:00+00:00",
-      "topic": "삼성전자"
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
+      ]
     },
     {
-      "id": "7845e1d1f564685abeb7",
+      "id": "c0171d7abe46df4afada",
       "title": "SK하이닉스, '반도체의 날' 동탑산업훈장 등 5관왕",
       "publisher": "연합뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5VRnVBV2E5VkdsaGVlUk4za3FIWjJUS0ZzRFdjd3pfYmlIZEVGLWVBY1V6dWZpNDhnYjNpRzExV2x3WV9NTHVGUkswbGotQlg0MGRIZU5FWXZqMTTSAWBBVV95cUxNQzM5T2lsWnc2QTFBRUJGdUpmRk1lREFKTmt0Y19LbldwNTBndTlaRTFPRjJ5aF9OaDFZR0Z2VThyNXlLRVV3VWp3T3Z0aEc2T1BkMXFXLXBWU1loczJjTHo?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1DMzlPaWxadzZBMUFFQkZ1SmZGTWVEQUpOa3RjX0tuV3A1MGd1OVpFMU9GMnloX05oMVlHRnZVOHI1eUtFVXdVandPdnRoRzZPUGQxcVctcFZTWWhzMmNMetIBYEFVX3lxTE1DMzlPaWxadzZBMUFFQkZ1SmZGTWVEQUpOa3RjX0tuV3A1MGd1OVpFMU9GMnloX05oMVlHRnZVOHI1eUtFVXdVandPdnRoRzZPUGQxcVctcFZTWWhzMmNMeg?oc=5",
       "published_at": "2026-10-22T02:52:46+00:00",
-      "topic": "SK하이닉스"
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ]
+    },
+    {
+      "id": "d4ae2a819bff34b7d4e1",
+      "title": "이억원 \"솔리다임 중복상장 규제대상‥SK하이닉스 등 의무 발생\"",
+      "publisher": "MBC 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1qaTBBZjFldjA3M29JSWY5Qk5XX0J3OFNsc094NXJQQzZHZVJKYnE2aHdOV1hPQjdVTTZ5cVM5X0lBV1ltWm15QzVDZmRrOTRfTUFjWWY5V2x3NXM0aUIzckhfLU0xOTctRDFhM2dPUWpPbGF50gF0QVVfeXFMTl9ic2d0cjZOYW1fWUgzM3NucWxlSEI1dEMxVGpyS0FrV3RPNUU4V2lUMEpMdG5JXzY2UWNTV0x2WjdwQnZ1TlZWU292R0hWWjQzdEFnQkVQdEI4eEtQNFpRMVVBWkxKNHdMR3QxMFFHRzVoVDE?oc=5",
+      "published_at": "2026-10-22T02:51:24+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ]
+    },
+    {
+      "id": "ce3f0020e825baab9f18",
+      "title": "중국 매체 “테슬라 로드스터, ‘아름다운 쇼’”…중국 기술 부각",
+      "publisher": "KBS 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5raGdNYUxETUQycGZXejRmZ193LVZuRUFSTThieVNDLXgyYkFpUVZ0UkxCSWVsdmNfTE1XZU12ajJpWHYtUUdBT2ozTXNXeHZVcHdid3lxNEVSVlE?oc=5",
+      "published_at": "2026-10-22T02:51:00+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
     },
     {
       "id": "c647892211e646dba277",
@@ -83,15 +111,21 @@
       "publisher": "머니투데이",
       "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1vRUg0bEhIWWVjOFB2Z1dPeDZxYS1vTjdHWmlKb004bVJhdWxLT0hQdC13cGk5SFdwUXF1RUdpc0YxUjJERjRiQTROcS1zMk1kRzBLWUNwT2EwZ0VfZ0VoSnlfZUZXNWhG0gFuQVVfeXFMTU5pdmM2a0pkam5KWWI4UkZvQnJJTE44OGpPYXM1MHlFSDJzQ0NuTkFCbUZnZkFQakgzWmJwaFVoRmloa3I5bUdxVmhfbkhFUjJnVFJIY2FSTkhsenJPTndadnRtbGVvVUlORVlOamc?oc=5",
       "published_at": "2026-10-22T02:50:13+00:00",
-      "topic": "테슬라"
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
     },
     {
-      "id": "bb1b65494ace9ff40d7c",
+      "id": "f0bb1bc12a0c91a18a5d",
       "title": "코스피·코스닥 2% 하락...5,600선도 위태",
       "publisher": "YTN",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBOMjRjVU5fMEJMNnpxYXctaHJKMlBBaGhQd2lReTcwaWRQYl8zWllSako0WG5uTGI5d1J6akZ4dFF0SGtlam9jdjdpcFVHS0U2S0IzSkI0bG1BX0lTdTM2M1RxM2ZRT3laN1dVY0FUUQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9vRmpJTkJNcnVlRldnNXJFR1ZxVmwwZzJaYjI0aXlyTTJxcktUR212Q3lONGdpQzJtYi1kU0lJNkhJenF5WF8yOUM5RHBGZVc1bGl2TEQxY2U1T2JIUHc?oc=5",
       "published_at": "2026-10-22T02:43:00+00:00",
-      "topic": "코스닥"
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ]
     },
     {
       "id": "175b43e1ea6603e35f39",
@@ -99,15 +133,10 @@
       "publisher": "매일경제 마켓",
       "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1xNFRsdnY3SkF3cHFCd2E5TVA2a19VWGxmTm1sS3d2T0VRUlgwbEtnUDUxa2ItQlhlTU5uZmU4T2NlMm9faG5iWW9tMjE0dnJFcmc?oc=5",
       "published_at": "2026-10-22T02:31:09+00:00",
-      "topic": "삼성전자"
-    },
-    {
-      "id": "a2faea8409e2c7f79353",
-      "title": "코스피, 2% 넘게 내리며 5,600선 공방…삼전 닉스 3%대 하락",
-      "publisher": "연합뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBSWlRreVI1ZjYtZEpndlpSNEh3VkRGVlU5cHpCdHk0enQwWTZ0a04xY2pjYXYwZEtLUnJVQnc4M2RmS1Nqc0k0TjRmaFlmU0R6NmM4d3ZrUERPb3B6VlhuX9IBYEFVX3lxTFBSWlRreVI1ZjYtZEpndlpSNEh3VkRGVlU5cHpCdHk0enQwWTZ0a04xY2pjYXYwZEtLUnJVQnc4M2RmS1Nqc0k0TjRmaFlmU0R6NmM4d3ZrUERPb3B6VlhuXw?oc=5",
-      "published_at": "2026-10-22T02:25:51+00:00",
-      "topic": "코스피"
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ]
     },
     {
       "id": "81927c3852e918b347a2",
@@ -115,7 +144,10 @@
       "publisher": "한겨레",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBaZnBYTVMtd3FQSl9sQnpNVHFJQjlGbnJNdlNVMWZwbGVYRlZJZ0ZNZmRlWGY5MTRfSnFFN1YtWHNIeWM0TncwenIxQUVQaFJKXzRRUjZDdjRRWWRLMHBTazR5QWNfQTQ?oc=5",
       "published_at": "2026-10-22T02:10:00+00:00",
-      "topic": "한국 증시"
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ]
     },
     {
       "id": "9fb13332304ec6e6cfdb",
@@ -123,15 +155,10 @@
       "publisher": "TopStarNews",
       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1zUFRCMFRhNDZCeS1TSk5nUkRzOTFtbXpUYkwyTlpabTUzTEVybER1dUhWNFhqUV8wM25ZVG03UHliVWFsb091cThncWg2WnlqUGxmc1g1cUpLSVVzdW8xYk9tWHRQVUl0c2Y3dkZqV29ZUQ?oc=5",
       "published_at": "2026-10-22T02:03:56+00:00",
-      "topic": "명신산업"
-    },
-    {
-      "id": "75137f875ec20d4af206",
-      "title": "“주식은 떨어지고 월세는 오른다”…한국 경제 흔드는 5대 변수",
-      "publisher": "용인신문",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9LWVp4YWRIR1pOeXEyN1Rrc3hzTXZ1SkdwQUdZVXlZdW11V05TY1VYNXQ2OFduRGNVeEFaZkdKUlNqa3dFb3JiSzBMQ2dCNWx0WG0zOUc4NlpHN19TVl9yUEJjMjE?oc=5",
-      "published_at": "2026-10-22T02:02:49+00:00",
-      "topic": "한국 증시"
+      "topic": "명신산업",
+      "topics": [
+        "명신산업"
+      ]
     },
     {
       "id": "f9fc5367d5049ea7e8b9",
@@ -139,7 +166,10 @@
       "publisher": "SK hynix",
       "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFAxbmgyTzFVZ1VQdGxxYVF1UVdCbTlGSEpuN21xWWlQc3JwZDVYWjk3YVRoX2FWazluVVdxaHVsSmkxR05DeGFBY2ZHX0tDR3I0MHYtZW52azBjNFBQTkc4?oc=5",
       "published_at": "2026-10-22T02:00:03+00:00",
-      "topic": "SK하이닉스"
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ]
     },
     {
       "id": "a8b1326fc7115d33e0fd",
@@ -147,7 +177,10 @@
       "publisher": "연합뉴스TV",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5NMlhsT1E0Z0drNXA0UUZvaV9BUUY2SUlnaUM5V2lUVURhWXdtQzVFSDhYbGIzWVFlR0NnYkVhVDBvMXVGWnZLdU04SEQ1ai02Q0FLR015WmlTTkRvM0lNQ0tNQTEtRWs?oc=5",
       "published_at": "2026-10-22T01:50:00+00:00",
-      "topic": "SK하이닉스"
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ]
     },
     {
       "id": "d6837a48a20f75327fa9",
@@ -155,7 +188,10 @@
       "publisher": "조선일보",
       "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQT0R5bm9lX3lfZ3BxSy11WnpLeVdNLXVNZE1rQjJXbkRxOEpGcHhxeEZ1LU5yY08zNmRoblhuUHNkWVFwa2Zkb1pIOEpQUFZvbEZsODJhdFNZRkVxc25oTVBDaDlNVlpNbHdNR3NHT3hEbUw1ajRxMHJvaUZEczBrMVJHaw?oc=5",
       "published_at": "2026-10-22T01:49:00+00:00",
-      "topic": "테슬라"
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
     },
     {
       "id": "d4667185ebff16661476",
@@ -163,7 +199,10 @@
       "publisher": "연합뉴스",
       "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1meGNMNXNOU3ZSTElUSk5OYUJlS1pWeUhBYlRjZTRONVFybl8tTzd4SGRlb2ZjTFozaVY5cmwtR1U0QWVXMzRIRDBSSEJLamdVMGI4UTJyUFFTblFIWUdHONIBYEFVX3lxTE1meGNMNXNOU3ZSTElUSk5OYUJlS1pWeUhBYlRjZTRONVFybl8tTzd4SGRlb2ZjTFozaVY5cmwtR1U0QWVXMzRIRDBSSEJLamdVMGI4UTJyUFFTblFIWUdHOA?oc=5",
       "published_at": "2026-10-22T01:46:17+00:00",
-      "topic": "테슬라"
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
     },
     {
       "id": "a13f98b6a4407f8a6c89",
@@ -171,7 +210,32 @@
       "publisher": "조세일보",
       "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFB3UFRJXzliNXNoMmlZTWVqdVN1dTV5ZXYxV3FkQUFwclkwdFpucHl2MFM3M3Y4VHhLRDZNUWNfT0RtcXNWbjNxUUhrakpTczNkT2RqbjlCb1doOU1jd1hv?oc=5",
       "published_at": "2026-10-22T01:30:00+00:00",
-      "topic": "삼성전자"
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
+      ]
+    },
+    {
+      "id": "95cc43cec1ea8f90835f",
+      "title": "테슬라 3분기 매출 37조원…메타는 86조원",
+      "publisher": "연합뉴스TV",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAyNFphRFpENy1uR1V5eG9COTZKYVkyaWdlc3Ixa0VhWnJwbTJjOUszMEVZLU45ZmVOYnNCcDQxNHZuMkVrZl93T1hYMmtuWUdGMzBOWnlsMzRxX0NwejBYYk8wdms2Z00?oc=5",
+      "published_at": "2026-10-22T01:07:00+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
+    },
+    {
+      "id": "f65d6a425584e4957590",
+      "title": "코스피, 美 기술주 강세에도 약보합…5700선 등락 By EBN",
+      "publisher": "Investing.com 한국어",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5VNnB3SUFla0RhN18tVWdONU1JMmJjRHZkSWtLVVQzblpuUmJTOU1EbGRVV2pyYnRwb3VHd0FkT2FHLVhPbUphb0J6dnJtMEdNUnlfdzVqVkViVHJ1aS1PUG1aNTNWeHhac25LR1prNlY?oc=5",
+      "published_at": "2026-10-22T01:04:00+00:00",
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ]
     },
     {
       "id": "0e3895a4ad0a1d6af672",
@@ -179,23 +243,32 @@
       "publisher": "Investing.com 한국어",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9TZEh5eUxVSEI4VUJTNng4LWtTbk1SVFVrTm11MGxuMi1aNGh0eWtCR2dMcVBJdlZyc0pqcHFjTUpMUEFTT0lmN2dxUmxCYy04d3pQRVhGb1N3VDVxeFVRQUdqejdONjltUTNJS2pLcGc?oc=5",
       "published_at": "2026-10-22T01:03:00+00:00",
-      "topic": "삼성전자"
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
+      ]
     },
     {
-      "id": "9a95f18212b6b8906a56",
+      "id": "0588a2a3b86a8e606465",
       "title": "엠에스바이오 코스닥시장 상장기념식",
       "publisher": "연합뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBRTkJrUEg0LWlwWW5YZl8yUHR6QjI2Vjd5MEpnYS1mbHZzQ1JvZGJPRi1YSmx3VkxjRzNPcVZFVjVwTDFnYnpjOXV0eGRMZzFpeUNxRFlCbzFia1HSAWBBVV95cUxONzNRVElyMGFKUnZpYWdDUExOOUNUQ0YwWXh1OXNoel9laVRVTW9QdUNxMFlzdXNXSFNBdGFNcXZSMTMwUTFUUDhpQjlJUVVBZnFMQV91WHY0VVdBU0pmb3g?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE43M1FUSXIwYUpSdmlhZ0NQTE45Q1RDRjBZeHU5c2h6X2VpVFVNb1B1Q3EwWXN1c1dIU0F0YU1xdlIxMzBRMVRQOGlCOUlRVUFmcUxBX3VYdjRVV0FTSmZveNIBYEFVX3lxTE43M1FUSXIwYUpSdmlhZ0NQTE45Q1RDRjBZeHU5c2h6X2VpVFVNb1B1Q3EwWXN1c1dIU0F0YU1xdlIxMzBRMVRQOGlCOUlRVUFmcUxBX3VYdjRVV0FTSmZveA?oc=5",
       "published_at": "2026-10-22T00:59:54+00:00",
-      "topic": "코스닥"
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ]
     },
     {
       "id": "5ade886036cb8aec88c3",
       "title": "코스피는 왜 대만증시보다 세 배 넘게 빠졌나…외국계IB 집중한 대목은",
       "publisher": "연합인포맥스",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1RMDh2Qy1zLTRZdVRFUVAwZEpYbkFwbWZJLXNrVEhtTHdGNFRGMXRQOVU2dHplWk1MdkRxSVFub19qdkw4dlJYcHpaLWI2TER2b3BTRWczX2hlRFlBaDFNcTJoUjVmT2dzU2RpR01CMWg?oc=5",
-      "published_at": "2026-10-22T00:59:22+00:00",
-      "topic": "한국 증시"
+      "published_at": "2026-10-22T00:59:00+00:00",
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ]
     },
     {
       "id": "b283943fbb0d54799c37",
@@ -203,7 +276,11 @@
       "publisher": "뉴스핌",
       "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9Md2FDeUxXeERJZzNxR25zYzFzRC1hM2M2Y0Vpc25WX2tGQVlraC0waGE2QkQyVlhLZGVpUnF6T0JWS1dEM2FvLWo1d3RKU1licDJDSFNMSzFhc2ph?oc=5",
       "published_at": "2026-10-22T00:30:00+00:00",
-      "topic": "코스닥"
+      "topic": "코스닥",
+      "topics": [
+        "코스닥",
+        "한국 증시"
+      ]
     },
     {
       "id": "7d06c5b4de4148da3cbf",
@@ -211,7 +288,10 @@
       "publisher": "연합인포맥스",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBneDc0YlNxNmI5OHZ2SE11d1FUVVRialJtb2NLWnY1ZkdZeGR1TlF4azhBb1BOTDhfYkdzTDlmUDMyUmMzcnEzRmJfbHFvM016QmVXc194dHFqd1V0VElncmh6UC1SUkM3MWNXTTRMSmM?oc=5",
       "published_at": "2026-10-22T00:26:19+00:00",
-      "topic": "코스피"
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ]
     },
     {
       "id": "c1769494583e2c8edbcd",
@@ -219,7 +299,10 @@
       "publisher": "아시아경제",
       "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9YQ0JDYll0Sy12djRheERNdHJzWWJrWGI0ZVEzQ3NFeHhnTVNuM0FnenhGTVRPWWdTd0JRTmpldUhER3VlME5pcmJ3NnBGWEZUVklPZkdONDU3T05GRDN1SQ?oc=5",
       "published_at": "2026-10-22T00:25:44+00:00",
-      "topic": "한국 증시"
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ]
     },
     {
       "id": "c57f43b7dc382d2041f1",
@@ -227,7 +310,22 @@
       "publisher": "MBC 뉴스",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE93YTJaQkNCajdmV0tRaEMxQ3A2NUFXNEstcmlIcFRmWlJ3MWhWXzNpLUtqMTFUb2V3cEJ3RDFza0JrbDgzMXMydDBMQk5VVllmUTFQZ0xOb1FNbU1PMC1GcjVTbE40RGc5Ylpna2FEN1haMGd20gF0QVVfeXFMUEh4dU1kVi1kQmhBOXZaMlBoRk1JSDBZU3dEcnRHWkJ4T1Iyai1CT1pJckI0N1V3TWRVWjE3VFM2ZkNLWkFrTlZ2ZUl2ZmlHVmRua04wdjE3bnhsTUZ4SXJnVXM0c2h2UWU5UkpoODhwNkRaTV8?oc=5",
       "published_at": "2026-10-22T00:23:04+00:00",
-      "topic": "코스피"
+      "topic": "코스피",
+      "topics": [
+        "코스피",
+        "코스닥"
+      ]
+    },
+    {
+      "id": "a38ea1ce6d2f152682ad",
+      "title": "코스피 하락 출발",
+      "publisher": "연합뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1tM0FLaElITVF5emtKU2ctd0pfTzFCQlY2cmZhNnpveE5jMnBVRjQzN1dXYzh0bWlPZXlMY2YyN0RIY01HTjZyUEJoT2tMbUhvS2NTS2Y0STEycjkzWXlLTNIBYEFVX3lxTE1tM0FLaElITVF5emtKU2ctd0pfTzFCQlY2cmZhNnpveE5jMnBVRjQzN1dXYzh0bWlPZXlMY2YyN0RIY01HTjZyUEJoT2tMbUhvS2NTS2Y0STEycjkzWXlLTA?oc=5",
+      "published_at": "2026-10-22T00:15:27+00:00",
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ]
     },
     {
       "id": "f9beb1677ce0aaedb26d",
@@ -235,7 +333,10 @@
       "publisher": "Chosunbiz",
       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPeUh3R0ZZZTdOLWhVM2hUVmc0dFhXS2psUl9jOW9Sc3R2X0NCdHNCbzNwdjFnUXRLYnRnUW13N2lQbTNmcm5USGV5UTlMcm85OXZpSURKRk1qOWZLRGQtbEVrQjRsTGljVTBYT2Vrd3BPZW13T0NOSWxfZFFyd3d2a0RpTU9ZTU9J0gGcAUFVX3lxTE5vOVdtRjh6emlhZHpOSVRRVWNORlNlb3BfUjFPSXkzZzVua1BqSkFkYkNYM1Q1X1VBY0E3U0FCSjBDRy1LSkZVN0tCTkh1bHV3dmZ5Mm1hbzRyc0x0akcyVV80VWM5ZmFINnBhMmZxWTJwekg3MFBKOU5TT0ZEMTF1RlV0bU9mVHhiVkw4S05VUFB2Tl9kSXNYejlKeQ?oc=5",
       "published_at": "2026-10-22T00:14:00+00:00",
-      "topic": "코스피"
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ]
     },
     {
       "id": "e8ef76c0afa2e7485e46",
@@ -243,7 +344,10 @@
       "publisher": "Chosunbiz",
       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxORGNzOVFXX0h6WTAwMkQ3N2RBMTBUS0k3U3lIVEtqSnNaUVNWbUdVM3REYkEyeFctNXNQTmNHMDBjd00xam43QlROQnBWaGtaeFpPT0FTa2hPb1lqZ2pDRnFrZnZ4OGE1WVFPYjVnZFNfX3dSZ1ZVWFg2X3N4bm9GSTk4a0g5ak930gGcAUFVX3lxTE05RHBoc0owMmozVkVCTHlwRmZtdmQzWTBYUlBtSi1KQUVxRVdwSEpuSUNDMkwzcHNUd1ZSWXhnTWNLSS1DSU9OUU91dTF5R2J2VGtDeUQ0aHk3OGFTRFF3R0QyV0hDOEpDREJlV2ZMbzBNNEh6SXhzbk50YzlTM3FnemkyWUd4bWFyajV0WTlRQVJlUjVGTkFwb3JYQw?oc=5",
       "published_at": "2026-10-22T00:13:00+00:00",
-      "topic": "코스닥"
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ]
     },
     {
       "id": "df2d8d52f16cd25c07d5",
@@ -251,7 +355,10 @@
       "publisher": "연합인포맥스",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9faV9kNFBYZ0x2Y2J0YTVHSXY4UUtLYkZ5ZHZ4NDZudG5xdkJaZWdZX3FsMWdaQ01iVVh6UjRWbk5JTmdmMGdBb2JDTGRta3htX2tOd3ZiTHNkTVcwZ3RzQlFwTUZ1QW5wREpBU1ZlOF8?oc=5",
       "published_at": "2026-10-22T00:10:00+00:00",
-      "topic": "SK하이닉스"
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ]
     },
     {
       "id": "4fb8b8ad1f4b46e5d427",
@@ -259,7 +366,10 @@
       "publisher": "연합뉴스TV",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1zbU9OeFFwZFVKVkZKb0xIakxmeFE2NHNwaE5PRDhrYmI1LWd2c3VYSjRPY0xlZGIzSXlsNE5jTmM2bDlfcE9ISU5OMVZnTXFtZ1FfWHpkZFljcVdfZWc1UC1FSWN4bEE?oc=5",
       "published_at": "2026-10-22T00:07:00+00:00",
-      "topic": "코스닥"
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ]
     },
     {
       "id": "a5c8cc01471fcbbcc2fd",
@@ -267,7 +377,10 @@
       "publisher": "연합뉴스TV",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBEUEppWkFiVnhBbkZvbVFXRGFQOUppSGFpX1MwVlZFdmJocG5YYlN3QjlUbWFkdVVIZGR6a3pCc0ptRFR0ckR1TWZnaVk5YThKUXpmdmt3QnlqZzUtc0VaWXJfOEt0MTA?oc=5",
       "published_at": "2026-10-22T00:06:00+00:00",
-      "topic": "코스피"
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ]
     },
     {
       "id": "95330da329e6d4c6eac1",
@@ -275,23 +388,43 @@
       "publisher": "YTN",
       "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9WTXltRDA2Y3lzVEgzbW10bEVEbTVMeTlnU0hRTlhUd1Q3VDE2VllUcFJqMHNMUmJuckk0NDRSOS1MM2E3X01OLXA0ZzB1dFdMODJxT2Vzc3RDZ1NOMUtsZEdDc0wwa0I1VzNrWU1sZw?oc=5",
       "published_at": "2026-10-22T00:05:00+00:00",
-      "topic": "코스피"
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ]
     },
     {
-      "id": "a96e754ec82b9df0b660",
-      "title": "테슬라 Q3 실적, 수익 예상치를 넘어",
-      "publisher": "Investing.com 한국어",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1pV21NeWRuWDcxN1BlSEpxYzRIMHVBMGFneEltVzJ0N191QTRqSnQwbmJEWlE1eGROSHZlS2c1eXdUS05QNjRuVDhqdnc1aW1KY09BOC1fQTBVNmhUT3U5R2hJMXA?oc=5",
-      "published_at": "2026-10-22T00:04:34+00:00",
-      "topic": "테슬라"
+      "id": "95c9d2e5b4bbb51d1625",
+      "title": "국내증시 전망, 금통위·美기술주 훈풍…코스피 5800 재도전",
+      "publisher": "TopStarNews",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1wLTh1Ml9UTUpQU2JGNjBnLVFKdmVxOGFNZm5xdnU4Y2RRQzFZOElBZDRONkJjODNvYTFwVzlZRWlBbEh6MHNNS2RJcjN0bDNaa1RNRW5kamhLWHdmZUlHWWYtNjMzMzJmaWJNX2N3S2hPUQ?oc=5",
+      "published_at": "2026-10-21T23:52:37+00:00",
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ]
     },
     {
-      "id": "d6a3b08135d55ebdc2a6",
-      "title": "[애프터마켓 리뷰] 명신산업, 손자회사 나스닥 상장에 제동",
-      "publisher": "SBS Biz",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE41UlRicENJUWU3RVhEeWZMQVQyNnhpam1vbXppR2hpNmxNOC05Z0V3Zk8xamY0XzFLbTVJRlFoSnZIWkMtLVFzaUVXZ243S0YwNWltQVllQWXSAVhBVV95cUxONVJUYnBDSVFlN0VYRHlmTEFUMjZ4aWptb216aUdoaTZsTTgtOWdFd2ZPMWpmNF8xS201SUZRaEp2SFpDLS1Rc2lFV2duN0tGMDVpbUFZZUFl?oc=5",
-      "published_at": "2026-10-21T22:53:00+00:00",
-      "topic": "명신산업"
+      "id": "cf0ebbc48300d15a13bc",
+      "title": "AI가 분석해주는 명신산업 (009900) 상승확률은?",
+      "publisher": "네이버 프리미엄콘텐츠",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPbmk0dXFXYlZXTHVrTEdhaGpjV3ViUDBzWmM4Sl9kaHpldTZTa1hrZ09nOE1mVlpwX0VuOHJFM1BYZWt6UE1jdVNwWUhWZV9iNnVHYWVQS2RFczBmUTd3R3laS2FRQVBqQVFBNGVzNlRONFJQeDQ5czB5cTNPblVzcWdERHBJUQ?oc=5",
+      "published_at": "2026-10-21T23:46:00+00:00",
+      "topic": "명신산업",
+      "topics": [
+        "명신산업"
+      ]
+    },
+    {
+      "id": "ae683bc22ecbdeb689c8",
+      "title": "삼성전자 ‘삼성월렛 머니·포인트’ 서비스 출시 1주년…가입자 300만명 돌파",
+      "publisher": "samsung.com",
+      "url": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxQNlRuSDNwNEdiOHJ4ZVhsM0h6YTk1YTdoNkV6dTN5dFI2bEtkY1BaaVBYRUpCaGNnN2RRR2dnU21CWV84UlhMZVNONmlJVU9GTXdVSGpUWFhPUDJuQWREcDhtX053ODRYcmtIcWgwQWVRYWVPclAzMkNNVUhQdWpaUVdVN0g5akFLX2RLZ1RPR25JZ2k5Q2Nkc1pUN0tpeEhmTUtZam1VamMyeDY2LXN0dldia3hKZ1V1by1FLW1GbDU4ME1pZFVaNDdJY0Y2SDdkNFVaOEpPeXZLbW0taS1GQlkyeWhUMTlwWFZZNmNwMGFaMHVuTWs0bTIyRWFvVDJ5MS1hRGJUVVJvaFExTG5WcFdlTVVNUTk1R25ZRGNRNHRwVEJkdlprUVBHRVpzdWFSamxabFRGSU1fOTBudjQwRmFn?oc=5",
+      "published_at": "2026-10-21T23:00:00+00:00",
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
+      ]
     },
     {
       "id": "4bd7a78e655c34502d17",
@@ -299,15 +432,32 @@
       "publisher": "뉴시스",
       "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1EQnN4Q3JoWDA4V09nLWp5Q28ySHlIMXhnUnQ2MUNRRlNvb1RaM0U0UTBlR3dJaGVZRHlIcmhPYzhQZURYWC1TUk90eWhZdDdsMUJuMHlLNmZ4Y08wZW45S1NwZi1zV3MtcUFKS3RMdThGOVJnZ3JXYtIBeEFVX3lxTE1EQnN4Q3JoWDA4V09nLWp5Q28ySHlIMXhnUnQ2MUNRRlNvb1RaM0U0UTBlR3dJaGVZRHlIcmhPYzhQZURYWC1TUk90eWhZdDdsMUJuMHlLNmZ4Y08wZW45S1NwZi1zV3MtcUFKS3RMdThGOVJnZ3JXYg?oc=5",
       "published_at": "2026-10-21T22:43:28+00:00",
-      "topic": "한국 증시"
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ]
     },
     {
-      "id": "2345d3d2c175f5d70f51",
+      "id": "64b6f363ae6c056538f9",
       "title": "[여의도 투자본부 1부] '명신산업, 대한광통신' 명예의 전당 갈 종목은? - 머니투데이",
       "publisher": "머니투데이",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5WMkxEVVFwV0hoZ2VvVXlBZVFoanRsUUpzdXNDVE0zb2g3ZkVIOGY3dVF3THY5dlFpYzdQWlltaHZLSTdLZERNelJYa1gxb2tDQ1AweHYxYVViSFI4T0NSeVNfQjhybGpZX0VOaHF30gFuQVVfeXFMTlYyTERVUXBXSGhnZW9VeUFlUWhqdGxRSnN1c0NUTTNvaDdmRUg4Zjd1UXdMdjl2UWljN1BaWW1odktJN0tkRE16UlhrWDFva0NDUDB4djFhVWJIUjhPQ1J5U19COHJsallfRU5ocXc?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBVdkx1am82WDVGMFlLaWNmTFFxWnpaU2x0cTBQYkJGaktrcjk4cG10QVB0YjRzZnNQVmtFTkpHeGctVl9Kb05GSjIzVzdONUdnYmYzelg0UGRSeFhId0k4SS1HLXBLRmh40gFuQVVfeXFMTlYyTERVUXBXSGhnZW9VeUFlUWhqdGxRSnN1c0NUTTNvaDdmRUg4Zjd1UXdMdjl2UWljN1BaWW1odktJN0tkRE16UlhrWDFva0NDUDB4djFhVWJIUjhPQ1J5U19COHJsallfRU5ocXc?oc=5",
       "published_at": "2026-10-21T21:55:59+00:00",
-      "topic": "명신산업"
+      "topic": "명신산업",
+      "topics": [
+        "명신산업"
+      ]
+    },
+    {
+      "id": "d0bf7ee578adc300d9ab",
+      "title": "[애프터마켓 리뷰] 명신산업, 손자회사 나스닥 상장에 제동",
+      "publisher": "SBS Biz",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9uYXpsakZOaTI3YXRnMk5Sb2dJdl9UR0dtM2EweFNxUWNfak5SOEV3VUZvV01mUXFRaTlzdUl4UmlpeUYwZGt1dzlhU0MyZjFYNVJr0gFYQVVfeXFMTjVSVGJwQ0lRZTdFWER5ZkxBVDI2eGlqbW9temlHaGk2bE04LTlnRXdmTzFqZjRfMUttNUlGUWhKdkhaQy0tUXNpRVdnbjdLRjA1aW1BWWVBZQ?oc=5",
+      "published_at": "2026-10-21T21:47:00+00:00",
+      "topic": "명신산업",
+      "topics": [
+        "명신산업"
+      ]
     },
     {
       "id": "cbfdb9680c4a8981a0ec",
@@ -315,31 +465,10 @@
       "publisher": "연합인포맥스",
       "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA1cWg2cmw4bjd3YkN1bVR1YmR0XzM2eGZseE9JTzBfeUxQcEtHQTFyVVctVXIydkQ3YVhIN2h3OUFQVVliSG1GeWoxVWN0bmxLUWV3TkJMYnBtMVRXb280SUFuekdHNlpCVmRlRzBTVkQ?oc=5",
       "published_at": "2026-10-21T21:39:25+00:00",
-      "topic": "테슬라"
-    },
-    {
-      "id": "9e24c223cb09f4539fef",
-      "title": "[단독] 삼성전자 ‘감사 페스티벌’서 감사 받지 못한 소비자…“담당자 실수”",
-      "publisher": "한겨레",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5wZ0FIbDM5clBDRGRLZ3RfSU8yTnN0cG1VR21NRXJUWWJFYmhmamFsRExCbHd5MU5DTXV1d2hrdzA1NUxadXc4YTF4RV9tbjZBcTNjV1lhQlRDYk5OTU4yUkNhXy1RREF2?oc=5",
-      "published_at": "2026-10-21T15:50:00+00:00",
-      "topic": "삼성전자"
-    },
-    {
-      "id": "4dd35b52858ec3e05dcf",
-      "title": "\"정말 피가 마릅니다\"…SK하이닉스 폭등에도 개미들은 '한숨' [분석+]",
-      "publisher": "한국경제",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1OV09uTTRXLUVDbTNXTlVXam5acHplNHB1UDhjLUdFMm9DbG9Xa3BDT3ZPa0JKN2tJMmhGM2VBVElpOVhaMEpMajFlUUdfR1VDUTVpT2hwOHJoZw?oc=5",
-      "published_at": "2026-10-21T13:00:01+00:00",
-      "topic": "SK하이닉스"
-    },
-    {
-      "id": "5e10515da9f6033e0e8d",
-      "title": "명신산업, 이사회 ‘중복상장 반대’ 결정 뒤 17.8% 폭등…하이닉스 영향은?",
-      "publisher": "한겨레",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5PeTBBUTNVQ0V2V04xU0J5RW12Um5tZVc2QnlsUDdPQkRSWHZEdS1kQVgxbmZnX3BGMnZmMlhNQ1p3YThlSlFBbGVtb04wcGJkZXk0MlBnX0ZDVjNkcEc1VkNyTUdwN1k?oc=5",
-      "published_at": "2026-10-21T10:07:00+00:00",
-      "topic": "명신산업"
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ]
     }
   ]
 }
