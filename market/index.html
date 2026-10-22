@@ -46,6 +46,7 @@
           <label for="flow-ticker"><strong>종목코드 (직접 확인)</strong>
             <input id="flow-ticker" type="text" maxlength="12" placeholder="예: 005930" autocomplete="off" required>
           </label>
+          <p id="flow-stock-hint" class="flow-note" role="status">뉴스를 선택하면 제목에 언급된 종목 후보를 제안합니다. 후보는 종목 확인이 아니며, 분석 전에 직접 검증해야 합니다.</p>
           <label for="flow-file"><strong>1분봉 CSV 파일 또는 아래에 내용 붙여넣기</strong>
             <input id="flow-file" type="file" accept=".csv,text/csv">
           </label>
@@ -55,6 +56,11 @@
           <label class="flow-check"><input id="flow-kst" type="checkbox" checked> CSV에 시간대 표기가 없으면 한국시간(KST, UTC+09:00)으로 해석</label>
           <label class="flow-check"><input id="flow-match" type="checkbox" required> 선택한 뉴스와 CSV의 종목이 같은지 직접 확인했습니다.</label>
           <label class="flow-check"><input id="flow-side" type="checkbox"> CSV의 매수·매도 체결량은 실제 매수·매도 주도 체결 분류값임을 확인했습니다. (미확인 시 해당 지표 제외)</label>
+          <label class="flow-check"><input id="flow-remember" type="checkbox"> 분석한 분봉 데이터를 <strong>이 기기의 브라우저에 저장</strong>해 이후 같은 종목 뉴스에서도 재사용합니다. (선택사항)</label>
+          <div class="flow-cache-actions">
+            <button id="flow-clear" type="button" class="flow-delete">이 종목의 저장 분봉 삭제</button>
+          </div>
+          <p id="flow-cache-status" class="flow-cache-status" role="status">저장된 분봉은 아직 불러오지 않았습니다. 저장 기능은 기기별로 작동하며 외부 서버에는 전송하지 않습니다.</p>
           <button class="flow-run" type="submit">뉴스 전후 수급 비교하기</button>
         </form>
         <details class="flow-example">
@@ -63,6 +69,7 @@
 2026-10-22 09:00,005930,100,101,99,100,250,25000,180,70
 2026-10-22 09:01,005930,100,102,99,101,320,32000,200,120</pre>
           <p>위 예시는 열 형식 설명용 가상 데이터입니다. 유효한 판정을 하려면 해당 뉴스 시각 전후에 연속된 실제 1분봉이 충분히 있어야 합니다. 원문 게시시각, 종목, 매수·매도 주도 체결량의 출처를 검증하지 못한 경우 그 한계를 표시합니다.</p>
+          <p>개인용 브라우저 저장은 선택한 분봉만 최대 12개 거래일 자료로 제한하며 기기 간 동기화되지 않습니다. 브라우저 데이터 삭제나 시크릿 모드에서는 보존되지 않을 수 있습니다. 공용 PC에서는 저장하지 마세요.</p>
         </details>
         <div id="flow-result" class="flow-result" aria-live="polite"><p>분봉 자료가 아직 없습니다. 뉴스와 CSV를 선택하면 분석을 시작할 수 있습니다.</p></div>
       </div>
@@ -86,6 +93,7 @@
       <p>뉴스 파일은 GitHub Pages에서 제공되며 주기적 공개 RSS 수집 작업으로 갱신하도록 설계했습니다. 갱신 실패 시 과거 목록이 남을 수 있습니다. <strong>반드시 ‘기사 기준일’을 확인하세요.</strong> 새 소식 버튼은 기존 파일을 다시 읽는 기능으로, 즉시 외부 뉴스를 새로 수집하지는 않습니다.</p>
       <p>「기사 관측 이력」의 처음·최근 날짜는 마켓파수가 RSS에서 확인한 날입니다. 기사 최초 보도일, 실제 재발행, 언론사 원문 삭제 시점이 아닙니다. 관측 기록은 최근 30일 범위에서만 유지합니다.</p>
       <p>읽음 표시는 기사 원문 링크를 누르거나 「읽음 표시」 버튼을 누르면 기록됩니다. 새로 추가된 기사 표시는 이 기기에서 이전에 받아본 목록과 비교한 결과이며, 발행 시점의 속보를 뜻하지 않습니다.</p>
+      <p>시세 데이터 자동 연결을 위해서는 증권사 시세 API의 이용자 인증 및 제공 조건을 별도로 확인해야 합니다. API 키를 공개 GitHub 웹페이지에 저장하지 않으며, 현재 시세 자동수집은 활성화하지 않았습니다.</p>
       <p>관심 키워드와 읽음 표시는 현재 브라우저에만 저장되며 다른 PC·휴대폰과 동기화되지 않습니다. 가입·결제·Firebase 운영 데이터 조회·AI API·텔레그램 발송은 이 화면에서 하지 않습니다. 기존 인증 시험은 상단 링크로 계속 이용할 수 있습니다.</p>
     </details>
   </main>
