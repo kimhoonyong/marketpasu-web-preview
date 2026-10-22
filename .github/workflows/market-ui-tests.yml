@@ -33,6 +33,9 @@ jobs:
           node --check market/market-bar-cache.mjs
           node --check market/local-bar-store.mjs
           node --test tests/stock-cache.test.mjs
+          node --check market/daily-support.mjs
+          node --check market/daily-csv.mjs
+          node --test tests/daily-support.test.mjs
       - name: Verify RSS archive code without fetching news
         run: |
           python3 -m py_compile scripts/update-public-news.py
@@ -41,3 +44,5 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_kiwoom_minutes.py' -v
           python3 -m py_compile integrations/kiwoom/scout_preflight.py integrations/kiwoom/realtime_0b_observe.py
           python3 -m unittest discover -s tests -p 'test_kiwoom_scout_bridge.py' -v
+          python3 -m py_compile integrations/kiwoom/rest_daily.py
+          python3 -m unittest discover -s tests -p 'test_kiwoom_daily.py' -v
