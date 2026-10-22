@@ -2,7 +2,7 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-22",
-  "updated_at": "2026-10-22T13:01:19.381422+00:00",
+  "updated_at": "2026-10-22T13:37:53.270518+00:00",
   "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
   "items": [
     {
@@ -79,36 +79,6 @@
       "last_observed": "2026-10-22",
       "observed_days": 1,
       "title_variants": 2
-    },
-    {
-      "id": "cb450707ed3bce0dddca",
-      "title": "달러-원, 뉴욕장서 1,320원 중반대 거래",
-      "publisher": "KB Think",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9PU25CUFRCWlpGWlduZF9CcVpFY1c3UXJjOUt4Zk90clI2dU1VWjB1VFpRM0tOTXkzM2Ntdk1yd0hQcU1Mc1Q0WHZhU0J5b1lwTHJRd3o0NWdYakhLcFZiU0VSNmI4U2RYWFE1bHByRE5yUQ?oc=5",
-      "published_at": "2026-10-22T11:41:27+00:00",
-      "topic": "환율",
-      "topics": [
-        "환율"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "797cd808f59e4eb437c7",
-      "title": "[에디터의 창]우리도 날아보자, 현대차!",
-      "publisher": "경향신문",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBFeEJNcHNoYk14SDZNc3RXRTJTM3FkbjVJN29xVldSMzdidmJUMHNMX2xWdU9qWHZVYS1UaFZDc1d5bDFwVlhaR3c2U3QtakZvWUs5X1NUMWhBd9IBX0FVX3lxTE9UVnhsQUd0YUFmay1BMks3QUpzc2RSU241MHNETndNekdjUW5WOFVQSy1vZjV2alpTbWpNdkVlU1ZvRTVhbFczUTQ3LXVuVzRsNWQtdnVXVmU1M1ZSLXlv?oc=5",
-      "published_at": "2026-10-22T11:11:00+00:00",
-      "topic": "현대차",
-      "topics": [
-        "현대차"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
     },
     {
       "id": "3b920a7671554a486189",
@@ -201,10 +171,10 @@
       "title_variants": 1
     },
     {
-      "id": "3256e79a6515bc1ce1ca",
+      "id": "e902dda27d4f78ec2e73",
       "title": "부산에 엔비디아 전용 생산라인 선다(종합)",
       "publisher": "국제신문",
-      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOZ2FQUENscUVMazBZOU0wNElHV2tsMVJqNjRQWEVwdVRjeXEweG1ObzMtNHMtNEhnTjVzZlpWclA4c2FRU1A3YlctcW5GUVBEeC1KWmNlNTdndDkzaEhPeDV0Z1Y1TmozeUJYUUJQY3phRmNGMDRZQmdtQk1BMUJ1alJ2UU0xQ1k5ZVZ4eHpHSTBJUzhtM0s4aQ?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOcmpIalBYWWtfakNvbHpoZzNaYTJMbGMwZERmYmQxVXhZRHNUbzhZdG9kTEZNRkg5QzRvcEtUQXRHRkZfbVNyVWF4bzhRUm11OENUWEtTRVp6ckZjOUxpNHN2YWJuVi1HREhXa2otaVhuSFFZWk05NldNR25sWk9tdUJJYldaTjNoeVR6VEtB?oc=5",
       "published_at": "2026-10-22T10:17:00+00:00",
       "topic": "엔비디아",
       "topics": [
@@ -306,6 +276,21 @@
       "title_variants": 1
     },
     {
+      "id": "9993a85d150ab14df803",
+      "title": "테슬라 로보택시, 500만km에 “다친 사람 0명”…웨이모 마주치자 ‘양보’ [현장영상]",
+      "publisher": "KBS 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBNa2FyeEdHbFpqMmxiTE9TVzE2blZ2UWNUNVBBZ0R5emU4N2hWbE1yNE0wR2JyWWtORkktMUp1Tl9XMjVXQWVfaV9aZXlCaHRnaFYzNVlRY3lpRU5MX1p2MUdwbS1xUQ?oc=5",
+      "published_at": "2026-10-22T08:52:00+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "ca7e990ad12d55971423",
       "title": "‘서울 월세 평균 71만원’ 한 달 새 30%나 뛴 곳은 어디?",
       "publisher": "네이버페이 머니스토리",
@@ -359,21 +344,6 @@
       "topic": "삼성전자",
       "topics": [
         "삼성전자"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "170c60f34f32bb5bc6a0",
-      "title": "\"다시 급락한 한국 증시\" 코어위브발 공포 확산…위기인가, 과장된 공포인가",
-      "publisher": "뉴시스",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBhUkNLSzZxZEpmdTRUYjllckpBaGNBMUZaRzJzZUE0MTVwa1dpTVFxZWpPcVptZ0JmWW1NMEJzdHhWQXkwcGJINzZWOHNZZVZXZzhnLTJkVkFPTWdacVhUNdIBeEFVX3lxTE5GOFR0U0c1UmVubFJYZ3AtY1paLWN6NTIyeHdyVXJRNXpkMzJzd3NLdFdjdFY2SjN3Yl9TcksyU1ZzSEFjMS02by1tNktNSGJaZ21idmVyWC14QmZTeWRwV2I5ZXRmUGU1bTNBTjhQcDJyN0F0ZGY4RA?oc=5",
-      "published_at": "2026-10-22T08:15:00+00:00",
-      "topic": "한국 증시",
-      "topics": [
-        "한국 증시"
       ],
       "first_observed": "2026-10-22",
       "last_observed": "2026-10-22",
@@ -456,10 +426,10 @@
       "title_variants": 1
     },
     {
-      "id": "92c9e09e78a5d4bc69f2",
+      "id": "6312462a8c445ce2dc0f",
       "title": "LG전자, 수자원공사와 세계 최대 조력발전소 AI 전환 추진",
       "publisher": "뉴스토마토",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5aYWRVd2R5WHF5ak9nckFEZlJpUFBRYkE5NFB3OTRkbVkxQ1IzM1lwZGJWSDZSNzNjZnkwRUFSRm9SaVZLZE9VcU1UQXhWdlVmWlFqZmxiVHV3WVlrT0x6cg?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE0wejRtekRQM1gxaUlMUVM1QWFLYzJBWHlEVEdpcW1vZGpCR0w0MTc2ZExGRkNqX3FUTHM4eUtqd0VhaVFPeHhSaUI3QWVvOFFVOUt3VHdUWDU3M2hJS0FxdQ?oc=5",
       "published_at": "2026-10-22T07:43:35+00:00",
       "topic": "LG전자",
       "topics": [
@@ -532,6 +502,36 @@
       "title_variants": 1
     },
     {
+      "id": "978a678b7976a89e5d39",
+      "title": "LG전자, 차량 플랫폼 '피콜로'에 블랙베리 'QNX' 연계 검토",
+      "publisher": "지디넷코리아",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5kYmhSMkh1aHVBaFJaUEZxMHJJQWd6T2pwOEJrTHpfaW5KdFZ4MDZ3VVFIckhRaXowX1RBT0pJcng3ME15OHZFUzJ0U3QzUW56RDB2QldR?oc=5",
+      "published_at": "2026-10-22T07:22:04+00:00",
+      "topic": "LG전자",
+      "topics": [
+        "LG전자"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "c29755e796bdf27a9974",
+      "title": "현대차 유럽 판매 13% ‘뚝’…중국 3사 점유율, 현대차·기아 넘었다",
+      "publisher": "경향신문",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9RY2xJbHZJZVdSRVFNc3hFZmJvNWhFQ1JXcDliMEI0WXhWc0pRT3JwRnJMaGxaNkhwbkZWbkp5WmJRRWpybkxha01LWmhvU09uVU5FckxmTFhid9IBX0FVX3lxTE1fZFV6YmNfeFNHV2FMQ0N3Ql9oXzNVM25HQmxzbkxFV1ZKdWpmbllDQTA3aFhoaVhpenRxaDdIM1ZOWUhBYURyN0x1bFVpOFZXNHhBM2lpWV9XdTU3SW9n?oc=5",
+      "published_at": "2026-10-22T07:16:00+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "f7a90ce8f2b98ae39ed5",
       "title": "원/달러 환율 '매파적 동결' 금통위에 하락…연저점 또 경신(종합)",
       "publisher": "연합뉴스",
@@ -577,21 +577,6 @@
       "title_variants": 1
     },
     {
-      "id": "86308492dbdda9294365",
-      "title": "[영상] 테슬라 \"'무감독 자율주행' 적용\"…택시처럼 손님 받을 수도",
-      "publisher": "연합뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBmSW1GdTBPQWQzamhhUHVFWEpHRm9vTV9QNy1XWUFlMjlfeHcwMnc0WHplYkxFdkNneGhrdVJja19fX3dlUFQ4RzY4ZmxRc0lVVWFvRjBGOGJxeTDSAWBBVV95cUxOeF9oYnZvT2U1QVkwN3NzRWx3QXFjc1FQLW1FTjdlbVdXWGlmYm80bGRlREdlSWdqbklHUklMSGlZV2lleHZIVk4tSmNmZWpCZEFjVGJZNUxtQ1JIbjdzYUU?oc=5",
-      "published_at": "2026-10-22T06:56:28+00:00",
-      "topic": "테슬라",
-      "topics": [
-        "테슬라"
-      ],
-      "first_observed": "2026-10-22",
-      "last_observed": "2026-10-22",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "7e88169be8ccd6449fbe",
       "title": "[특징주] 삼성전기, 엔비디아발 호재에도 2% 하락 전환 마감(종합)",
       "publisher": "연합뉴스",
@@ -607,10 +592,10 @@
       "title_variants": 1
     },
     {
-      "id": "f13edbabed2ef475ebe4",
+      "id": "5378ab2fcde6baa339a0",
       "title": "삼성전자 초기업노조, 비메모리 성과급 격차 개선안 81% 찬성",
       "publisher": "뉴스토마토",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5nSmVjbDNFaXFxa3kxcmFIZUI1cC1BTEpxWW5vb25ZMF8tdWptbnNaRTk2Mk1OQktiWXhCZk1pQUFVUzFlZUJocVZzUEcySXVTR3RDZFc5eWVQU1F0cWlqbg?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1hZkk1QmtDNkFrTHdIcjdUaUdEX3U1THhSRDk0bTAzZzc5R1dDemtYUHNJV0ZrOUJaS0RFRWs0YkdiT3R4bzVabUpkMWVxTzAxTEdDREZTR3dSVi1iQ0pBWg?oc=5",
       "published_at": "2026-10-22T06:51:29+00:00",
       "topic": "삼성전자",
       "topics": [
@@ -887,6 +872,21 @@
       "topic": "SK하이닉스",
       "topics": [
         "SK하이닉스"
+      ],
+      "first_observed": "2026-10-22",
+      "last_observed": "2026-10-22",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "53884eb62a28569ccc1f",
+      "title": "LG전자, 세계 최대 ‘시화호 AI 조력발전소’로 만든다",
+      "publisher": "에너지경제신문",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1RYUFVZGJ6TGVfYmJ6eWhQWVpkdXprc2pPZTV5NGNfWFdRT3NyWUFwSThDeWRqR0Y2dlVFLVVoRE1QX0RoZkJ0LXNUX0d6NkF0bkp0TVphQ2ZHNEE?oc=5",
+      "published_at": "2026-10-22T02:00:00+00:00",
+      "topic": "LG전자",
+      "topics": [
+        "LG전자"
       ],
       "first_observed": "2026-10-22",
       "last_observed": "2026-10-22",
