@@ -2,15 +2,15 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-24",
-  "updated_at": "2026-10-23T16:51:27.277003+00:00",
+  "updated_at": "2026-10-23T20:49:12.860708+00:00",
   "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
   "items": [
     {
-      "id": "a7cc5208c3942aef4f97",
-      "title": "현대차 ‘카운티 일렉트릭’..인도네시아 발리 전기버스로 달린다!",
+      "id": "2388732ca46762d6ffa5",
+      "title": "[시승기] 쾌적한 승차감 돋보이는 SUV..현대차 ‘디 올 뉴 투싼’",
       "publisher": "데일리카",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE4xQld0eEZtLW9qcW4xVnNfVXBZNkdqZUN4MkIwWFhzZFhKdFhhNmZVMm5fTXN4RWZLd09pb2JmMVBXWHJ6c0dQRGFCZkdTMktRb05oV2ZLT1ZMVzhjN0pZUkFBN2FmeGpTOVg4VnpidzNEMHBhLVE?oc=5",
-      "published_at": "2026-10-23T16:46:13+00:00",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBsMmc0OFZGdTdEUTlmLVdMbFNreUZkY3FCRFlPdUFmMzNLR1NTUUdqeVJuajMxV0tDNmJVbmNoSlVEM3NNOHE5eThIbDVFQVFwRXd3ZV9sRUlQZTNoOFlZQUtocFBKdWhLbkxIeXlxdVFtQk1mSUE?oc=5",
+      "published_at": "2026-10-23T18:48:46+00:00",
       "topic": "현대차",
       "topics": [
         "현대차"
@@ -21,18 +21,63 @@
       "title_variants": 1
     },
     {
-      "id": "e2df51849f04cfa8057a",
-      "title": "[단독] LG그룹, 현대차 로봇사업 수장 품었다",
-      "publisher": "한국경제",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5WTUhKQm1haWpLN25XdEZTdTNEaTYzSmlYTkdWY2Nlc0E1VW5RRm9BQlVGRHkyZldRNm5SMF9WUFlDUXhiSlg4RzFmRXBDZkFUT21iNHEtNUVhQQ?oc=5",
-      "published_at": "2026-10-23T16:08:00+00:00",
-      "topic": "현대차",
+      "id": "72ffef0c35b6dbb47cae",
+      "title": "엔비디아가 베를린 기술 박람회에서 AI 제품을 선보였습니다.",
+      "publisher": "Vietnam.vn",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOc3hSUjd4R1BrYVl2QUc3MWFnYjNKak95aGRrbXBRdXpyMkVFOFE3YnVwQ01iWklnMlBObVRlSFNtSkZEQWlBeG4xei1aa2hSOHFLRm5yX2o4T3o2WDBuZ05IM0ZTNm5SQ2VNbVdRaXNzUzNhd29lc0p4azdibnpjUG9IZWR1OEhXZ3ktZ21B?oc=5",
+      "published_at": "2026-10-23T18:20:18+00:00",
+      "topic": "엔비디아",
       "topics": [
-        "현대차"
+        "엔비디아"
       ],
-      "first_observed": "2026-10-23",
+      "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
-      "observed_days": 2,
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "4da02a873d10a2b9da98",
+      "title": "쿠팡, 미 선거 후원 삼성 앞질러…삼성은 '명예 비용' 26만 달러",
+      "publisher": "VOA 한국어 홈페이지",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE90NFBMbEpCUGtPLTV3TWZRRFFoX0hSRERKSTkyLUpGdlNEZzFWOG9DN1FsS1d3aloycDVxZkhOVE4ycjI3dXlRbUVtOEpYWGY3d1kxOWNyZ25HLTB6Rmk5Mkg1Q1NFR0VuV2ZUTGlkVHhvQjBEODVxS0xyYUdZZ9IBfkFVX3lxTE90NFBMbEpCUGtPLTV3TWZRRFFoX0hSRERKSTkyLUpGdlNEZzFWOG9DN1FsS1d3aloycDVxZkhOVE4ycjI3dXlRbUVtOEpYWGY3d1kxOWNyZ25HLTB6Rmk5Mkg1Q1NFR0VuV2ZUTGlkVHhvQjBEODVxS0xyYUdZZw?oc=5",
+      "published_at": "2026-10-23T17:22:39+00:00",
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "c3eab671afcbf2ab1973",
+      "title": "달러-엔, 안전 선호 흐름 속 보합권 힘겨루기…소폭 하락 |",
+      "publisher": "연합인포맥스",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE41VG13WTJsdTNGZ1JsRTdxYkVRZzRuSVBRc29Wdm0tazZRaUVfS3lyS01CbEhkT09wU0FZeXJPZ1hzSkNTN25Oc2ZoTkVkSW55WjNkWEs0am5NajJYVGQ4b2NUbERzZkxjdy0zX0NJWDRPNGRl?oc=5",
+      "published_at": "2026-10-23T16:46:37+00:00",
+      "topic": "환율",
+      "topics": [
+        "환율"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "97804b354ef4a85c5d02",
+      "title": "SK하이닉스, 손자회사 솔리다임 美 상장 접어",
+      "publisher": "동아일보",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE56ell6WnhNWDBfTnlKNndJc1dGY1lFdTRSUVdpNzE3X3U0MnRhTHZQVlpTdWo0aTZpWkpsMWhBb241OUttYTBaLVprbEpHRlRkd1hSbDJSQ2VYLW1fa2pZX2tQdkVtakwwVEhZNnNmdWNWd2JPNVHSAWZBVV95cUxQcVAwaFJ1dzhTdzhqUmhJOHVweURBRTdjdFpQYkx4c3RRQ2wtTkNFMFZFRG50amh3M2FUOFltX085UWpoQ192SmdORGUyOWhTaEdTay1BWXFRZUNRbnVmVnc2ZE5IRnc?oc=5",
+      "published_at": "2026-10-23T16:40:00+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
       "title_variants": 1
     },
     {
@@ -81,21 +126,6 @@
       "title_variants": 1
     },
     {
-      "id": "ce83ba4c94d27fb52b81",
-      "title": "엔비디아, 전반적인 공정 지연 우려…'매도' 의견 유지-씨포트",
-      "publisher": "이데일리",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQVllXbzM5aThrVXBqRjk4QVZPLUQ2eFBGaWtwUVlzbXQ4a2V0NGF3OERZOWxoLVJiMXNaaUhvdEItN2E3QXVNLWdoN2Q2QUluTXlwTzdWRmN4RC15U0hWaHBIalZyMFR2TGN4V1JVTm0xX3oybWFDczZvMzNldDlfTg?oc=5",
-      "published_at": "2026-10-23T14:33:02+00:00",
-      "topic": "엔비디아",
-      "topics": [
-        "엔비디아"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "1b1ad358555831674ba5",
       "title": "안도걸 의원, “대한민국 경제 펀더멘털 개선... 금리·환율 코리아 프리미엄”",
       "publisher": "Daily NTN",
@@ -126,41 +156,11 @@
       "title_variants": 1
     },
     {
-      "id": "42f4ccddf47c6a97fa61",
-      "title": "삼성전자 온양캠퍼스, 아산시에 친환경 차량·생활물품 지원…나눔 실천",
-      "publisher": "일간대한뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5IR1cybWlzdFQxNUgwMW83V2RnMXNMaWR0aWVhZHVMaGRidThiejVUaTR0TFNXaUUxUERsbXdMS0V5NUVvVFh3ZlpwR19PTFpNY0NNclhRN3FxS29aV05zUDZCR3NZbFk?oc=5",
-      "published_at": "2026-10-23T13:15:15+00:00",
-      "topic": "삼성전자",
-      "topics": [
-        "삼성전자"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "517ba4321a1cbda30075",
-      "title": "뉴에그, 엔비디아 RTX Spark 노트북 주문 접수 시작",
-      "publisher": "Investing.com 한국어",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9BanFNdUtneC05bS11VjdDMDVGLUpMRDRMOEtYRml5X3dleGdma3NfYnV1MktJUDY2Qy1WMkVWcFZYU3dZblpjUDVDUXdtQUhmb3ZWWDN2TFFLektabGtZcGFVZGVpUGlfSExpMExsMkk?oc=5",
-      "published_at": "2026-10-23T13:09:00+00:00",
-      "topic": "엔비디아",
-      "topics": [
-        "엔비디아"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "1bcfbd896426370c7dd3",
-      "title": "지금 사표 던지면 진짜 큰일 나는 이유, 숫자로 끝까지 따져봤습니다",
+      "id": "9e77e3d5fbdbf8ec2ee4",
+      "title": "AI 주식 반등, 아직 안심 못 합니다",
       "publisher": "네이버 프리미엄콘텐츠",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQdGVVMXpWdFc1a0xlck43bGRzODk4X3Q3OFJscEFpUy1iUGVHcDhNUU8zR0IxVm1BVmRuSFE0c3BweXduSzdXRmp6eE5zUHJiMTVnYklTb3BCODR5dWEzdEpGTUlzZFplbDA3YUs2VjhPRWQwYUpsaUFRVE82M2p6MWJmSFgtUGpoTnlUZg?oc=5",
-      "published_at": "2026-10-23T13:01:00+00:00",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOS2VzNGpFZWJxTjE4NTZyX05DRV9fZFVTaTBUcUVyOU1wSjNWeEk3aGRlLVBDV2ZJRlc1ZGZLMjk5bE9qTnZ0MFV4eV94VHM0VVBESlBiQWdQYlY2QkxkRGxvaTRZN3kzWXBfU1M1VzZwQ2djdE1CUk81OGE2MUZHcGlkS1VDdmUyMEpj?oc=5",
+      "published_at": "2026-10-23T13:38:00+00:00",
       "topic": "NAVER",
       "topics": [
         "NAVER"
@@ -175,7 +175,7 @@
       "title": "숭덕학교, 가족과 함께하는 ‘숭덕별빛축제’ 개최 : 네이버 블로그",
       "publisher": "Naver Blog",
       "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQVTVVekJhX0lnTFNHdldzMVF1S05fTE15cGpNQzJTWUJiRV9wTTV1dnhDdm9jZUhsOHQ2S1U4LTJCWEpyQ0dLVzhrbFZ2U19XOTMtQkI4VlpJNERwWmxROVRVYWNtenJkOWgtczBYTllldzhJblhRdWhDYkRrcDZKeFRQNHlGYS1ObEljbXZvRQ?oc=5",
-      "published_at": "2026-10-23T13:00:06+00:00",
+      "published_at": "2026-10-23T13:06:06+00:00",
       "topic": "NAVER",
       "topics": [
         "NAVER"
@@ -186,14 +186,14 @@
       "title_variants": 1
     },
     {
-      "id": "9cafdb8ba96d197a2a29",
-      "title": "솔리다임 상장 접자 '환호'…SK하이닉스, 하루 만에 '급반등' [종목+]",
-      "publisher": "한국경제",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE80allNd3lpWC1pb1ZtVFY3czJNb2RlQklyMVJNZThmTFJNT3hFOFgtTDRLNHlpZDN2SlI4QXRIUFhJa25pcTJQMm1nVzJheER2T3pyd3NRVVFRUQ?oc=5",
-      "published_at": "2026-10-23T13:00:05+00:00",
-      "topic": "SK하이닉스",
+      "id": "b621eed1d7515ec99f4a",
+      "title": "🌙 저녁 시장 브리핑10월 23일 (금) 미국장 개장 전 점검",
+      "publisher": "네이버 프리미엄콘텐츠",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUzE3cUFUNFduLWVBRWU5bXpET0NMelRSN2ZMSW5INWhVMVJBSFdEUG1XbnRZVnJuLVltN3c0WS1xbjcyRlJMVEl4cVFLX045RFV4WHIyNTRWY2FCelJfOU5pYUF5R21xSzdYZnNqWjZiRFZMMGNHVWRPZmlUWHZCZUhsNnN2UUxBN05QRw?oc=5",
+      "published_at": "2026-10-23T12:13:00+00:00",
+      "topic": "NAVER",
       "topics": [
-        "SK하이닉스"
+        "NAVER"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -206,8 +206,9 @@
       "publisher": "연합뉴스TV",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9VNTZiMnFtU1lOdkcwYmMyZUUyU3N3aExnYkJHZEFQc1BpTjFMLVh1UEkxa2h5RFRvdW5EcmxBOTVtblBaWnl1UzA4YklJSkFSRWNpS2xDOExEWGdCeU9TRVBOTHFSOU0?oc=5",
       "published_at": "2026-10-23T11:57:00+00:00",
-      "topic": "SK하이닉스",
+      "topic": "코스피",
       "topics": [
+        "코스피",
         "SK하이닉스"
       ],
       "first_observed": "2026-10-24",
@@ -216,59 +217,14 @@
       "title_variants": 1
     },
     {
-      "id": "b996a92e8f5515c6892d",
-      "title": "신현송 \"환율, 비정상적으로 높았다가 되돌리는 양상\"",
-      "publisher": "연합인포맥스",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5OTWFKelNfU3FtUFFsa2tPbTEyeTRueXVWMlNYLUJhbDZtUjk3OTRsbl9vN0k0WVhWZWh6OWU5ZExENldkQXlsX1l1YzQ0cWtQVkpNMFd1VUpGSXdQczE1WlFDU3pGMEtlMFQzdFhENG1WUWl50gF0QVVfeXFMTk5NYUp6U19TcW1QUWxra09tMTJ5NG55dVYyU1gtQmFsNm1SOTc5NGxuX283STRZWFZlaHo5ZTlkTEQ2V2RBeWxfWXVjNDRxa1BWSk0wV3VVSkZJd1BzMTVaUUNTekYwS2UwVDN0WEQ0bVZRaXk?oc=5",
-      "published_at": "2026-10-23T11:12:50+00:00",
-      "topic": "환율",
+      "id": "0f4e2e0aa69b7712df35",
+      "title": "(10월 23일~11월 1일) 지역과 일상을 연결하는 : 네이버 블로그",
+      "publisher": "Naver Blog",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOOE02N1BmaVFDYS1yaWZZZHNacWpKa3AxNlE5dnFHc0NYd21KWklPaVBGdGJ2aGk2UUs1a21tVVJWYU9haHI5SFBWaERucVV5ZHlvVzVndVptNWZCUFY1S1MzeGpNUGpROHprWTJhc0U0d3dENkVuUFlEbHlhck1XcHRSRllGa0V4VmFDcTYtU28?oc=5",
+      "published_at": "2026-10-23T11:09:57+00:00",
+      "topic": "NAVER",
       "topics": [
-        "환율"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "f215f3c3468cf875e3fd",
-      "title": "SK하이닉스, '솔리다임' 상장 전격 중단‥주가는 반등",
-      "publisher": "MBC 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8zY1hWOWFyUHI0M2daWDVibllZLWg3MC1mTTBmS0k2a0NqbG9TQl9tUjhTRGlqQWUtLVZWR21oNG92OTZ1TzY0TEhEQ0o2bk9qYWU0MTJrdXpWZzFSelJrT2FTTkYyNTdPZXBTN2tkRHR2U1JJNi1VV9IBeEFVX3lxTFB3Y2NNaE9ONk1oSlFYZnh6QzRzRmU0X3lCVTh4clJoOVdlV1VlZmxaUlgtYjNNak1XdXg2blo2MHFLMFRNU1U0eE1GRFFlS2JkMzdyd0J5M2VWNDNJbjlvUkllRW5IdmRia2QwT3dhUy1xZ0ZVRWxZbA?oc=5",
-      "published_at": "2026-10-23T11:05:13+00:00",
-      "topic": "SK하이닉스",
-      "topics": [
-        "SK하이닉스"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "b3d634174a1c142ec801",
-      "title": "테슬라, 국토부에 ‘FSD 승인’ 신청서 제출…검증 일정 미정",
-      "publisher": "블로터",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBLN3ExXzVFMUVoSzFuZ2hYczFkUWEwWVRwYzFXVDBOTnktWjdpQ2xZVnE0enpsSVM5amFPWHRkeVRxR2REd2pLWTdHWHpDLTNUd0NzVEtWZWMzekhORm1UamZxRW9vbTFs0gFsQVVfeXFMTUs5d0cwT0ZOa2xGd1VpTUItSlQ0eXVfR2dXbE5wT3VET0NhWFFWbDNvSHBzOV83SkxWcXIzTlZ5enZJaVljLXJvQ29Ycmx3R2dYRVl0dXBkZnlrRVhXSVpESV9ZZTNrNDJNQktm?oc=5",
-      "published_at": "2026-10-23T10:43:28+00:00",
-      "topic": "테슬라",
-      "topics": [
-        "테슬라"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "8609f6579bca4a1f31d5",
-      "title": "[증시 리스크 관리-中] 금리 인상에 자산시장 위축 공포···종목 선별 기준은",
-      "publisher": "시사저널e",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1LZnMwa0NDaGZIaHRXY0lrTVVKVnRnZ0pmbG5CYjlwYnlseXViTHgwaEVTc0x4aVQ0LWktbkFNM1F4ZGFoMjBiYUh3c1o4dDBhSnFFMjJITzhGYjhQbkZTOW9jazVmbjU2eF9Qb3VrT0dCcllrcHfSAXZBVV95cUxNS2ZzMGtDQ2hmSGh0V2NJa01VSlZ0Z2dKZmxuQmI5cGJ5bHl1Ykx4MGhFU3NMeGlUNC1pLW5BTTNReGRhaDIwYmFId3NaOHQwYUpxRTIySE84RmI4UG5GUzlvY2s1Zm41NnhfUG91a09HQnJZa3B3?oc=5",
-      "published_at": "2026-10-23T10:24:21+00:00",
-      "topic": "한국 증시",
-      "topics": [
-        "한국 증시"
+        "NAVER"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -291,21 +247,6 @@
       "title_variants": 1
     },
     {
-      "id": "a2942706877a4b0318cb",
-      "title": "SK하이닉스 ADR, 오늘 급등한 이유는?",
-      "publisher": "Investing.com 한국어",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4wU1o2dzJ1dDB1R21UenlHeUJLWm0wdkMyWWJzd0tOREQzeUNUQlFkVzM3YTdUQ3kwaUdhYmlIUHZfSFdLYW5wMXJyOTF4dUNHR0lTR0JOVUgyNjBsUE5zRFZ1NXVOemdSSm8zRjNHMDBUcExKbTRJ?oc=5",
-      "published_at": "2026-10-23T09:52:00+00:00",
-      "topic": "SK하이닉스",
-      "topics": [
-        "SK하이닉스"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
       "id": "82cd935c20e04e7c690f",
       "title": "스페이스X, 엔비디아 등 130여개사와 기업 AI 공략…그록 도입·연동 지원",
       "publisher": "AI타임스",
@@ -318,6 +259,21 @@
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
       "observed_days": 2,
+      "title_variants": 1
+    },
+    {
+      "id": "b012d12d7596f0f197e0",
+      "title": "현대차, 인도네시아 발리에 전기버스 11대 공급",
+      "publisher": "IT조선",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5SRFVWYlpGS19BZDUxMk5aWC1xRHY2ODhNZ2J0Q21fbGhnRHRTRjJ6SllBZnY3d2laTnhlc1dCc3hFcG5xZmgxSGFaN19kS0FXbmQ2MVVuaTFYZF8wb05DMWFhbzh1YlpYYXh3OWVqMlFrN3ZD0gF0QVVfeXFMTlJEVVZiWkZLX0FkNTEyTlpYLXFEdjY4OE1nYnRDbV9saGdEdFNGMnpKWUFmdjd3aVpOeGVzV0JzeEVwbnFmaDFIYVo3X2RLQVduZDYxVW5pMVhkXzBvTkMxYWFvOHViWlhheHc5ZWoyUWs3dkM?oc=5",
+      "published_at": "2026-10-23T09:24:22+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
       "title_variants": 1
     },
     {
@@ -366,29 +322,14 @@
       "title_variants": 1
     },
     {
-      "id": "e5a8c9835f6a02fbce35",
-      "title": "(10.25. 독도의 날) 독도야 사랑해! : 네이버 블로그",
-      "publisher": "Naver Blog",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNdU1sSENWREpLazRIQ1dhSXdvbk1Hd215MW5NZlRmeTRKQnhVZjFqdGxhMnNqbkR3TkI1UzRCQ3JvTlAzcmo4cDNPSEVNOG1Lby0wTndYa3ZENllwc0JuRHE5OS1EUFczTnNhUFpxRFdiQWl0TDJ0NEx2bE1tOVVoMmloejlQbEM4c1pZZHZCZw?oc=5",
-      "published_at": "2026-10-23T08:43:33+00:00",
-      "topic": "NAVER",
+      "id": "e2df51849f04cfa8057a",
+      "title": "[단독] LG그룹, 현대차 로봇사업 수장 품었다",
+      "publisher": "한국경제",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5WTUhKQm1haWpLN25XdEZTdTNEaTYzSmlYTkdWY2Nlc0E1VW5RRm9BQlVGRHkyZldRNm5SMF9WUFlDUXhiSlg4RzFmRXBDZkFUT21iNHEtNUVhQQ?oc=5",
+      "published_at": "2026-10-23T08:42:14+00:00",
+      "topic": "현대차",
       "topics": [
-        "NAVER"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "87a7f110a188641ed886",
-      "title": "충북교육청, AI 중점학교 중심으로 학교 맞춤형 AI 융합교육 확산 : 네이버 블로그",
-      "publisher": "Naver Blog",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOYk9ha2h0N0pzdWRWZjgxbHN6ZEJSUzI2WjU5d0M0b2FMVlBmR0pCNXNfcjV0VmhuYloyOFRsTnZTOFNjVVJ4dlVzVVlqQUlkRS0zakdPTW5xYlBHbVh1Nnhkb3M1NEV1YkttQzhya3lUMzQyWHpuaDU3Q202RndqWWotU3doM2dvb1FKZnRuYw?oc=5",
-      "published_at": "2026-10-23T08:42:34+00:00",
-      "topic": "NAVER",
-      "topics": [
-        "NAVER"
+        "현대차"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
@@ -435,6 +376,21 @@
       "topic": "코스닥",
       "topics": [
         "코스닥"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 1
+    },
+    {
+      "id": "bc3a4a790bc6aa346936",
+      "title": "SK하이닉스, 미국 손자회사 솔리다임 IPO 검토 중단",
+      "publisher": "AI타임스",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5rWXZwTmtmTHdOcUpNQlFjQU1zdTh6YjZqTjBMVV81VTNhc08zOUMwMTFxQ0NyUUZraHB1LWZEcGpnck5FVGFiUGIzUW5CVkhlYkJ1R2h4WTlpd3BJVmFFMDlkX1VkVzREUXc?oc=5",
+      "published_at": "2026-10-23T08:16:12+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
@@ -517,11 +473,11 @@
       "title_variants": 1
     },
     {
-      "id": "9d4bdcd44d15c5e5dfe0",
-      "title": "솔리다임 IPO 중단 덕분?…코스피, 낙폭 좁혀 5,500선 회복 마감(종합)",
-      "publisher": "연합뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE01VWtxbks5UjlEQ2Y2bTU3cTV5M3dmQjd3ZHJhOWk0R0FUNXpmMXg4X3QySEJwUFR0amlNUHFIUnY3Ymk3NXpGTWwyV3U1a3VjOWdoaEZpOFlxMmvSAWBBVV95cUxPNHoxNmctX2ZIZ25kVE12cExkMjhXVDNVRFpyYWY4UGl6SjkyWTJDUlBfaUNZSkJZMWRnbHU2bzFVOVlVU3hqZTNXREFvYUhEeHEyeXFGRGRmamFHXzhGWS0?oc=5",
-      "published_at": "2026-10-23T07:29:52+00:00",
+      "id": "63d1a6eb759121a2a9cf",
+      "title": "코스피, 낙폭 좁혀 5,500선 회복 마감…하이닉스 4.42% 급등",
+      "publisher": "KBS 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1vemQzUVg0bWRMa2h4MDdieEd5djlEZlVGRE1aRVp6cFNxMTdxd3pNbjJJcnBTMjZhME0wQXVmMHBGcFdpdGxFeG5XT1k5OXE3SmpRWUtYb29iNzl0NzJCbExLNUVRQQ?oc=5",
+      "published_at": "2026-10-23T07:36:00+00:00",
       "topic": "코스피",
       "topics": [
         "코스피"
@@ -592,18 +548,18 @@
       "title_variants": 1
     },
     {
-      "id": "5fa4be8c91a72663952d",
-      "title": "[속보] 코스피 0.30% 오른 5,550.30 종료",
-      "publisher": "연합뉴스TV",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5wazMxWUV4czFuWFJ2ZjAzNDVMd0tyU0NRWUdZUUlNTUxFUXYtNzF1OHUzQUw4YlhtS0pYT2dXS1VLRXdLNi1GS3FWMjZ0OFhPYk1iMkN2Y1pzU2NGbDBoS1JwTXI3MTA?oc=5",
-      "published_at": "2026-10-23T07:00:00+00:00",
-      "topic": "코스피",
+      "id": "2f50586ba7b2d59089ab",
+      "title": "LG전자·수자원공사, 세계 최대 시화호 조력발전소에 AI 입힌다",
+      "publisher": "산경e뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBIcVhwZWF0SldUbkZqMklvNWpmQmRRcjI3WXh3ZXlVNlRqVmZkUzJQLXVyU2VEbnQ5MEROcHZfSk9ERUthVlRxY2lJUXlhQzg0UncxMVpYR1F5WlFSMVpERUFaYkFEOEE?oc=5",
+      "published_at": "2026-10-23T06:55:21+00:00",
+      "topic": "LG전자",
       "topics": [
-        "코스피"
+        "LG전자"
       ],
-      "first_observed": "2026-10-23",
+      "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
-      "observed_days": 2,
+      "observed_days": 1,
       "title_variants": 1
     },
     {
@@ -712,18 +668,18 @@
       "title_variants": 1
     },
     {
-      "id": "92621f8398cbc16139e8",
-      "title": "[산업이(異)면]AI·로봇 올인한다던 테슬라, 투자 50억달러 축소…K산업 변수 2가지",
-      "publisher": "경향신문",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5SdUJQel8zeUdiTk1WWWVtOU5wV3ZYTDBJMEZGeWVEcXhscXN2UGVQeldocTBmS2F1MDRUdnFqWWlIbEptRHdwZGZVOWpFYlEwSjVWVmYwZXotQdIBX0FVX3lxTFBXaHBEVXY3STk1ZXNCdl9XZ2xiMTY5SFFlR3JDRzNwbmZ5X05zczVMbC1vZ0R2V2JmVURQc21xbUotWF9nVGV3Qm12V3RVMF93aXpoVjZQWjBINXZyaWZR?oc=5",
-      "published_at": "2026-10-23T06:15:00+00:00",
-      "topic": "테슬라",
+      "id": "03391d4496190e4eaf2e",
+      "title": "[증시 리스크 관리-中] 금리 인상에 자산시장 위축 공포···종목 선별 기준은",
+      "publisher": "시사저널e",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5RS0QxbGhNa0dxTENTa1ZxUkVUY3FNY2h0b1RSWEt4MWtUVk00VUNseFQ5V2xtWUdYc2VwVDlSWDNQUy1mRzFZbHV2d3hZQlFHZGNyNVljSkVoeUN6QlNqVERuUXk4eF9rdjl2V2tlQ0pzd9IBdkFVX3lxTE1LZnMwa0NDaGZIaHRXY0lrTVVKVnRnZ0pmbG5CYjlwYnlseXViTHgwaEVTc0x4aVQ0LWktbkFNM1F4ZGFoMjBiYUh3c1o4dDBhSnFFMjJITzhGYjhQbkZTOW9jazVmbjU2eF9Qb3VrT0dCcllrcHc?oc=5",
+      "published_at": "2026-10-23T06:10:02+00:00",
+      "topic": "한국 증시",
       "topics": [
-        "테슬라"
+        "한국 증시"
       ],
-      "first_observed": "2026-10-23",
+      "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
-      "observed_days": 2,
+      "observed_days": 1,
       "title_variants": 1
     },
     {
@@ -787,6 +743,21 @@
       "title_variants": 1
     },
     {
+      "id": "bd144be510dacc459e59",
+      "title": "SK하이닉스, 솔리다임 IPO 검토 중단···증권가는 ‘주주가치 제고’ 기대 By 투데이코리아",
+      "publisher": "Investing.com 한국어",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5qT01TZGM0bEdLOFAzaXdFbG5aVEJfbjlpOVdvUUdObTZBNFVXTkhUR0dWTXdPMFRwNGk4V1lBTl9Fd3JFellsUnB5S3dQdjRncTNZNE9oVF9rZEdZclppNG92Wjg0Y20zUzhwdlItVTE?oc=5",
+      "published_at": "2026-10-23T05:17:00+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "87afd5b2398455872108",
       "title": "\"공화당 팔고 민주당 산다\"…美 중간선거에 한국 증시도 긴장",
       "publisher": "파이낸셜뉴스",
@@ -847,6 +818,21 @@
       "title_variants": 1
     },
     {
+      "id": "e78118e5e0db614433df",
+      "title": "테슬라·BYD에 안방 내준 전기차…뒤늦게 세액공제 검토",
+      "publisher": "SBS Biz",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBEd3BpOVdDRXl3QlplUUNZRWs1MFNnekVIUmdGdXB4RzhTWHVFck1qdW42UkZibmpUanhSRDhIcjVXSnI3WmVqdkVIcFUtd21KVHdB0gFYQVVfeXFMT2w3RHhFbFIxWk16UGc1aG5FSkRhczJDQXFQaG5FaU1uekR2eXVic0lERU5fX25RdWRKeFhBTlRGVUF4T2dFQ1VFTlNBNXhKTHdmZWJoMi1YeA?oc=5",
+      "published_at": "2026-10-23T02:29:00+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "4152a27769585e1acf79",
       "title": "LG전자, 가전 ‘설명’ 대신 ‘감각’ 통했다…숏폼 1529만뷰",
       "publisher": "매일일보",
@@ -862,19 +848,34 @@
       "title_variants": 1
     },
     {
-      "id": "d04a66b4bcaf4ae32e6b",
-      "title": "[특징주] 삼성전자·SK하이닉스, 美 AI 수익성 우려.. 동반 '약세'",
-      "publisher": "글로벌이코노믹",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPcGpkZVp1MjQ4WWhRYWVyNlVNRFlWMmQtZlFPOFhtVW5WNEFCSEMyMF9MaDBPbFp3R0J5a0JFb1l0YzRFT2FibF9MaF9yM2txMno3RXJER0w1Y0pMdGtlZHNWZ0ctc2NNc2R2eHBncU5yVFZJSXZfM0ItZDFOYkQ4clRWeUZlc0lp?oc=5",
-      "published_at": "2026-10-23T01:59:44+00:00",
-      "topic": "삼성전자",
+      "id": "3c0433d5fa35074fa4b4",
+      "title": "LG전자, 팅글 마케팅으로 한국PR대상 수상",
+      "publisher": "IT조선",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9ZQnFJeE9VN1BZMXd4cVloMkRDUW9YWW15a1NHb0ROUS1EOGloa0x6R3g1X3hvc25DeDBoRUpVQW5NRWlnNngzUzZVdUphVXFCcVFBVVBaVC0xWkpYaXE2MnplcWtKREVWdnZ3RTAxSFDSAXRBVV95cUxQd2FNQ3NkTGdFQ0pqZ3RWUVZDdXRmVzJfa3l2RjNVSVdkQWVwT3U4NTRFNE1mdXVYNUNYNW9vOGdESndDMWRJZU1ZbDZVTzMzeWdkd3N6VW1TUUlfYXRGYzRHWTliNVRSclFCOTlDQmRaTy1lRA?oc=5",
+      "published_at": "2026-10-23T01:39:53+00:00",
+      "topic": "LG전자",
       "topics": [
-        "삼성전자"
+        "LG전자"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
       "observed_days": 2,
       "title_variants": 1
+    },
+    {
+      "id": "cb173d927d86118121a6",
+      "title": "중복상장 논란에... SK하이닉스, 솔리다임 美상장 중단",
+      "publisher": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQZ2V3ZXN0YWU1QjBLRTVsckcxTHNrdjZhVU43dWNneExoWXRLSFJLUVl5VDBCTEl2TXRsUzVFbDVQcEtocmdpNkhWN0NLNUwxZVJzbVFfMzJ5UFRHM0djdDRTN3VLZjA4aENuUlplOFVBUXpVZDE5R2RkSWVRdEFTcUo1UQ?oc=5",
+      "published_at": "2026-10-23T00:36:04+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 2
     },
     {
       "id": "2f0e2b1c6cca4d393ec3",
