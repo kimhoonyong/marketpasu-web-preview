@@ -64,6 +64,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_kiwoom_daily.py' -v
           python3 -m py_compile integrations/kiwoom/marketpasu_local_chart_server.py
           python3 -m unittest discover -s tests -p 'test_kiwoom_local_chart.py' -v
+          python3 -m py_compile integrations/kiwoom/existing_rest_auth.py
+          python3 -m unittest discover -s tests -p 'test_existing_theme_auth.py' -v
       - name: Refresh bounded public headline snapshot
         run: python3 scripts/update-public-news.py
       - name: Publish news snapshot only when changed
