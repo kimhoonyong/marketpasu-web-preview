@@ -22,8 +22,8 @@ from rest_minutes import (
 API_ID="ka10081"
 RECORDS="stk_dt_pole_chart_qry"
 COLUMNS=["일자","종목코드","시가","고가","저가","종가","거래량","거래대금"]
-MAX_PAGES=6
-MAX_BARS=320
+MAX_PAGES=8
+MAX_BARS=1200
 
 
 def read_daily(response:dict,ticker:str,base_date:dt.date)->list[dict]:
@@ -71,8 +71,11 @@ def fetch_daily(ticker:str,asof:dt.date,token:str,*,mode="real",
         keys.add(token_next)
         continuation=token_next
         if page+1<pages:sleep(.25)
+    # Always keep the MOST RECENT requested bars when the provider returns
+    # more rows than our bounded window. Never prefer an older page.
     dedup={item["일자"]:item for item in rows}
-    return [dedup[k] for k in sorted(dedup,reverse=True)][:MAX_BARS][::-1]
+    latest=sorted(dedup,reverse=True)[:MAX_BARS]
+    return [dedup[k] for k in reversed(latest)]
 
 
 def write_daily_csv(rows:list[dict],target:Path)->None:
