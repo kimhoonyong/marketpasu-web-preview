@@ -1,6 +1,7 @@
 import {mountCandleChart} from "./candle-chart.mjs";
 import {minuteTimeframe,MINUTE_PERIODS} from "./bar-analytics.mjs";
 import {localAuthExplanation} from "./local-auth-status.mjs";
+import {explainLiveKiwoom} from "./live-kiwoom-diagnostic.mjs";
 
 const BASE="http://127.0.0.1:8765";
 function el(id){return document.getElementById(id);}
@@ -21,11 +22,18 @@ async function localJson(path,{timeout=14000}={}){
  try{
   const response=await fetch(BASE+path,{signal:controller.signal,cache:"no-store",credentials:"omit",mode:"cors"});
   const body=await response.json();
-  if(!response.ok)throw Error(body?.error||"로컬 키움 서비스 조회 실패");
+  if(!response.ok){
+    const error=new Error(body?.error||"로컬 키움 서비스 조회 실패");
+    error.stage=body?.stage;
+    error.reason=body?.reason;
+    throw error;
+  }
   return body;
  }finally{clearTimeout(timer);}
 }
 function safeErr(err){
+ if(err?.stage&&err?.reason)
+   return "키움 데이터 조회 실패: "+explainLiveKiwoom("FAILED",err.stage,err.reason).text;
  return err?.name==="AbortError"?"키움 조회가 시간 초과됐습니다. PC 인증 또는 네트워크 상태를 확인하세요.":
   err instanceof TypeError?"PC 키움 서비스에 연결되지 않았습니다. PC에서 로컬 조회기를 실행하고 브라우저의 로컬 네트워크 접근 권한을 허용하세요.":"키움 데이터 조회 실패: "+String(err?.message||"연결 오류");
 }
@@ -96,6 +104,21 @@ export function setupAutoCharts(){
  updateExchange();
  const diagnostic=el("chart-auth-diagnostics");
  const diagnosticText=el("chart-auth-explanation");
+ const liveResult=el("chart-live-result");
+ const liveButton=el("chart-live-diagnose");
+ liveButton.addEventListener("click",async()=>{
+   liveResult.hidden=false;
+   liveResult.textContent="기존 인증으로 키움 서버의 종목목록을 1회 조회하고 있습니다…";
+   liveButton.disabled=true;
+   try{
+     const data=await localJson("/diagnose",{timeout:24000});
+     liveResult.textContent=explainLiveKiwoom(data.state,data.stage,data.reason).text;
+   }catch(error){
+     liveResult.textContent=safeErr(error);
+   }finally{
+     liveButton.disabled=false;
+   }
+ });
  async function health(){
   try{
    const d=await localJson("/health",{timeout:1800});
@@ -157,8 +180,12 @@ export function setupAutoCharts(){
    }
   }catch(error){
    if(version!==searchId)return;
-   noResults(safeErr(error));
-   health();
+   const message=safeErr(error);
+   noResults(message);
+   // /health only checks decrypted local credentials, NOT an actual broker
+   // session. Keep the live-test CTA visible when name lookup fails.
+   diagnostic.hidden=false;
+   diagnosticText.textContent="인증파일은 읽었지만 키움 서버 조회가 실패했습니다. '키움 실제 API 진단'으로 토큰/종목목록 단계를 확인할 수 있습니다.";
   }
  }
  async function loadCharts(){
@@ -216,6 +243,8 @@ export function setupAutoCharts(){
     if(kind==="minute"){minuteRaw=[];minuteHistory=null;}
     chart.setData([]);
     state.textContent=safeErr(error);
+    diagnostic.hidden=false;
+    diagnosticText.textContent="차트 API 요청이 실패했습니다. 위의 '키움 실제 API 진단' 버튼으로 토큰과 종목목록 연결부터 확인할 수 있습니다.";
    }
   }));
  }
