@@ -19,7 +19,8 @@ import time
 from urllib.parse import urlsplit, parse_qs
 
 from rest_minutes import (HOSTS, MarketDataError, get_access_token,
-                          fetch_minute_rows, ticker_code, request_json)
+                          fetch_minute_rows, ticker_code, request_json,
+                          KiwoomTransportError)
 from rest_daily import fetch_daily
 from existing_rest_auth import ExistingRestAuth
 
@@ -29,6 +30,45 @@ KST=timezone(timedelta(hours=9))
 PORT=8765
 CHART_MINUTE_MAX=8000
 SYMBOL_TTL=6*3600
+
+# Strict, known domestic ticker-name pairs. This small reference list is NOT
+# presented as the broker's complete or live exchange listing.
+KNOWN_SYMBOLS={
+    "명신산업":"009900","삼성전자":"005930","SK하이닉스":"000660",
+    "NAVER":"035420","현대차":"005380","LG전자":"066570",
+}
+STAGE_CODES=frozenset(("OAUTH","STOCK_LIST","CHART"))
+REASON_CODES=frozenset((
+    "HTTP_401","HTTP_403","HTTP_429","HTTP_5XX","HTTP_OTHER",
+    "NETWORK_OR_TIMEOUT","INVALID_JSON","PROVIDER_REJECTED",
+    "UNEXPECTED_RESPONSE","MISSING_CREDENTIALS",
+))
+
+
+class KiwoomStageFailure(MarketDataError):
+    """Whitelist-only failure data. Never forward raw broker messages."""
+    def __init__(self,stage,reason):
+        self.stage=stage if stage in STAGE_CODES else "STOCK_LIST"
+        self.reason=reason if reason in REASON_CODES else "UNEXPECTED_RESPONSE"
+        super().__init__("Kiwoom "+self.stage+" request failed")
+
+
+def stage_failure(stage,error):
+    if isinstance(error,KiwoomStageFailure):return error
+    if isinstance(error,KiwoomTransportError):
+        return KiwoomStageFailure(stage,error.reason)
+    if isinstance(error,MarketDataError) and "기존 ThemeManager" in str(error):
+        return KiwoomStageFailure(stage,"MISSING_CREDENTIALS")
+    return KiwoomStageFailure(stage,"UNEXPECTED_RESPONSE")
+
+
+def offline_symbols(query):
+    q=str(query or "").strip().casefold()
+    if not q or len(q)>MAX_QUERY:return []
+    return [{"code":code,"name":name,"market":"기본 종목 사전"}
+            for name,code in KNOWN_SYMBOLS.items()
+            if q==name.casefold() or q==code]
+
 
 
 def normalized_symbols(payload):
@@ -126,17 +166,55 @@ class ChartProvider:
         credentials=self._auth.credentials()
         if not credentials:
             raise MarketDataError("기존 ThemeManager REST 인증을 확인하지 못했습니다. 로컬 연결 상태를 확인하세요.")
-        fresh=get_access_token(HOSTS[self.mode],credentials)
+        try:
+            fresh=get_access_token(HOSTS[self.mode],credentials)
+        except MarketDataError as err:
+            raise stage_failure("OAUTH",err) from None
         self._cached_access_token=fresh
         # 12h conservative in-process cache; never write OAuth tokens to disk.
         self._access_token_until=self.clock()+12*3600
         return fresh
     def symbols(self,query):
+        shortcut=offline_symbols(query)
+        if shortcut:return shortcut
         with self._lock:
             if self._symbols is None or self.clock()>=self._symbols_until:
-                self._symbols=stock_catalog(self._token(),mode=self.mode)
+                token=self._token()
+                try:
+                    self._symbols=stock_catalog(token,mode=self.mode)
+                except MarketDataError as err:
+                    raise stage_failure("STOCK_LIST",err) from None
                 self._symbols_until=self.clock()+SYMBOL_TTL
             return symbol_search(self._symbols,query)
+
+    def diagnose(self):
+        """User-triggered one-call KOSPI catalog test after obtaining token.
+
+        Only stage/reason codes leave the PC; raw responses and credentials do not.
+        """
+        with self._lock:
+            if not self.auth_info()["authConfigured"]:
+                return {"state":"FAILED","stage":"OAUTH","reason":"MISSING_CREDENTIALS"}
+            try:
+                token=self._token()
+            except KiwoomStageFailure as err:
+                return {"state":"FAILED","stage":err.stage,"reason":err.reason}
+            try:
+                data,_=request_json(HOSTS[self.mode],"/api/dostk/stkinfo",
+                    {"mrkt_tp":"0"},
+                    {"authorization":"Bearer "+token,"api-id":"ka10099",
+                     "cont-yn":"N","next-key":""})
+                if not normalized_symbols(data):
+                    return {"state":"FAILED","stage":"STOCK_LIST",
+                            "reason":"UNEXPECTED_RESPONSE"}
+                return {"state":"OK","stage":"STOCK_LIST",
+                        "reason":"VERIFIED_READ_ONLY"}
+            except (MarketDataError,ValueError) as err:
+                failure=stage_failure("STOCK_LIST",err)
+                return {"state":"FAILED","stage":failure.stage,"reason":failure.reason}
+            except Exception:
+                return {"state":"FAILED","stage":"STOCK_LIST",
+                        "reason":"UNEXPECTED_RESPONSE"}
     def chart(self,code,kind,day,exchange="KRX"):
         code=ticker_code(code)
         if exchange not in ("KRX","NXT","SOR"):
@@ -159,13 +237,16 @@ class ChartProvider:
             if entry and self.clock()-entry[0]<(60 if kind=="minute" else 600):
                 return entry[1]
             token=self._token()
-            if kind=="minute":
-                records=fetch_minute_rows(code,when,token,mode=self.mode,pages=12,
-                                          exchange=exchange,lookback_calendar_days=21)
-                data=normalize_minute_rows(records)
-            else:
-                records=fetch_daily(code,when,token,mode=self.mode,pages=8,exchange=exchange)
-                data=normalize_daily_rows(records)
+            try:
+                if kind=="minute":
+                    records=fetch_minute_rows(code,when,token,mode=self.mode,pages=12,
+                                              exchange=exchange,lookback_calendar_days=21)
+                    data=normalize_minute_rows(records)
+                else:
+                    records=fetch_daily(code,when,token,mode=self.mode,pages=8,exchange=exchange)
+                    data=normalize_daily_rows(records)
+            except MarketDataError as err:
+                raise stage_failure("CHART",err) from None
             # SOR (_AL) is a Kiwoom trading-route code. Neither this API nor
             # a successful request proves a complete KRX+NXT summed tape.
             if not data:
@@ -246,6 +327,9 @@ def handler_factory(provider):
                                     "service":"MarketPasu Kiwoom read-only",
                                     **provider.auth_info()})
                     return
+                if parsed.path=="/diagnose":
+                    self._response(provider.diagnose())
+                    return
                 if parsed.path=="/symbols":
                     q=args.get("q",[""])[0]
                     if len(q)>MAX_QUERY:raise ValueError("검색어가 너무 깁니다.")
@@ -259,8 +343,11 @@ def handler_factory(provider):
                     self._response(provider.chart(code,kind,day,exchange=exchange))
                     return
                 self._response({"error":"알 수 없는 요청입니다."},404)
+            except KiwoomStageFailure as err:
+                self._response({"error":"키움 REST 조회 실패 — 안전한 단계별 상태코드를 확인하세요.",
+                                "stage":err.stage,"reason":err.reason},422)
             except (ValueError,MarketDataError):
-                self._response({"error":"키움 조회에 실패했습니다. 종목·거래일·로컬 API 인증 연결을 확인하세요."},422)
+                self._response({"error":"키움 조회에 실패했습니다. 종목·거래일·로컬 연결을 확인하세요."},422)
             except Exception:
                 self._response({"error":"로컬 연결 오류입니다. PC 키움 서비스 상태를 확인하세요."},503)
         def do_POST(self):
