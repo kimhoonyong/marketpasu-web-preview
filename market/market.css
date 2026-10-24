@@ -296,3 +296,10 @@
  .chart-hover-tooltip{padding:8px 9px;min-width:142px;font-size:12px}
  .chart-hover-value{font-size:15px}
 }
+
+/* Per-candle price-position clue — separate from red/blue OHLC body. */
+.chart-pressure-toggle{display:inline-flex;align-items:center;min-height:35px;padding:6px 10px;border:1px solid #7e9299;border-radius:7px;background:#203a47;color:#eff7dd;font-size:12px;font-weight:850;white-space:normal}
+.chart-pressure-toggle[aria-pressed="true"]{border-color:#9ad7b9;background:#214438}
+.chart-pressure-toggle[aria-pressed="false"]{opacity:.65}
+.chart-pressure-legend{margin-top:10px;padding:8px 11px;background:#0f2839;border:1px solid #385c72;border-radius:9px;color:#c2dee8;font-size:13px;line-height:1.7}
+.chart-pressure-legend strong{color:#fbe5ba}
