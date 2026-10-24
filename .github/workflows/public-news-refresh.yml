@@ -56,6 +56,8 @@ jobs:
           node --check market/candle-chart.mjs
           node --check market/auto-charts.mjs
           node --test tests/chart-model.test.mjs
+          node --check market/local-auth-status.mjs
+          node --test tests/local-auth-status.test.mjs
           node --check market/chart-mouse-gestures.mjs
           node --test tests/chart-mouse-gestures.test.mjs
           node --check market/daily-periods.mjs

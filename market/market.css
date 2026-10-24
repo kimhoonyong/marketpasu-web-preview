@@ -427,3 +427,12 @@ body{width:100%}
  .chart-ohlc-date{flex:1 0 100%;min-width:0}
  .chart-ohlc-inline-cell strong{font-size:13px}
 }
+
+/* Authentication diagnostic is state-only; no key/token inputs or exposure. */
+.auth-diagnostics{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  margin:8px 0 16px;padding:11px 14px;background:#2c261f;border:1px solid #796144;border-radius:10px}
+.auth-diagnostics[hidden]{display:none!important}
+.auth-diagnostics p{flex:1 1 330px;margin:0;color:#ffe2b6;font-size:13px;line-height:1.7}
+.auth-diagnostics button{min-height:40px;padding:9px 15px;border-radius:8px;background:#275044;
+  border:1px solid #80d4b2;color:#e6fff5;font-weight:850;font-size:13px}
+.auth-diagnostics button:hover{background:#346353}

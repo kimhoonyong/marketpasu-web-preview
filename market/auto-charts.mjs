@@ -1,5 +1,6 @@
 import {mountCandleChart} from "./candle-chart.mjs";
 import {minuteTimeframe,MINUTE_PERIODS} from "./bar-analytics.mjs";
+import {localAuthExplanation} from "./local-auth-status.mjs";
 
 const BASE="http://127.0.0.1:8765";
 function el(id){return document.getElementById(id);}
@@ -93,20 +94,33 @@ export function setupAutoCharts(){
    });
  }
  updateExchange();
+ const diagnostic=el("chart-auth-diagnostics");
+ const diagnosticText=el("chart-auth-explanation");
  async function health(){
   try{
    const d=await localJson("/health",{timeout:1800});
-   status.textContent=d.authConfigured
-    ?"PC 키움 조회 서비스 연결됨 · 기존 REST 인증정보 설정 확인 (실제 시세 응답은 종목 조회 후 검증)"
-    :"PC 조회 서비스는 실행 중이나 기존 키움 REST 인증정보가 연결되지 않았습니다. 기존 Scout 인증 모듈을 연결해야 합니다.";
-   status.dataset.ready=d.authConfigured?"yes":"no";
-   return true;
+   const explanation=localAuthExplanation(d.authConfigured===true,d.authStatus);
+   status.textContent=explanation.heading;
+   status.dataset.ready=d.authConfigured===true?"yes":"no";
+   if(d.authConfigured===true){
+     diagnostic.hidden=true;
+   }else{
+     diagnosticText.textContent=explanation.guide;
+     diagnostic.hidden=false;
+   }
+   return d.authConfigured===true;
   }catch{
-   status.textContent="PC 키움 자동조회 연결 안 됨 · 이 PC에서 조회 서비스 실행이 필요합니다. 휴대폰은 아직 PC 연결을 공유하지 않습니다.";
+   status.textContent="PC 키움 로컬 조회 서비스에 연결하지 못했습니다. 실행창과 포트 8765를 확인하세요.";
    status.dataset.ready="no";
+   diagnosticText.textContent="기존 PC 로컬 연결기의 검은색 창이 열려 있는지 확인하세요. API 키를 입력하거나 전송할 필요는 없습니다.";
+   diagnostic.hidden=false;
    return false;
   }
  }
+ el("chart-auth-recheck").addEventListener("click",async()=>{
+   const ready=await health();
+   if(ready&&name.value.trim())search();
+ });
  function noResults(txt){
   const e=document.createElement("p");
   e.className="chart-query-note";e.textContent=txt;
