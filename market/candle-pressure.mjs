@@ -25,5 +25,5 @@ export function candlePressure(bar){
  const direction=priceDirection==="UP"?"상승봉":priceDirection==="DOWN"?"하락봉":"보합봉";
  return {code,label,basis,priceDirection,observedTradeSide:false,
   position,upperWick:upper,lowerWick:lower,
-  warning:direction+"의 색은 가격 변화만 의미합니다. 매수·매도 체결량은 아직 수집하지 않았습니다."};
+  warning:direction+"의 색은 가격 변화만 의미합니다. 실제 매수·매도 체결 방향 및 체결량은 아직 수집하지 않았습니다."};
 }
