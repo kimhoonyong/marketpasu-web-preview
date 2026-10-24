@@ -12,6 +12,7 @@ import concurrent.futures
 import hashlib
 import json
 import pathlib
+import re
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -44,6 +45,28 @@ def safe_url(text: str | None) -> str:
     return value
 
 
+# Keep these conservative headline/content checks aligned with
+# market/news-quality.mjs. Search-query topics are NOT company identity proof.
+BAD_SOURCE = re.compile(r"naver blog|네이버\s*(?:블로그|카페|프리미엄콘텐츠)|tistory|brunch|브런치|티스토리", re.I)
+NOISE = re.compile(r"네이버\s*블로그|학교|초등학생|유아교육|가족체험|북\s*페스티벌|도서관|축제|공모전|한국PR대상|시승기|차량\s*시승|추도식|여심\s*잡기|게임\s*시나리오|메이킹\s*영상", re.I)
+ISSUER = re.compile(r"삼성전자|sk\s*하이닉스|하이닉스|솔리다임|명신산업|현대차|현대자동차|lg\s*전자|테슬라|tesla\b|엔비디아|nvidia\b|naver\b|네이버(?!\s*(?:블로그|카페|페이|프리미엄))", re.I)
+MATERIAL = re.compile(r"실적|매출|영업이익|영업률|순이익|가이던스|어닝|흑자|적자|상장|ipo\b|주가|주주|자사주|배당|공모|증자|감자|수익성|현금흐름|인수|합병|매각|투자|지분|공급|수주|납품|계약|공장|양산|생산|증설|감산|출하|판매량|마진|관세|규제|수출|시장점유율|증권사|목표가|주식|adr\b|etf\b|반도체|hbm\b|공급망|데이터센터|전기차|전망|철회|검토\s*중단", re.I)
+MARKET = re.compile(r"코스피|코스닥|국내\s*증시|한국\s*증시|주식시장|국장|미장|증시|원[/·-]달러|달러[/·-]원|환율|금리|외국인\s*(?:순매수|순매도|매수|매도|자금)|원화\s*(?:강세|약세)", re.I)
+MARKET_ACTION = re.compile(r"상승|하락|급락|급등|반등|마감|전환|폭락|회복|시장|지수|증시|주가|환율|달러|금리|매수|매도|투자|수급|거래|상폐|상장폐지|유동성|수익률|거래대금|약세|강세|전망|외국인|버블", re.I)
+PENNY_SPOT = re.compile(r"^\s*\[특징주\].*(?:상장\s*첫날|강세|급등)|코스닥\s*입성\s*\d+\s*년|정리매매\s*시작", re.I)
+
+
+def market_relevant(title: str, publisher: str) -> bool:
+    """Remove obvious off-topic search hits; never infer market cap from words."""
+    if not title or BAD_SOURCE.search(publisher) or NOISE.search(title):
+        return False
+    if ISSUER.search(title) and MATERIAL.search(title):
+        return True
+    if PENNY_SPOT.search(title):
+        return False
+    return bool(MARKET.search(title) and MARKET_ACTION.search(title))
+
+
 def parse_rss(raw: bytes, topic: str, now: dt.datetime) -> list[dict]:
     root = ET.fromstring(raw)
     if root.tag != "rss":
@@ -66,6 +89,8 @@ def parse_rss(raw: bytes, topic: str, now: dt.datetime) -> list[dict]:
         if stamp > now + dt.timedelta(minutes=10) or now - stamp > dt.timedelta(days=3):
             continue
         if not (title and link):
+            continue
+        if not market_relevant(title, source):
             continue
         records.append({
             "id": hashlib.sha256(link.encode("utf-8")).hexdigest()[:20],
@@ -232,7 +257,7 @@ def update_snapshot(now: dt.datetime | None = None) -> bool:
         "source": "google_news_rss_public",
         "snapshot_date": now.astimezone(KST).date().isoformat(),
         "updated_at": now.isoformat(),
-        "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
+        "update_note": "투자 관련 기업·시장 제목만 선별한 Google 뉴스 공개 RSS입니다. 같은 사건의 다른 보도는 화면에서 묶어 보며 재탕 여부를 확정하지 않습니다.",
         "items": enriched,
     }
     DEST.parent.mkdir(parents=True, exist_ok=True)
