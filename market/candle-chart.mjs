@@ -153,21 +153,10 @@ export function mountCandleChart(root,{kind,label}){
    value.className="chart-hover-value";value.textContent=description.value;
    const note=document.createElement("span");
    note.className="chart-hover-note";note.textContent=description.note;
-   if(description.ohlc){
-     hover.classList.add("is-ohlc");
-     const numbers=document.createElement("div");
-     numbers.className="chart-ohlc-grid";
-     for(const [key,val] of Object.entries(description.ohlc)){
-       const cell=document.createElement("div");cell.className="chart-ohlc-cell";
-       const name=document.createElement("span");name.textContent=key;
-       const amount=document.createElement("b");amount.textContent=val;
-       cell.append(name,amount);numbers.append(cell);
-     }
-     hover.append(heading,time,numbers);
-   }else{
-     hover.classList.remove("is-ohlc");
-     hover.append(heading,time,value,note);
-   }
+   // The only floating tooltips are volume and turnover. Price OHLC is
+   // handled by the separate opt-in strip before reaching this branch.
+   hover.classList.remove("is-ohlc");
+   hover.append(heading,time,value,note);
    hover.hidden=false;
    // Position after the text dimensions are known; never leave the chart area.
    const maxX=Math.max(4,area.clientWidth-hover.offsetWidth-5);
