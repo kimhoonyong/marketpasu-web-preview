@@ -93,3 +93,11 @@
 .daily-stats dt{color:#a8c4d5;font-size:14px}
 .daily-stats dd{margin:0;text-align:right;font-size:14px;color:#e4f6ef;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
 @media(max-width:580px){.daily-study{padding:12px}.daily-stats{grid-template-columns:1fr}.daily-stats dd{text-align:left;padding-bottom:7px;border-bottom:1px solid #34505d}}
+
+/* Dual-window evidence stays visually distinct from single-interval readings. */
+.cross-evidence{padding:17px;margin:20px 0;border:1px solid #5c8390;border-radius:13px;background:#102a3e}
+.cross-evidence h3{font-size:19px;color:#d5f1eb;margin:0 0 6px}
+.cross-evidence p{font-size:14px;color:#bdd2dd;line-height:1.6}
+.cross-evidence h4{font-size:17px;line-height:1.5;margin:0 0 12px;color:#f5dcac}
+.cross-evidence .flow-result{background:#14293a}
+@media(max-width:580px){.cross-evidence{padding:12px}.cross-evidence h4{font-size:16px}}
