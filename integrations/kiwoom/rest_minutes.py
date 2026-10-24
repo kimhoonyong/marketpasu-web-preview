@@ -36,6 +36,18 @@ class MarketDataError(Exception):
     """Expected, safely redacted REST or data validation failure."""
 
 
+class KiwoomTransportError(MarketDataError):
+    """Fixed, non-secret reason token. Never copy broker HTTP body or keys."""
+    REASONS=frozenset((
+        "HTTP_401","HTTP_403","HTTP_429","HTTP_5XX","HTTP_OTHER",
+        "NETWORK_OR_TIMEOUT","INVALID_JSON","PROVIDER_REJECTED",
+    ))
+
+    def __init__(self, reason):
+        self.reason=reason if reason in self.REASONS else "HTTP_OTHER"
+        super().__init__("Kiwoom REST request failed ("+self.reason+")")
+
+
 def ticker_code(value: str) -> str:
     value = value.strip().upper().removeprefix("A")
     if not re.fullmatch(r"\d{6}", value):
@@ -130,18 +142,25 @@ def request_json(base_url: str, path: str, body: dict, headers: dict,
             if len(raw) > 2_000_000:
                 raise MarketDataError("키움 응답 크기 제한을 초과했습니다.")
             response_headers = {k.lower(): v for k, v in response.headers.items()}
-    except (urllib.error.URLError, TimeoutError) as err:
-        raise MarketDataError("키움 API 통신에 실패했습니다. PC 로그인·네트워크 상태를 확인하세요.") from err
+    except urllib.error.HTTPError as err:
+        code=getattr(err,"code",0)
+        reason=("HTTP_401" if code==401 else "HTTP_403" if code==403 else
+                "HTTP_429" if code==429 else "HTTP_5XX" if 500<=code<=599 else
+                "HTTP_OTHER")
+        # Do not read, print or forward HTTP body/headers: they may include
+        # account- or token-related text.
+        raise KiwoomTransportError(reason) from None
+    except (urllib.error.URLError, TimeoutError):
+        raise KiwoomTransportError("NETWORK_OR_TIMEOUT") from None
     try:
         data = json.loads(raw)
     except (ValueError, UnicodeDecodeError) as err:
-        raise MarketDataError("키움 API 응답이 올바른 JSON이 아닙니다.") from err
+        raise KiwoomTransportError("INVALID_JSON") from None
     if not isinstance(data, dict):
         raise MarketDataError("키움 API 응답이 객체가 아닙니다.")
-    if data.get("return_code") not in (None, 0):
-        # Do not surface the server's arbitrary messages; they may echo secrets.
-        raise MarketDataError("키움 API 처리 결과를 확인해야 합니다. (코드: " +
-                              str(data["return_code"])[:12] + ")")
+    if data.get("return_code") not in (None, 0, "0"):
+        # Never forward broker return_msg or arbitrary return_code values.
+        raise KiwoomTransportError("PROVIDER_REJECTED")
     return data, response_headers
 
 
