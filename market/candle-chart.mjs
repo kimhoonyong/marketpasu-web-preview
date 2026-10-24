@@ -85,6 +85,7 @@ export function mountCandleChart(root,{kind,label}){
    windowRange=constrainRange(data.length,data.length-visible,visible);
    render();
  }
+ function resetView(){const visible=kind==="daily"?Math.min(data.length,60):Math.min(data.length,160);windowRange=constrainRange(data.length,data.length-visible,visible);render();}
  function zoom(factor,anchor=.5){windowRange=scaleWindow(data.length,windowRange,factor,anchor);render();}
  function pan(deltaPx){
    if(!data.length)return;
@@ -95,7 +96,7 @@ export function mountCandleChart(root,{kind,label}){
  }
  plus.addEventListener("click",()=>zoom(.74));
  minus.addEventListener("click",()=>zoom(1.35));
- reset.addEventListener("click",()=>setData(data));
+ reset.addEventListener("click",()=>resetView());
  expand.addEventListener("click",()=>{
    root.classList.toggle("chart-enlarged");
    expand.textContent=root.classList.contains("chart-enlarged")?"원래 크기":"크게 보기";
@@ -145,5 +146,5 @@ export function mountCandleChart(root,{kind,label}){
  if(typeof ResizeObserver!=="undefined")new ResizeObserver(render).observe(area);
  window.addEventListener("resize",render);
  render();
- return {setData,reset:()=>setData(data)};
+ return {setData,reset:resetView};
 }
