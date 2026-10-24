@@ -16,14 +16,14 @@ import time
 
 from rest_minutes import (
     KST, HOSTS, MarketDataError, default_output, get_access_token,
-    nonnegative_qty, positive_price, request_json, ticker_code,
+    nonnegative_qty, positive_price, request_json, ticker_code, exchange_stock_code,
 )
 
 API_ID="ka10081"
 RECORDS="stk_dt_pole_chart_qry"
 COLUMNS=["일자","종목코드","시가","고가","저가","종가","거래량","거래대금"]
-MAX_PAGES=2
-MAX_BARS=150
+MAX_PAGES=6
+MAX_BARS=320
 
 
 def read_daily(response:dict,ticker:str,base_date:dt.date)->list[dict]:
@@ -51,8 +51,9 @@ def read_daily(response:dict,ticker:str,base_date:dt.date)->list[dict]:
 
 
 def fetch_daily(ticker:str,asof:dt.date,token:str,*,mode="real",
-                pages=MAX_PAGES,requester=request_json,sleep=time.sleep)->list[dict]:
+                pages=MAX_PAGES,requester=request_json,sleep=time.sleep,exchange="KRX")->list[dict]:
     ticker=ticker_code(ticker)
+    provider_code=exchange_stock_code(ticker,exchange)
     if mode not in HOSTS or not token or not(1<=pages<=MAX_PAGES):
         raise MarketDataError("서버·토큰·페이지 설정이 유효하지 않습니다.")
     continuation=""
@@ -60,7 +61,7 @@ def fetch_daily(ticker:str,asof:dt.date,token:str,*,mode="real",
     rows=[]
     for page in range(pages):
         response,meta=requester(HOSTS[mode],"/api/dostk/chart",
-            {"stk_cd":ticker,"base_dt":asof.strftime("%Y%m%d"),"upd_stkpc_tp":"1"},
+            {"stk_cd":provider_code,"base_dt":asof.strftime("%Y%m%d"),"upd_stkpc_tp":"1"},
             {"authorization":"Bearer "+token,"api-id":API_ID,
              "cont-yn":"N" if page==0 else "Y","next-key":continuation})
         rows.extend(read_daily(response,ticker,asof))

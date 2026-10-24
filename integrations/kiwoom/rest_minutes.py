@@ -42,6 +42,19 @@ def ticker_code(value: str) -> str:
     return value
 
 
+# Kiwoom official ka10080 expects exchange-scoped stock codes:
+# KRX 005930 / NXT 005930_NX / SOR 005930_AL.
+# SOR is order routing, NOT proof that all venues' volumes are aggregated.
+EXCHANGE_CODES={"KRX":"","NXT":"_NX","SOR":"_AL"}
+
+
+def exchange_stock_code(ticker: str, exchange: str="KRX") -> str:
+    base=ticker_code(ticker)
+    if exchange not in EXCHANGE_CODES:
+        raise MarketDataError("지원되지 않는 거래소입니다. KRX, NXT, SOR만 선택할 수 있습니다.")
+    return base+EXCHANGE_CODES[exchange]
+
+
 def local_minute(value: str) -> str:
     """Return a time-zone-aware KST ISO minute string from Kiwoom cntr_tm."""
     if not isinstance(value, str) or not re.fullmatch(r"\d{12}(?:\d{2})?", value):
@@ -152,10 +165,11 @@ def get_access_token(base_url: str, env: dict, requester=request_json) -> str:
 
 def fetch_minute_rows(ticker: str, trading_date: dt.date, token: str,
                       *, mode="real", pages=MAX_PAGES, requester=request_json,
-                      sleep=time.sleep) -> list[dict]:
+                      sleep=time.sleep, exchange="KRX") -> list[dict]:
     if mode not in HOSTS:
         raise MarketDataError("키움 서버 유형은 real 또는 demo만 지원합니다.")
     code = ticker_code(ticker)
+    provider_code = exchange_stock_code(code, exchange)
     if not token:
         raise MarketDataError("키움 REST 액세스 토큰이 없습니다.")
     if not (1 <= pages <= MAX_PAGES):
@@ -168,7 +182,7 @@ def fetch_minute_rows(ticker: str, trading_date: dt.date, token: str,
                    "api-id": API_ID,
                    "cont-yn": "Y" if page else "N",
                    "next-key": next_key}
-        body = {"stk_cd": code, "tic_scope": "1", "upd_stkpc_tp": "1",
+        body = {"stk_cd": provider_code, "tic_scope": "1", "upd_stkpc_tp": "1",
                 "base_dt": trading_date.strftime("%Y%m%d")}
         response, meta = requester(HOSTS[mode], PATH, body, headers)
         result.extend(decode_minutes(response, code, trading_date))

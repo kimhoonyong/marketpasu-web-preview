@@ -133,8 +133,12 @@ class ChartProvider:
                 self._symbols=stock_catalog(self._token(),mode=self.mode)
                 self._symbols_until=self.clock()+SYMBOL_TTL
             return symbol_search(self._symbols,query)
-    def chart(self,code,kind,day):
+    def chart(self,code,kind,day,exchange="KRX"):
         code=ticker_code(code)
+        if exchange not in ("KRX","NXT","SOR"):
+            raise ValueError("거래소는 KRX, NXT, SOR만 지원합니다.")
+        if self.mode=="demo" and exchange!="KRX":
+            raise MarketDataError("모의투자 서버는 KRX만 지원합니다.")
         if kind not in ("daily","minute"):
             raise ValueError("chart kind must be daily or minute")
         try:
@@ -143,7 +147,7 @@ class ChartProvider:
             raise ValueError("date must be YYYY-MM-DD") from error
         if when.isoformat()!=day or when>datetime.now(KST).date():
             raise ValueError("조회일은 한국시간 오늘 또는 과거 날짜여야 합니다.")
-        key=(code,kind,day)
+        key=(code,kind,day,exchange)
         with self._lock:
             entry=self._chart_cache.get(key)
             # Minute data is refreshed at most once a minute, daily at most once
@@ -152,14 +156,22 @@ class ChartProvider:
                 return entry[1]
             token=self._token()
             if kind=="minute":
-                records=fetch_minute_rows(code,when,token,mode=self.mode,pages=3)
+                records=fetch_minute_rows(code,when,token,mode=self.mode,pages=3,exchange=exchange)
                 data=normalize_minute_rows(records)
             else:
-                records=fetch_daily(code,when,token,mode=self.mode,pages=2)
+                records=fetch_daily(code,when,token,mode=self.mode,pages=6,exchange=exchange)
                 data=normalize_daily_rows(records)
-            result={"code":code,"kind":kind,"asOf":day,"market":"KRX",
+            # SOR (_AL) is a Kiwoom trading-route code. Neither this API nor
+            # a successful request proves a complete KRX+NXT summed tape.
+            if not data:
+                raise MarketDataError("선택 거래소의 해당 날짜 시세가 없습니다.")
+            note=("키움 SOR(_AL) 조회자료입니다. KRX+NXT 통합 거래량으로 검증되지 않았습니다."
+                  if exchange=="SOR" else
+                  "선택 거래소의 키움 조회자료입니다. 다른 거래소 거래량은 포함되지 않을 수 있습니다.")
+            result={"code":code,"kind":kind,"asOf":day,"market":exchange,
                     "bars":data,"count":len(data),"source":"Kiwoom REST",
-                    "note":"체결 주체별 순매수가 아닙니다. KRX 차트 조회자료이며 NXT/SOR 미포함."}
+                    "aggregationVerified":False,
+                    "note":note+" 체결주체별 순매수 자료가 아닙니다."}
             self._chart_cache[key]=(self.clock(),result)
             if len(self._chart_cache)>40:
                 oldest=min(self._chart_cache,key=lambda k:self._chart_cache[k][0])
@@ -228,7 +240,8 @@ def handler_factory(provider):
                     code=args.get("code",[""])[0]
                     kind=args.get("kind",[""])[0]
                     day=args.get("date",[""])[0]
-                    self._response(provider.chart(code,kind,day))
+                    exchange=args.get("exchange",["KRX"])[0]
+                    self._response(provider.chart(code,kind,day,exchange=exchange))
                     return
                 self._response({"error":"알 수 없는 요청입니다."},404)
             except (ValueError,MarketDataError):

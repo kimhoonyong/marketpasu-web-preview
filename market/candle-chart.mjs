@@ -1,4 +1,5 @@
 import {checkedBars,constrainRange,scaleWindow,formatNumber} from "./chart-model.mjs";
+import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -10,6 +11,33 @@ export function mountCandleChart(root,{kind,label}){
  const minus=root.querySelector(".chart-minus");
  const reset=root.querySelector(".chart-reset");
  let data=[],windowRange={start:0,count:0},pointers=new Map(),dragX=null,pinch=null;
+ let maValues=new Map(),enabled=new Set(MA_PERIODS);
+ const controls=document.createElement("div");controls.className="chart-ma-controls";
+ controls.setAttribute("role","group");controls.setAttribute("aria-label",label+" 이동평균선 표시");
+ const labels=new Map();
+ for(const period of MA_PERIODS){
+   const btn=document.createElement("button");btn.type="button";
+   btn.className="chart-ma-switch"+(period===20||period===240?" emphasized":"");
+   btn.dataset.period=String(period);btn.setAttribute("aria-pressed","true");
+   const swatch=document.createElement("span");swatch.className="ma-color";
+   swatch.style.backgroundColor=MA_STYLE[period].color;
+   const txt=document.createElement("span");txt.textContent=String(period)+(kind==="daily"?"일":"분");
+   btn.append(swatch,txt);controls.append(btn);labels.set(period,btn);
+   btn.addEventListener("click",()=>{
+     if(!maValues.get(period)?.some(v=>v!==null))return;
+     if(enabled.has(period))enabled.delete(period);else enabled.add(period);
+     updateButtons();render();
+   });
+ }
+ root.querySelector(".chart-head").after(controls);
+ function updateButtons(){
+   for(const period of MA_PERIODS){
+     const button=labels.get(period),available=data.length>=period;
+     button.disabled=!available;
+     button.setAttribute("aria-pressed",String(enabled.has(period)&&available));
+     button.title=available?"종가 "+period+"봉 단순이동평균선":"계산에 "+period+"개 봉 필요 (현재 "+data.length+"개)";
+   }
+ }
  const colors={up:"#fa666b",down:"#6cb5ff",grid:"#36506a",text:"#afc4d5",wick:"#b4bfc9"};
  const info=(txt)=>{detail.textContent=txt;};
  const heightFor=()=>root.classList.contains("chart-enlarged")?Math.max(420,Math.min(window.innerHeight-190,770)):310;
@@ -36,6 +64,14 @@ export function mountCandleChart(root,{kind,label}){
   const left=58,right=65,top=20,priceBottom=Math.round(h*.72),volTop=priceBottom+22,volBottom=h-34;
   const graphWidth=w-left-right,each=graphWidth/visible.length;
   let low=Math.min(...visible.map(v=>v.low)),high=Math.max(...visible.map(v=>v.high));
+  for(const period of enabled){
+    const values=maValues.get(period);
+    if(!values)continue;
+    for(let k=windowRange.start;k<windowRange.start+visible.length;k++){
+      const v=values[k];
+      if(v!==null&&Number.isFinite(v)){low=Math.min(low,v);high=Math.max(high,v);}
+    }
+  }
   const pad=(high-low||high*.02)*.08;
   low-=pad;high+=pad;
   const yp=price=>priceBottom-(price-low)/(high-low)*(priceBottom-top);
@@ -62,6 +98,29 @@ export function mountCandleChart(root,{kind,label}){
    const vy=volBottom-v.volume/volumeMax*(volBottom-volTop);
    ctx.fillRect(x-bodyWidth/2,vy,bodyWidth,Math.max(1,volBottom-vy));
   }
+  // Paint MA lines over candles; use the FULL history, not the zoomed slice.
+  // The 20/240 lines are deliberately thicker for quick recognition.
+  ctx.save();
+  ctx.beginPath();ctx.rect(left,top,graphWidth,priceBottom-top);ctx.clip();
+  for(const period of MA_PERIODS){
+    if(!enabled.has(period))continue;
+    const values=maValues.get(period);
+    if(!values)continue;
+    ctx.strokeStyle=MA_STYLE[period].color;
+    ctx.lineWidth=MA_STYLE[period].width;
+    ctx.lineJoin="round";ctx.lineCap="round";
+    ctx.beginPath();
+    let started=false;
+    for(let j=0;j<visible.length;j++){
+      const v=values[windowRange.start+j];
+      if(v===null||!Number.isFinite(v)){started=false;continue;}
+      const x=left+each*(j+.5),y=yp(v);
+      if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+  ctx.lineWidth=1;
   ctx.strokeStyle=colors.grid;
   ctx.beginPath();ctx.moveTo(left,priceBottom+10);ctx.lineTo(w-right,priceBottom+10);ctx.stroke();
   ctx.fillStyle=colors.text;
@@ -81,6 +140,8 @@ export function mountCandleChart(root,{kind,label}){
  }
  function setData(rows){
    data=checkedBars(rows,kind);
+   maValues=movingAverages(data);
+   updateButtons();
    const visible=kind==="daily"?Math.min(data.length,60):Math.min(data.length,160);
    windowRange=constrainRange(data.length,data.length-visible,visible);
    render();
@@ -145,6 +206,6 @@ export function mountCandleChart(root,{kind,label}){
  canvas.addEventListener("lostpointercapture",end);
  if(typeof ResizeObserver!=="undefined")new ResizeObserver(render).observe(area);
  window.addEventListener("resize",render);
- render();
+ updateButtons();render();
  return {setData,reset:resetView};
 }
