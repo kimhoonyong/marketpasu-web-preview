@@ -243,6 +243,8 @@ export function setupAutoCharts(){
     if(kind==="minute"){minuteRaw=[];minuteHistory=null;}
     chart.setData([]);
     state.textContent=safeErr(error);
+    diagnostic.hidden=false;
+    diagnosticText.textContent="차트 API 요청이 실패했습니다. 위의 '키움 실제 API 진단' 버튼으로 토큰과 종목목록 연결부터 확인할 수 있습니다.";
    }
   }));
  }
