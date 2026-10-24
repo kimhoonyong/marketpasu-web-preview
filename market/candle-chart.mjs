@@ -2,6 +2,7 @@ import {checkedBars,constrainRange,scaleWindow,formatNumber} from "./chart-model
 import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {panelAt,hoveredBarIndex,describeBarHover} from "./chart-hover.mjs";
+import {candlePressure} from "./candle-pressure.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -13,7 +14,7 @@ export function mountCandleChart(root,{kind,label}){
  const minus=root.querySelector(".chart-minus");
  const reset=root.querySelector(".chart-reset");
  let data=[],windowRange={start:0,count:0},pointers=new Map(),dragX=null,pinch=null;
- let maValues=new Map(),enabled=new Set(MA_PERIODS);
+ let maValues=new Map(),enabled=new Set(MA_PERIODS),showPressure=true;
  const controls=document.createElement("div");controls.className="chart-ma-controls";
  controls.setAttribute("role","group");controls.setAttribute("aria-label",label+" 이동평균선 표시");
  const labels=new Map();
@@ -31,6 +32,20 @@ export function mountCandleChart(root,{kind,label}){
      updateButtons();render();
    });
  }
+ // Separate from the candle's up/down color: this row depicts price-action
+ // clues only. Never label unobserved 0B trades as actual buys/sells.
+ const pressureToggle=document.createElement("button");
+ pressureToggle.type="button";pressureToggle.className="chart-pressure-toggle";
+ pressureToggle.setAttribute("aria-pressed","true");
+ pressureToggle.textContent="가격압력 추정 ●";
+ pressureToggle.title="빨강=고가권 종가/매수압력 추정, 파랑=저가권 종가/매도압력 추정. 실제 매수·매도 체결 방향 아님.";
+ pressureToggle.addEventListener("click",()=>{
+   showPressure=!showPressure;
+   pressureToggle.setAttribute("aria-pressed",String(showPressure));
+   pressureToggle.textContent=showPressure?"가격압력 추정 ●":"가격압력 추정 끔";
+   render();
+ });
+ controls.append(pressureToggle);
  root.querySelector(".chart-head").after(controls);
  function updateButtons(){
    for(const period of MA_PERIODS){
@@ -87,6 +102,7 @@ export function mountCandleChart(root,{kind,label}){
  function inspect(index){
    const b=data[index];if(!b||!insights)return;
    const a=barAnalytics(b,{kind});
+   const clue=candlePressure(b);
    const time=b.date.replace("T"," ").slice(0,kind==="daily"?10:16);
    const money=kind==="daily"?
      (a.turnoverWon!==null?"거래대금 (키움 일봉 제공): "+compactWon(a.turnoverWon):
@@ -99,8 +115,8 @@ export function mountCandleChart(root,{kind,label}){
    insights.querySelector(".insights-average").textContent=avg+
       " · 거래량 "+formatNumber(b.volume)+"주";
    insights.querySelector(".insights-pressure").textContent=
-     "종가 위치: "+a.pricePressure+
-     " · 양봉/음봉은 실제 매수·매도 우위가 아님 · 체결 방향별 데이터 미제공"+
+     "봉별 "+clue.label+" ("+clue.basis+")"+
+     " · 실제 매수·매도 체결 방향은 0B 체결데이터 미수집으로 확인 불가"+
      (b.partial?" · 이 시간 구간의 1분봉 표본이 일부만 있음":"");
  }
 
@@ -173,6 +189,18 @@ export function mountCandleChart(root,{kind,label}){
      ctx.fillRect(x-bodyWidth/2,my,bodyWidth,Math.max(1,moneyBottom-my));
      ctx.globalAlpha=1;
    }
+  }
+  // Price-action markers have a dedicated strip INSIDE the price pane;
+  // do not recolor the candlesticks as actual buyer/seller initiative.
+  if(showPressure){
+    for(let i=0;i<visible.length;i++){
+      const clue=candlePressure(visible[i]);
+      if(clue.code==="NEUTRAL"||clue.code==="UNKNOWN")continue;
+      ctx.fillStyle=clue.code==="BUY_PRESSURE_CLUE"?"#fa666b":"#6cb5ff";
+      const x=left+each*(i+.5);
+      ctx.fillRect(x-Math.min(9,Math.max(1,each*.33)),priceBottom-8,
+        Math.max(2,Math.min(18,each*.66)),4);
+    }
   }
   // Paint MA lines over candles; use the FULL history, not the zoomed slice.
   // The 20/240 lines are deliberately thicker for quick recognition.
