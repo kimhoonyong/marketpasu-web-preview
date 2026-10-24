@@ -1,4 +1,6 @@
 import {parseMinuteBarCsv} from "./minute-csv.mjs";
+import {parseDailyBarCsv} from "./daily-csv.mjs";
+import {assessMultiweekSupport} from "./daily-support.mjs";
 import {assessNewsAccumulationEvidence} from "./accumulation-evidence.mjs";
 import {suggestStockFromTitle,stockKey} from "./stock-hints.mjs";
 import {saveImportedMinuteBars,findSavedBars,removeSavedBars} from "./local-bar-store.mjs";
@@ -210,6 +212,82 @@ export function setupFlowAnalyzer(){
         cacheStatus.textContent="분봉 저장 실패. 분석 결과에는 영향을 주지 않습니다: "+String(error?.message||"오류");
       });
     }
+  });
+
+  const dailyFile=el("daily-file"),dailyPaste=el("daily-paste"),dailyResult=el("daily-result");
+  dailyFile.addEventListener("change",async()=>{
+    const input=dailyFile.files?.[0];
+    if(!input)return;
+    if(input.size>1_000_000){
+      dailyResult.replaceChildren(elem("p","flow-error","일봉 CSV는 1MB 이하만 선택하세요."));
+      return;
+    }
+    try{
+      const raw=await input.arrayBuffer();
+      let text;
+      try{text=new TextDecoder("utf-8",{fatal:true}).decode(raw);}
+      catch{text=new TextDecoder("euc-kr",{fatal:true}).decode(raw);}
+      dailyPaste.value=text;
+      dailyResult.replaceChildren(elem("p","flow-note","일봉 데이터를 이 브라우저에 불러왔습니다. 서버로 전송하지 않습니다."));
+    }catch{
+      dailyResult.replaceChildren(elem("p","flow-error","일봉 CSV 인코딩을 확인하거나 내용을 직접 붙여넣으세요."));
+    }
+  });
+  el("daily-form").addEventListener("submit",event=>{
+    event.preventDefault();
+    const article=chosenArticle();
+    const code=stockKey(ticker.value);
+    if(!article||!code||!confirmed.checked){
+      dailyResult.replaceChildren(elem("p","flow-error","뉴스와 종목코드가 일치하는지 확인하고 체크해 주세요."));
+      return;
+    }
+    let parsed;
+    try{parsed=parseDailyBarCsv(dailyPaste.value,{ticker:code});}
+    catch(error){
+      dailyResult.replaceChildren(elem("p","flow-error","일봉 CSV 오류: "+String(error?.message||error)));
+      return;
+    }
+    const analysis=assessMultiweekSupport({
+      publishedAt:article.published,bars:parsed.bars,
+      matchedStock:true,
+      adjustmentsVerified:el("daily-adjusted").checked,
+      earliestSourceVerified:false,
+      lookback:60
+    });
+    const titles={
+      NOT_ASSESSABLE:"분석 보류 — 일봉 또는 종목 확인 필요",
+      ADJUSTMENT_CHECK_REQUIRED:"수정주가 연속성 확인 필요 — 참고용 수치만 표시",
+      NEWS_ORIGIN_UNVERIFIED:"최초 보도시각 미확인 — 과거 가격 패턴만 관측",
+      REPEATED_SUPPORT_OBSERVED:"뉴스 이전 반복 지지·반등 패턴 관측",
+      NO_REPEATED_SUPPORT_DETECTED:"설정한 기준의 반복 지지 패턴 미검출"
+    };
+    const wrap=elem("div");
+    wrap.append(elem("h3","",titles[analysis.status]||"일봉 분석 결과"));
+    const metrics=analysis.metrics||{};
+    wrap.append(elem("p","flow-caption",
+      "종목 "+code+" · "+(metrics.priorTradingDays??0)+"거래일 · 분석 대상 "+(metrics.firstDate||"미확인")+
+      " ~ "+(metrics.lastDate||"미확인")+" · 뉴스 당일 제외"));
+    if(metrics.referenceSupport!==undefined){
+      const dl=elem("dl","daily-stats");
+      const items=[
+        ["기준 가격대",metrics.supportZoneLow+" ~ "+metrics.supportZoneHigh],
+        ["가격대 재접근",metrics.retestCount+"회"],
+        ["이후 확인된 반등",metrics.reboundCount+"회"],
+        ["접근 거래일",(metrics.retestDates||[]).join(", ")||"없음"],
+        ["이전 대비 최근 거래대금",metrics.recentVsEarlierTurnoverRatio===null?"미제공":metrics.recentVsEarlierTurnoverRatio+"배"],
+        ["이전 대비 최근 거래량",metrics.recentVsEarlierVolumeRatio===null?"미제공":metrics.recentVsEarlierVolumeRatio+"배"]
+      ];
+      for(const [k,v] of items){dl.append(elem("dt","",k),elem("dd","",String(v)));}
+      wrap.append(dl);
+    }
+    if(analysis.signals.length){
+      const ul=elem("ul","flow-signals");
+      for(const signal of analysis.signals)ul.append(elem("li","",signal.description));
+      wrap.append(ul);
+    }
+    for(const note of analysis.notes)wrap.append(elem("p","flow-note",note));
+    wrap.append(elem("p","flow-warning",analysis.disclaimer));
+    dailyResult.replaceChildren(wrap);
   });
   return {setArticles,selectArticle};
 }

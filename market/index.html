@@ -63,6 +63,22 @@
           <p id="flow-cache-status" class="flow-cache-status" role="status">저장된 분봉은 아직 불러오지 않았습니다. 저장 기능은 기기별로 작동하며 외부 서버에는 전송하지 않습니다.</p>
           <button class="flow-run" type="submit">뉴스 전후 수급 비교하기</button>
         </form>
+        <section class="daily-study" aria-labelledby="daily-study-title">
+          <h3 id="daily-study-title">뉴스 이전 몇 주간의 일봉 · 가격대 방어 분석</h3>
+          <p>선택된 기사와 같은 종목의 <strong>최근 최대 60거래일</strong>을 분석합니다. 뉴스 당일과 이후 일봉은 포함하지 않습니다. 과거 가격대에 반복적으로 접근한 뒤 다시 반등했는지 확인합니다.</p>
+          <form id="daily-form" class="flow-form">
+            <label for="daily-file"><strong>키움 일봉 CSV (ka10081) 선택</strong>
+              <input id="daily-file" type="file" accept=".csv,text/csv">
+            </label>
+            <label for="daily-paste"><strong>또는 일봉 CSV 붙여넣기</strong>
+              <textarea id="daily-paste" rows="4" spellcheck="false" placeholder="일자,종목코드,시가,고가,저가,종가,거래량,거래대금"></textarea>
+            </label>
+            <label class="flow-check"><input id="daily-adjusted" type="checkbox"> 데이터의 수정주가 연속성 및 주식분할·권리락 여부를 확인했습니다. (미확인 시 해석 보류)</label>
+            <button class="flow-run" type="submit">뉴스 이전 20~60거래일 분석하기</button>
+          </form>
+          <div id="daily-result" class="flow-result" aria-live="polite">일봉 자료가 없습니다. 키움 일봉 CSV를 선택하면 뉴스 이전 수급 흔적을 검토할 수 있습니다.</div>
+          <p class="flow-note">일봉은 어느 투자자가 실제 주식을 매수했는지 보여주지 않습니다. 가격대 방어가 보이더라도 사전 정보 이용이나 시세조종으로 단정하지 않습니다. 기준 가격대는 이전 구간에서 설정하고 이후 구간에서 재검증합니다.</p>
+        </section>
         <details class="flow-example">
           <summary>CSV 예시와 데이터 기준 보기</summary>
           <pre>일시,종목코드,시가,고가,저가,종가,거래량,거래대금,매수주도체결량,매도주도체결량
