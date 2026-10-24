@@ -146,8 +146,8 @@ export function mountCandleChart(root,{kind,label}){
    insights.querySelector(".insights-average").textContent=avg+
       " · 거래량 "+formatNumber(b.volume)+"주";
    insights.querySelector(".insights-pressure").textContent=
-     "봉별 "+clue.label+" ("+clue.basis+")"+
-     " · 실제 매수·매도 체결 방향은 0B 체결데이터 미수집으로 확인 불가"+
+     "가격압력 참고: "+clue.label+
+     " · 실제 매수·매도 체결자료 없음"+
      (b.partial?" · 이 시간 구간의 1분봉 표본이 일부만 있음":"");
  }
 
