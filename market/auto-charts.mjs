@@ -2,6 +2,7 @@ import {mountCandleChart} from "./candle-chart.mjs";
 import {minuteTimeframe,MINUTE_PERIODS} from "./bar-analytics.mjs";
 import {localAuthExplanation} from "./local-auth-status.mjs";
 import {explainLiveKiwoom} from "./live-kiwoom-diagnostic.mjs";
+import {localApiCompatibility,localApiHelp} from "./local-api-protocol.mjs";
 
 const BASE="http://127.0.0.1:8765";
 function el(id){return document.getElementById(id);}
@@ -26,12 +27,14 @@ async function localJson(path,{timeout=14000}={}){
     const error=new Error(body?.error||"로컬 키움 서비스 조회 실패");
     error.stage=body?.stage;
     error.reason=body?.reason;
+    error.httpStatus=response.status;
     throw error;
   }
   return body;
  }finally{clearTimeout(timer);}
 }
 function safeErr(err){
+ if(err?.httpStatus===404)return "PC 로컬 조회기의 요청 경로가 현재 마켓파수 웹과 일치하지 않습니다. 기존 검은색 연결기를 종료하고 새 버전을 실행하세요.";
  if(err?.stage&&err?.reason)
    return "키움 데이터 조회 실패: "+explainLiveKiwoom("FAILED",err.stage,err.reason).text;
  return err?.name==="AbortError"?"키움 조회가 시간 초과됐습니다. PC 인증 또는 네트워크 상태를 확인하세요.":
@@ -58,7 +61,7 @@ export function setupAutoCharts(){
  });
  date.value=koreaDay();
  date.max=isoKstToday();
- let chosen=null,searchId=0,chartId=0,timer=null,exchange="KRX";
+ let chosen=null,searchId=0,chartId=0,timer=null,exchange="KRX",localProtocolReady=false;
  let minuteRaw=[],period=1,minuteHistory=null;
  const minuteChoice=el("chart-minute-period");
  const minuteHeading=el("chart-minute-label");
@@ -108,9 +111,13 @@ export function setupAutoCharts(){
  const liveButton=el("chart-live-diagnose");
  liveButton.addEventListener("click",async()=>{
    liveResult.hidden=false;
-   liveResult.textContent="기존 인증으로 키움 서버의 종목목록을 1회 조회하고 있습니다…";
    liveButton.disabled=true;
    try{
+     if(!await health()){
+       liveResult.textContent="PC 연결기 버전·기존 인증 상태를 먼저 확인하세요.";
+       return;
+     }
+     liveResult.textContent="기존 인증으로 키움 서버의 종목목록을 1회 조회하고 있습니다…";
      const data=await localJson("/diagnose",{timeout:24000});
      liveResult.textContent=explainLiveKiwoom(data.state,data.stage,data.reason).text;
    }catch(error){
@@ -122,6 +129,17 @@ export function setupAutoCharts(){
  async function health(){
   try{
    const d=await localJson("/health",{timeout:1800});
+   const compatibility=localApiCompatibility(d);
+   localProtocolReady=compatibility.compatible;
+   if(!compatibility.compatible){
+     status.textContent="PC 키움 연결기 버전 불일치 · 기존 연결기 교체 필요";
+     status.dataset.ready="no";
+     diagnosticText.textContent=localApiHelp(compatibility.reason);
+     diagnostic.hidden=false;
+     liveButton.disabled=true;
+     return false;
+   }
+   liveButton.disabled=false;
    const explanation=localAuthExplanation(d.authConfigured===true,d.authStatus);
    status.textContent=explanation.heading;
    status.dataset.ready=d.authConfigured===true?"yes":"no";
@@ -133,6 +151,7 @@ export function setupAutoCharts(){
    }
    return d.authConfigured===true;
   }catch{
+   localProtocolReady=false;
    status.textContent="PC 키움 로컬 조회 서비스에 연결하지 못했습니다. 실행창과 포트 8765를 확인하세요.";
    status.dataset.ready="no";
    diagnosticText.textContent="기존 PC 로컬 연결기의 검은색 창이 열려 있는지 확인하세요. API 키를 입력하거나 전송할 필요는 없습니다.";
@@ -159,6 +178,12 @@ export function setupAutoCharts(){
   if(query.length<1){results.replaceChildren();return;}
   noResults("종목명을 조회 중입니다…");
   try{
+   // A previous local process can still answer /health successfully while
+   // lacking the /symbols route. Never confuse that with broker rejection.
+   if(!localProtocolReady && !await health()){
+     if(version===searchId)noResults("PC 연결기 버전 또는 인증을 먼저 확인하세요. 위의 안내를 확인해 주세요.");
+     return;
+   }
    const response=await localJson("/symbols?q="+encodeURIComponent(query),{timeout:16000});
    if(version!==searchId)return;
    results.replaceChildren();
@@ -190,6 +215,7 @@ export function setupAutoCharts(){
  }
  async function loadCharts(){
   if(!chosen)return;
+  if(!localProtocolReady && !await health())return;
   const version=++chartId;
   const selectedDay=date.value;
   if(!/^\d{4}-\d\d-\d\d$/.test(selectedDay))return;
