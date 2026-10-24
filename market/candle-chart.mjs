@@ -1,6 +1,7 @@
 import {checkedBars,constrainRange,scaleWindow,formatNumber} from "./chart-model.mjs";
 import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
+import {panelAt,hoveredBarIndex,describeBarHover} from "./chart-hover.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -41,6 +42,46 @@ export function mountCandleChart(root,{kind,label}){
  }
  const colors={up:"#fa666b",down:"#6cb5ff",grid:"#36506a",text:"#afc4d5",wick:"#b4bfc9"};
  const info=(txt)=>{detail.textContent=txt;};
+ // Read-only tooltip overlays the graph: no new Kiwoom request on pointer moves.
+ const hover=document.createElement("div");
+ hover.className="chart-hover-tooltip";
+ hover.hidden=true;
+ hover.setAttribute("role","status");
+ hover.setAttribute("aria-live","off");
+ const guide=document.createElement("div");
+ guide.className="chart-hover-guide";guide.hidden=true;
+ guide.setAttribute("aria-hidden","true");
+ area.append(guide,hover);
+ function hideHover(){
+   hover.hidden=true;guide.hidden=true;
+ }
+ function showHover(index,pane,x,y){
+   const record=data[index];
+   const description=describeBarHover(record,kind,pane);
+   if(!description){hideHover();return;}
+   hover.replaceChildren();
+   const heading=document.createElement("strong");
+   heading.textContent=description.heading;
+   const time=document.createElement("span");
+   time.className="chart-hover-time";time.textContent=description.time;
+   const value=document.createElement("b");
+   value.className="chart-hover-value";value.textContent=description.value;
+   const note=document.createElement("span");
+   note.className="chart-hover-note";note.textContent=description.note;
+   hover.append(heading,time,value,note);
+   hover.hidden=false;
+   // Position after the text dimensions are known; never leave the chart area.
+   const maxX=Math.max(4,area.clientWidth-hover.offsetWidth-5);
+   const maxY=Math.max(4,canvas.clientHeight-hover.offsetHeight-5);
+   hover.style.left=Math.max(4,Math.min(maxX,x+15))+"px";
+   hover.style.top=Math.max(4,Math.min(maxY,y-hover.offsetHeight-12))+"px";
+   const rect=canvas.getBoundingClientRect();
+   const count=windowRange.count;
+   guide.style.left=(68+(index-windowRange.start+.5)*(rect.width-68-75)/count)+"px";
+   guide.style.top="20px";guide.style.height=(rect.height-53)+"px";
+   guide.hidden=false;
+ }
+
  let activeIndex=null;
  const insights=root.querySelector(".bar-insights");
  function inspect(index){
@@ -65,6 +106,7 @@ export function mountCandleChart(root,{kind,label}){
 
  const heightFor=()=>root.classList.contains("chart-enlarged")?Math.max(480,Math.min(window.innerHeight-205,790)):460;
  function render(){
+  hideHover();
   const rect=area.getBoundingClientRect();
   const w=Math.max(300,Math.round(rect.width||600)),h=heightFor();
   const dpr=Math.min(2,window.devicePixelRatio||1);
@@ -225,7 +267,14 @@ export function mountCandleChart(root,{kind,label}){
     const frac=Math.max(0,Math.min(1,(e.clientX-r.left-left)/Math.max(1,r.width-left-right)));
     activeIndex=Math.min(data.length-1,windowRange.start+Math.floor(frac*windowRange.count));
     inspect(activeIndex);
-  }
+    const pane=panelAt(e.clientY-r.top,r.height);
+    const hovered=hoveredBarIndex(e.clientX-r.left,r.width,windowRange);
+    if(pane&&hovered!==null&&pointers.size===0&&e.pointerType!=="touch"){
+      showHover(hovered,pane,e.clientX-r.left,e.clientY-r.top);
+    }else if(pointers.size===0){
+      hideHover();
+    }
+  }else hideHover();
   if(!pointers.has(e.pointerId))return;
   const old=pointers.get(e.pointerId);
   pointers.set(e.pointerId,e.clientX);
@@ -248,8 +297,37 @@ export function mountCandleChart(root,{kind,label}){
   pinch=null;dragX=null;
  }
  canvas.addEventListener("pointerup",end);
- canvas.addEventListener("pointercancel",end);
+ canvas.addEventListener("pointercancel",e=>{end(e);hideHover();});
  canvas.addEventListener("lostpointercapture",end);
+ canvas.addEventListener("pointerleave",hideHover);
+ canvas.addEventListener("pointerdown",e=>{
+   if(e.pointerType!=="touch"||pointers.size!==1)return;
+   const r=canvas.getBoundingClientRect();
+   const pane=panelAt(e.clientY-r.top,r.height);
+   const index=hoveredBarIndex(e.clientX-r.left,r.width,windowRange);
+   if(pane&&index!==null)showHover(index,pane,e.clientX-r.left,e.clientY-r.top);
+ });
+ // Keyboard users can move across bars and choose the volume/money pane.
+ canvas.tabIndex=0;
+ canvas.setAttribute("aria-label",(kind==="daily"?"일봉":"분봉")+
+   " 차트. 좌우 방향키로 봉 선택, 위아래 방향키로 거래량·거래대금 전환.");
+ let keyboardPane="volume";
+ canvas.addEventListener("keydown",e=>{
+   if(!data.length||!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Escape"].includes(e.key))return;
+   e.preventDefault();
+   if(e.key==="Escape"){hideHover();return;}
+   if(e.key==="ArrowDown")keyboardPane="turnover";
+   if(e.key==="ArrowUp")keyboardPane="volume";
+   if(activeIndex===null)activeIndex=windowRange.start+windowRange.count-1;
+   if(e.key==="ArrowLeft")activeIndex=Math.max(windowRange.start,activeIndex-1);
+   if(e.key==="ArrowRight")activeIndex=Math.min(windowRange.start+windowRange.count-1,activeIndex+1);
+   const w=canvas.getBoundingClientRect().width,h=canvas.getBoundingClientRect().height;
+   const x=68+(activeIndex-windowRange.start+.5)*(w-68-75)/windowRange.count;
+   const y=keyboardPane==="volume"?Math.round(h*.69):Math.round(h*.85);
+   showHover(activeIndex,keyboardPane,x,y);
+   inspect(activeIndex);
+ });
+ canvas.addEventListener("blur",hideHover);
  if(typeof ResizeObserver!=="undefined")new ResizeObserver(render).observe(area);
  window.addEventListener("resize",render);
  updateButtons();render();
