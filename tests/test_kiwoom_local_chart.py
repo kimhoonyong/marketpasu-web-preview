@@ -100,6 +100,14 @@ class LocalChartTests(unittest.TestCase):
             self.assertEqual(send("https://evil.example","/symbols?q=abc")[0],403)
             self.assertEqual(send(mod.ALLOWED_ORIGIN,"/symbols?q=%EC%82%BC%EC%84%B1")[0],200)
             self.assertEqual(send(mod.ALLOWED_ORIGIN,"/health")[0],200)
+            health=json.loads(send(mod.ALLOWED_ORIGIN,"/health")[1])
+            self.assertEqual(health["protocol"],"marketpasu-local-v3")
+            self.assertEqual(health["protocolVersion"],3)
+            self.assertIn("symbols",health["routes"])
+            self.assertIn("diagnose",health["routes"])
+            old=send(mod.ALLOWED_ORIGIN,"/unregistered-route")
+            self.assertEqual(old[0],404)
+            self.assertEqual(json.loads(old[1])["error"],"알 수 없는 요청입니다.")
             self.assertEqual(send(mod.ALLOWED_ORIGIN,"/chart?code=005930&kind=daily&date=2026-10-22","POST")[0],405)
             self.assertEqual(send(mod.ALLOWED_ORIGIN,"/symbols?q=test","OPTIONS",{
                 "Access-Control-Request-Method":"GET",
