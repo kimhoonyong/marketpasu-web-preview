@@ -1,3 +1,4 @@
+import {highConfidenceEventKey} from "./news-quality.mjs";
 // Pure UI helpers. This file does not call a server or touch browser storage.
 export function normalizedHeadline(value) {
   return String(value ?? "").normalize("NFKC").trim()
@@ -77,6 +78,19 @@ function relatedSameEvent(a,b) {
   if(!Number.isFinite(aTime)||!Number.isFinite(bTime)||
     Math.abs(aTime-bTime)>36*60*60*1000)return false;
 
+  // Never hide an opposite IPO decision merely because the issuer and
+  // company event terms overlap (withdrawal versus new listing plan).
+  const ipoSubject=/(솔리다임)/i.test(a.title)&&/(솔리다임)/i.test(b.title)&&
+    /(IPO|상장)/i.test(a.title)&&/(IPO|상장)/i.test(b.title);
+  const withdraw=/(철회|중단|접었|접은|접어|포기)/i;
+  const proceed=/(추진|진행|재개|확정|상장s*계획)/i;
+  if(ipoSubject&&((withdraw.test(a.title)&&proceed.test(b.title)&&!withdraw.test(b.title))||
+    (withdraw.test(b.title)&&proceed.test(a.title)&&!withdraw.test(a.title))))return false;
+  // A high-confidence named corporate event remains the same story even when
+  // headlines emphasize different implications (ADR move, capital strategy).
+  const keyA=highConfidenceEventKey(a),keyB=highConfidenceEventKey(b);
+  if(keyA && keyA===keyB)return true;
+
   const numbersA=numericClaims(a.title);
   const numbersB=numericClaims(b.title);
   // Contradictory figures usually mean a different report or time snapshot.
@@ -91,7 +105,7 @@ export function groupRelatedReports(rows) {
   if(!Array.isArray(rows))return [];
   const groups=[];
   for(const item of rows) {
-    const group=groups.find(list=>list.length<8 && list.some(other=>relatedSameEvent(item,other)));
+    const group=groups.find(list=>list.length<12 && relatedSameEvent(item,list[0]));
     if(group)group.push(item);
     else groups.push([item]);
   }

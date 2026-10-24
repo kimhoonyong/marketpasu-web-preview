@@ -88,6 +88,31 @@ class PublicNewsTests(unittest.TestCase):
         self.assertNotIn("old", later["records"])
         self.assertIn("new", later["records"])
 
+    def test_discard_unrelated_naver_blog_and_social_articles(self):
+        self.assertFalse(mod.market_relevant("어린이 가족체험 행사 : 네이버 블로그","Naver Blog"))
+        self.assertFalse(mod.market_relevant("[시승기] 현대차 SUV 체험기","뉴스"))
+        self.assertFalse(mod.market_relevant("명신산업 대상 아닌 일반 행사","Naver Blog"))
+
+    def test_reject_blog_at_ingestion_even_if_search_topic_is_naver(self):
+        text=rss(title="교육도서관 북 페스티벌 : 네이버 블로그")
+        self.assertEqual(mod.parse_rss(text,"NAVER",NOW),[])
+
+    def test_keep_material_company_news(self):
+        for title in ["SK하이닉스 솔리다임 IPO 철회",
+                      "명신산업 테슬라 납품 계약 체결",
+                      "삼성전자 실적 개선",
+                      "엔비디아 반도체 투자 확대"]:
+            self.assertTrue(mod.market_relevant(title,"연합뉴스"),title)
+
+    def test_keep_market_macro_but_not_small_cap_listing_spikes(self):
+        self.assertTrue(mod.market_relevant("원/달러 환율 급등","연합뉴스"))
+        self.assertTrue(mod.market_relevant("코스피 외국인 매도 속 반등 마감","연합뉴스"))
+        self.assertFalse(mod.market_relevant("[특징주] 디티에스 코스닥 상장 첫날 35% 강세 마감","연합뉴스"))
+
+    def test_rss_search_topic_does_not_count_as_stock_ticker_match(self):
+        self.assertFalse(mod.market_relevant("삼성전자와 무관한 초등학생 캠프","Naver Blog"))
+        self.assertTrue(mod.market_relevant("SK하이닉스 솔리다임 IPO 철회","연합뉴스"))
+
     def test_rss_only_public_https(self):
         self.assertTrue(mod.feed_url("코스피").startswith("https://news.google.com/rss/search?"))
         self.assertIn("q=", mod.feed_url("코스피"))
