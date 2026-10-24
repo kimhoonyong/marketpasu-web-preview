@@ -36,6 +36,8 @@ jobs:
           node --check market/daily-support.mjs
           node --check market/daily-csv.mjs
           node --test tests/daily-support.test.mjs
+          node --check market/cross-timeframe.mjs
+          node --test tests/cross-timeframe.test.mjs
       - name: Verify RSS archive code without fetching news
         run: |
           python3 -m py_compile scripts/update-public-news.py
