@@ -1,6 +1,5 @@
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {formatNumber} from "./chart-model.mjs";
-import {candlePressure} from "./candle-pressure.mjs";
 
 /** Match the three plotted panels in candle-chart.mjs; no fake values. */
 export function panelAt(y,height){
@@ -30,10 +29,15 @@ export function describeBarHover(bar,kind,panel){
  const a=barAnalytics(bar,{kind});
  const partial=bar.partial===true?" · 1분봉 일부 누락 가능":"";
  if(panel==="price"){
-   const clue=candlePressure(bar);
-   return {time,heading:"가격봉 · "+clue.label,
-     value:formatNumber(bar.close)+"원",
-     note:clue.basis+" "+(clue.warning||"가격봉만으로 실제 매수·매도 체결 방향은 알 수 없습니다.")+partial};
+   // Keep the hover free of interpretation: exactly the OHLC numbers.
+   return {time,heading:"가격봉 OHLC",
+     value:formatNumber(bar.close)+"원",note:"",
+     ohlc:{
+       "시가":formatNumber(bar.open)+"원",
+       "고가":formatNumber(bar.high)+"원",
+       "종가":formatNumber(bar.close)+"원",
+       "저가":formatNumber(bar.low)+"원"
+     }};
  }
  if(panel==="volume"){
   return {time,heading:"거래량",value:
