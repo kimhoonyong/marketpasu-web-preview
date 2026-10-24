@@ -38,6 +38,10 @@ jobs:
           node --test tests/daily-support.test.mjs
           node --check market/cross-timeframe.mjs
           node --test tests/cross-timeframe.test.mjs
+          node --check market/chart-model.mjs
+          node --check market/candle-chart.mjs
+          node --check market/auto-charts.mjs
+          node --test tests/chart-model.test.mjs
       - name: Verify RSS archive code without fetching news
         run: |
           python3 -m py_compile scripts/update-public-news.py
@@ -48,3 +52,5 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_kiwoom_scout_bridge.py' -v
           python3 -m py_compile integrations/kiwoom/rest_daily.py
           python3 -m unittest discover -s tests -p 'test_kiwoom_daily.py' -v
+          python3 -m py_compile integrations/kiwoom/marketpasu_local_chart_server.py
+          python3 -m unittest discover -s tests -p 'test_kiwoom_local_chart.py' -v

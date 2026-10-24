@@ -101,3 +101,49 @@
 .cross-evidence h4{font-size:17px;line-height:1.5;margin:0 0 12px;color:#f5dcac}
 .cross-evidence .flow-result{background:#14293a}
 @media(max-width:580px){.cross-evidence{padding:12px}.cross-evidence h4{font-size:16px}}
+
+
+/* Direct Kiwoom chart access: stock-name-first, touch-capable, no CSV. */
+.auto-chart-panel{margin:20px 0 24px;padding:20px;border:1px solid #4d8792;border-radius:16px;background:#132638}
+.auto-chart-header{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap}
+.auto-chart-header h2{font-size:23px;line-height:1.3;margin:0 0 8px;color:#b1f2df}
+.auto-chart-header p{font-size:15px;line-height:1.65;color:#c0d9e5;margin:0 0 14px}
+.pc-only-label{font-size:12px;color:#bde9fa;background:#183b50;border:1px solid #4f7788;border-radius:8px;padding:5px 10px;white-space:nowrap}
+.chart-connection{background:#102d3a;border:1px solid #3c6a81;border-radius:9px;padding:10px 13px;font-size:14px;line-height:1.55;color:#c9e5ee}
+.chart-connection[data-ready="yes"]{border-color:#4a9c84;color:#aaf0da}
+.auto-chart-search{display:grid;gap:10px;grid-template-columns:minmax(185px,2fr) minmax(130px,1fr) auto;align-items:end;margin:16px 0}
+.auto-chart-search>label{display:flex;flex-direction:column;gap:7px;font-size:15px}
+.auto-chart-search>label strong{font-weight:800}
+.auto-chart-search input{width:100%;min-height:51px;color:#f0f8ff;border:1px solid #527589;border-radius:10px;background:#0e1f30;padding:10px 12px;font-size:16px}
+#chart-refresh{min-height:51px;border:1px solid #4a9580;background:#224939;color:#d9ffea;border-radius:10px;padding:10px 13px;font-size:14px;font-weight:800}
+.symbol-results{grid-column:1/-1;display:grid;gap:6px;max-height:210px;overflow:auto}
+.chart-symbol{padding:10px 13px;border:1px solid #49697b;border-radius:9px;text-align:left;background:#19354a;color:#e4f6fb;font-size:15px;min-height:44px}
+.chart-symbol:hover,.chart-symbol:focus-visible{background:#24516a}
+.chart-query-note{font-size:13px;color:#c1d4e2;padding:0 4px}
+.chart-selected{font-size:16px;color:#e1eeda;font-weight:750}
+.chart-security-note{font-size:13px;color:#b2c9d8;line-height:1.65}
+.chart-grids{display:grid;grid-template-columns:1fr;gap:15px;margin-top:16px}
+.market-chart{background:#0e2030;border:1px solid #3f6173;border-radius:12px;padding:12px;min-width:0}
+.chart-head{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.chart-head h3{font-size:18px;color:#cfece4;margin:5px 0}
+.chart-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.chart-buttons button{min-height:37px;border:1px solid #587b8d;background:#1c3a4e;color:#d7f7ed;border-radius:7px;font-size:13px;font-weight:750;padding:7px 11px}
+.chart-buttons .chart-plus,.chart-buttons .chart-minus{font-size:21px;line-height:1;padding:5px 13px}
+.chart-status{font-size:13px;color:#bad3e1;line-height:1.5;margin:9px 0}
+.chart-area{width:100%;overflow:hidden;touch-action:pan-y}
+.chart-area canvas{display:block;width:100%;max-width:100%;border-radius:8px;touch-action:none;cursor:grab}
+.chart-area canvas:active{cursor:grabbing}
+.chart-detail{font-size:12px;color:#adcfdf;line-height:1.6;overflow-wrap:anywhere}
+.market-chart.chart-enlarged{position:fixed;z-index:300;inset:2vh 2vw;overflow:auto;box-shadow:0 0 0 100vmax #03070bd9;background:#102536}
+.chart-legend{font-size:13px;color:#b5ccd8;margin:12px 0 0}
+.chart-red{color:#fb7474;font-weight:800}.chart-blue{color:#75b7ff;font-weight:800}
+@media(max-width:720px){
+ .auto-chart-panel{padding:15px 11px}
+ .auto-chart-header h2{font-size:20px}
+ .auto-chart-search{grid-template-columns:1fr 1fr}
+ .auto-chart-search>label:first-child,.symbol-results{grid-column:1/-1}
+ #chart-refresh{white-space:normal}
+ .chart-buttons button{font-size:12px;padding:6px 8px}
+ .market-chart{padding:9px}
+ .market-chart.chart-enlarged{inset:1vh 1vw}
+}
