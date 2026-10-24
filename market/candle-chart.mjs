@@ -5,6 +5,7 @@ import {panelAt,hoveredBarIndex,describeBarHover,hoverSurface} from "./chart-hov
 import {candlePressure} from "./candle-pressure.mjs";
 import {responsiveChartHeight,chartTextSize} from "./chart-sizing.mjs";
 import {aggregateDailyBars,calendarGuides,chartAnchor,rangeForSelection} from "./daily-periods.mjs";
+import {dragMode,rangeFromMouseDrag} from "./chart-mouse-gestures.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -22,8 +23,8 @@ export function mountCandleChart(root,{kind,label}){
  reset.textContent="전체 기간";
  reset.title="PC에 조회된 모든 실제 봉을 표시합니다. 많은 봉은 겹칠 수 있으니 확대해 보세요.";
  let data=[],sourceDaily=[],timeMode="daily",windowRange={start:0,count:0};
- let pointers=new Map(),dragX=null,pinch=null,downX=null,dragMoved=false;
- let lockedFocus=null,selectionDrag=null;
+ let pointers=new Map(),dragX=null,pinch=null;
+ let lockedFocus=null,selectionDrag=null,mouseDrag=null;
  const focusGuide=document.createElement("div");focusGuide.className="chart-focus-guide";
  focusGuide.hidden=true;focusGuide.setAttribute("aria-hidden","true");
  const selection=document.createElement("div");selection.className="chart-range-selection";
@@ -421,25 +422,63 @@ export function mountCandleChart(root,{kind,label}){
    const r=canvas.getBoundingClientRect();
    zoom(e.deltaY>0?1.18:.84,lockedFocus?null:chartAnchor(e.clientX-r.left,r.width));
  },{passive:false});
+ // Mouse gestures: left drag = zoom (right in / left out), right drag = pan.
+ // Touch still uses familiar one-finger pan and two-finger pinch.
+ canvas.addEventListener("contextmenu",e=>{e.preventDefault();});
  canvas.addEventListener("pointerdown",e=>{
    if(!data.length)return;
-   if(e.pointerType==="mouse"&&e.button!==0)return;
-   if(e.pointerType!=="touch"){
-     downX=e.clientX;dragMoved=false;
+   if(e.pointerType==="mouse"||e.pointerType==="pen"){
+     const mode=dragMode(e.button);
+     if(!mode)return;
+     const r=canvas.getBoundingClientRect();
+     const index=hoveredBarIndex(e.clientX-r.left,r.width,windowRange);
+     if(index===null)return;
+     canvas.style.cursor=e.button===0?"ew-resize":"grabbing";
+     mouseDrag={id:e.pointerId,button:e.button,startX:e.clientX,
+       initial:{...windowRange},anchor:chartAnchor(e.clientX-r.left,r.width),
+       startIndex:index,moved:false,width:Math.max(1,r.width-143)};
      if(e.shiftKey&&e.button===0){
        selectionDrag={from:e.clientX,to:e.clientX};
        selection.hidden=false;
      }
+     hideHover();
+     canvas.setPointerCapture(e.pointerId);
+     return;
    }
+   if(e.pointerType!=="touch")return;
    canvas.setPointerCapture(e.pointerId);
    pointers.set(e.pointerId,e.clientX);
    if(pointers.size===1)dragX=e.clientX;
    if(pointers.size===2){
-    const xs=[...pointers.values()];
-    pinch=Math.abs(xs[0]-xs[1]);dragX=null;
+     const xs=[...pointers.values()];
+     pinch=Math.abs(xs[0]-xs[1]);dragX=null;
    }
  });
  canvas.addEventListener("pointermove",e=>{
+  if(mouseDrag&&e.pointerId===mouseDrag.id){
+    const delta=e.clientX-mouseDrag.startX;
+    if(Math.abs(delta)>=5)mouseDrag.moved=true;
+    if(selectionDrag){
+      selectionDrag.to=e.clientX;
+      const rect=canvas.getBoundingClientRect();
+      const min=Math.max(68,Math.min(selectionDrag.from,selectionDrag.to)-rect.left);
+      const max=Math.min(rect.width-75,Math.max(selectionDrag.from,selectionDrag.to)-rect.left);
+      selection.style.left=min+"px";
+      selection.style.width=Math.max(0,max-min)+"px";
+      selection.style.top="20px";selection.style.height=Math.max(0,rect.height-53)+"px";
+      selection.hidden=false;
+    }else if(mouseDrag.moved){
+      windowRange=rangeFromMouseDrag(data.length,mouseDrag.initial,delta,
+        mouseDrag.width,mouseDrag.anchor,dragMode(mouseDrag.button));
+      if(mouseDrag.button===0){
+        lockedFocus={index:mouseDrag.startIndex};
+      }else{
+        lockedFocus=null;
+      }
+      render();
+    }
+    return;
+  }
   if(data.length){
     const r=canvas.getBoundingClientRect();
     const left=68,right=75;
@@ -450,24 +489,9 @@ export function mountCandleChart(root,{kind,label}){
     const hovered=hoveredBarIndex(e.clientX-r.left,r.width,windowRange);
     if(pane&&hovered!==null&&pointers.size===0&&e.pointerType!=="touch"){
       showHover(hovered,pane,e.clientX-r.left,e.clientY-r.top);
-    }else if(pointers.size===0){
-      hideHover();
-    }
+    }else if(pointers.size===0)hideHover();
   }else hideHover();
   if(!pointers.has(e.pointerId))return;
-  if(downX!==null&&Math.abs(e.clientX-downX)>4)dragMoved=true;
-  if(selectionDrag){
-    selectionDrag.to=e.clientX;
-    const rect=canvas.getBoundingClientRect();
-    const min=Math.max(68,Math.min(selectionDrag.from,selectionDrag.to)-rect.left);
-    const max=Math.min(rect.width-75,Math.max(selectionDrag.from,selectionDrag.to)-rect.left);
-    selection.style.left=min+"px";
-    selection.style.width=Math.max(0,max-min)+"px";
-    selection.style.top="20px";
-    selection.style.height=Math.max(0,rect.height-53)+"px";
-    selection.hidden=false;
-    return;
-  }
   pointers.set(e.pointerId,e.clientX);
   if(pointers.size===2){
    const xs=[...pointers.values()];
@@ -484,35 +508,39 @@ export function mountCandleChart(root,{kind,label}){
   }
  });
  function end(e){
-  const selected=selectionDrag;
-  if(selected&&data.length){
-    const rect=canvas.getBoundingClientRect();
-    const l=hoveredBarIndex(selected.from-rect.left,rect.width,windowRange);
-    const r=hoveredBarIndex(selected.to-rect.left,rect.width,windowRange);
-    selectionDrag=null;selection.hidden=true;
-    if(dragMoved&&l!==null&&r!==null&&Math.abs(r-l)>=4){
-      windowRange=constrainRange(data.length,
-        rangeForSelection(windowRange,data.length,l,r).start,
-        rangeForSelection(windowRange,data.length,l,r).count);
-      lockedFocus=null;render();
-    }
-  }else if(!dragMoved&&e.pointerType!=="touch"&&e.button===0&&data.length){
-    const rect=canvas.getBoundingClientRect();
-    const i=hoveredBarIndex(e.clientX-rect.left,rect.width,windowRange);
-    if(i!==null){
+  if(mouseDrag&&e.pointerId===mouseDrag.id){
+    const finished=mouseDrag;mouseDrag=null;
+    canvas.style.cursor="";
+    const drag=selectionDrag;selectionDrag=null;selection.hidden=true;
+    if(drag&&finished.moved&&data.length){
+      const rect=canvas.getBoundingClientRect();
+      const l=hoveredBarIndex(drag.from-rect.left,rect.width,finished.initial);
+      const r=hoveredBarIndex(drag.to-rect.left,rect.width,finished.initial);
+      if(l!==null&&r!==null&&Math.abs(r-l)>=4){
+        windowRange=rangeForSelection(finished.initial,data.length,l,r);
+        lockedFocus=null;render();
+      }
+    }else if(!finished.moved&&finished.button===0&&data.length){
+      // Simple left click still pins the candle for wheel and +/- zoom.
+      const i=finished.startIndex;
       lockedFocus={index:i};activeIndex=i;
       inspect(i);updateFocusGuide();
     }
+    return;
   }
   pointers.delete(e.pointerId);
-  pinch=null;dragX=null;downX=null;dragMoved=false;
+  pinch=null;dragX=null;
  }
  canvas.addEventListener("pointerup",end);
  canvas.addEventListener("pointercancel",e=>{
-   selectionDrag=null;selection.hidden=true;dragMoved=true;
-   end(e);hideHover();
+   // Cancel should not treat the gesture as a left click.
+   if(mouseDrag&&mouseDrag.id===e.pointerId){mouseDrag=null;selectionDrag=null;selection.hidden=true;canvas.style.cursor="";}
+   pointers.delete(e.pointerId);pinch=null;dragX=null;hideHover();
  });
- canvas.addEventListener("lostpointercapture",end);
+ canvas.addEventListener("lostpointercapture",e=>{
+   if(mouseDrag&&mouseDrag.id===e.pointerId){mouseDrag=null;selectionDrag=null;selection.hidden=true;canvas.style.cursor="";}
+   pointers.delete(e.pointerId);pinch=null;dragX=null;
+ });
  canvas.addEventListener("pointerleave",()=>{hideHover();if(ohlcEnabled)clearOhlc();});
  canvas.addEventListener("pointerdown",e=>{
    if(e.pointerType!=="touch"||pointers.size!==1)return;
