@@ -3,6 +3,7 @@ import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {panelAt,hoveredBarIndex,describeBarHover} from "./chart-hover.mjs";
 import {candlePressure} from "./candle-pressure.mjs";
+import {responsiveChartHeight,chartTextSize} from "./chart-sizing.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -120,11 +121,11 @@ export function mountCandleChart(root,{kind,label}){
      (b.partial?" · 이 시간 구간의 1분봉 표본이 일부만 있음":"");
  }
 
- const heightFor=()=>root.classList.contains("chart-enlarged")?Math.max(480,Math.min(window.innerHeight-205,790)):460;
+ const heightFor=w=>responsiveChartHeight(w,window.innerHeight,root.classList.contains("chart-enlarged"));
  function render(){
   hideHover();
   const rect=area.getBoundingClientRect();
-  const w=Math.max(300,Math.round(rect.width||600)),h=heightFor();
+  const w=Math.max(300,Math.round(rect.width||600)),h=heightFor(w);
   const dpr=Math.min(2,window.devicePixelRatio||1);
   canvas.width=Math.round(w*dpr);
   canvas.height=Math.round(h*dpr);
@@ -162,7 +163,7 @@ export function mountCandleChart(root,{kind,label}){
     return kind==="daily"?a.turnoverWon:a.estimatedValueWon;
   });
   const moneyMax=Math.max(1,...amounts.filter(v=>v!==null));
-  ctx.font="12px sans-serif";
+  ctx.font=chartTextSize(w)+"px sans-serif";
   ctx.strokeStyle=colors.grid;
   ctx.fillStyle=colors.text;
   ctx.lineWidth=1;
