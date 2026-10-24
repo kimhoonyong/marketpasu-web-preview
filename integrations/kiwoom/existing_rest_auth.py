@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import sys
 import threading
+import time
 
 KNOWN_MODULE="secure_credentials.py"
 KNOWN_VAULT=Path("data")/"kiwoom_rest_credentials.bin"
@@ -120,19 +121,31 @@ def open_existing_theme_credentials(theme_root):
 
 
 class ExistingRestAuth:
-    """Lazy, one-time local credential loading, without disk/console export."""
-    def __init__(self,theme_root=None,env=None):
+    """Read-only local credential reuse; retry failed discovery after cooldown.
+
+    Success is cached in memory. A missing vault or dependency may become ready
+    after ThemeManager is started, without restarting the MarketPasu process.
+    No credentials or exception messages are ever logged or serialized.
+    """
+    def __init__(self,theme_root=None,env=None,*,clock=None,retry_seconds=15):
         self.root=Path(theme_root) if theme_root is not None else Path(
             os.environ.get("MARKETPASU_THEME_ROOT","D:/ThemeManager"))
         self.env=env if env is not None else os.environ
         self._lock=threading.Lock()
         self._credentials=None
         self._state="NOT_CHECKED"
+        self._clock=clock or time.monotonic
+        self._retry_seconds=max(5,retry_seconds)
+        self._next_retry=0.0
 
     def credentials(self):
         with self._lock:
-            if self._state!="NOT_CHECKED":
+            if self._credentials is not None:
                 return self._credentials
+            now=self._clock()
+            if self._state!="NOT_CHECKED" and now<self._next_retry:
+                return None
+            self._next_retry=now+self._retry_seconds
             token=self.env.get("KIWOOM_ACCESS_TOKEN","")
             key=self.env.get("KIWOOM_APP_KEY","")
             secret=self.env.get("KIWOOM_APP_SECRET","")
