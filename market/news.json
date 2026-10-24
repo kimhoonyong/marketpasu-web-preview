@@ -2,9 +2,24 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-24",
-  "updated_at": "2026-10-24T02:04:22.552855+00:00",
+  "updated_at": "2026-10-24T02:13:19.535267+00:00",
   "update_note": "투자 관련 기업·시장 제목만 선별한 Google 뉴스 공개 RSS입니다. 같은 사건의 다른 보도는 화면에서 묶어 보며 재탕 여부를 확정하지 않습니다.",
   "items": [
+    {
+      "id": "83bfb0b693f7735f0d0f",
+      "title": "새만금 찾는 민주당 메가특위, 현대차 투자 ‘법·예산·규제’ 해소 속도 내야",
+      "publisher": "전북도민일보",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPTG5tN2FNTlBVNG4tV042VEZXSjkyMUtreUMzWEV2dlNMaFRQb3VVcmNBWVl6cGlscHpzSWRieEhXX1c0eEZHY0dpaUNOcXVzcTJLZXpuNGZWX1NMcEEwT0tJd0JFbTZjLWVvQkRpWi0yamVmYlhMZmtkd1Q2c2FLaFJLTzd1Y2c?oc=5",
+      "published_at": "2026-10-24T02:05:00+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
     {
       "id": "059bb3f222980ebbc447",
       "title": "엔비디아 성장세 꺾여도 주가 상승 여력 여전···전문가 “두 배 오를 수 있다”",
@@ -14,6 +29,21 @@
       "topic": "엔비디아",
       "topics": [
         "엔비디아"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "662637885947a1e82aa7",
+      "title": "[미국증시] SOXL에 13억 달러 몰렸다…반도체 바닥 잡기 통할까",
+      "publisher": "자본시장뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0ybndMekpkRjJ2cUwyOXZQTVlEWTNWNFQxNXBWYzhDNGFZQV9uQUQ1blFqNWV6Qm1QWGNjbjQ2RnhIbldQeG11UlJPN2FsWVo4NHhjZkxjQ3g5eEVjZXVJWS11dUJUT2s?oc=5",
+      "published_at": "2026-10-24T01:57:45+00:00",
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -102,8 +132,9 @@
       "publisher": "연합인포맥스",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBtTThqc1ZxbU9VZHpzZldlcWlaQzVuenI4aE45UUF4cDJ1WTIzR2NLMGZoNWJ6cmhwQ0ExMExUZmNNODZWMFpkODFnRW55MkdzOEtaWEp6WmJER2M4RFBfVDBBQk1VeHdvLXd2MTBJdHN3MVpJ?oc=5",
       "published_at": "2026-10-23T23:17:42+00:00",
-      "topic": "삼성전자",
+      "topic": "코스피",
       "topics": [
+        "코스피",
         "삼성전자",
         "SK하이닉스"
       ],
@@ -158,21 +189,6 @@
       "title_variants": 1
     },
     {
-      "id": "3fffdadbb52c299a48a8",
-      "title": "[속보] 뉴욕증시 기술주 혼조…마이크론·AMD 상승, 엔비디아·테슬라 하락",
-      "publisher": "CBC뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9IUmo4RkI3djRxLUtTdzlhSUJvSHVqdkRwQ0g2eFhoSEZSUGY2cEwxUGpYMjF0ZS1OcHgzRWpKZ3hXOXc2d3lDa0pfRUpRU1dta3VUV0NCalQ0S3RaMllGNmFkZXRaZkRx?oc=5",
-      "published_at": "2026-10-23T22:30:00+00:00",
-      "topic": "테슬라",
-      "topics": [
-        "테슬라"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "59268544e96711f3b856",
       "title": "엔비디아 주가 4.4% 하락…인공지능 투자 부담에 기술주 흔들",
       "publisher": "제민일보",
@@ -218,6 +234,21 @@
       "title_variants": 1
     },
     {
+      "id": "57da9a201634355eeb03",
+      "title": "‘롤러코스피’서 689억원 순매수···연기금, 삼바 사고 닉스는 매도",
+      "publisher": "시사저널e",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9qTmpLd09Nek1UUEEzWUxkTmdFWlR6Rl9samEtamU5aGlna1Z2RGVXa2JKVmEydXpTRjlING1WRm4tMVpkWUQ1ZEl1UzV4b3lBdnBCeE14QnNzanBBTnktdnYtLU1yRDFEWjdwazhwZGc5ZFVwX0HSAXZBVV95cUxPak5qS3dPTXpNVFBBM1lMZE5nRVpUekZfbGphLWplOWhpZ2tWdkRlV2tiSlZhMnV6U0Y5SDRtVkZuLTFaZFlENWRJdVM1eG95QXZwQnhNeEJzc2pwQU55LXZ2LS1NckQxRFo3cGs4cGRnOWRVcF9B?oc=5",
+      "published_at": "2026-10-23T21:28:09+00:00",
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "15cbd6bf686a08934e50",
       "title": "SK하이닉스 ADR, 솔리다임 美 IPO 철회 소식에 4% 급등",
       "publisher": "글로벌이코노믹",
@@ -241,36 +272,6 @@
       "topic": "테슬라",
       "topics": [
         "테슬라"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "8b88b4370b4ae0d8e030",
-      "title": "BYD 브라질 60만대 증설 돌격, 현대차 긴장하는 이유",
-      "publisher": "글로벌이코노믹",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNWXZtNWpjQ2xRM0xUYTlqQS1LbEM4YXJTajR2SXNCZkF6OVRxMi1ORF90UzRNQldkZHdmSWJZcXJleDBTUnlYSnRFV1gtdWk4UHctNk1OeVRPWnI2YW9BTDYwZndmczViUWk3c2lzaGlYVkRfSzlsQng1Nlh3cC1XMXROWUwtcjdy?oc=5",
-      "published_at": "2026-10-23T21:10:45+00:00",
-      "topic": "현대차",
-      "topics": [
-        "현대차"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "24e6a3a0c0ab3755b6d7",
-      "title": "현대차, 인도네시아 발리에 첫 전기버스 공급",
-      "publisher": "세계일보",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE16ei1qZzhxWVZWdmR0R3psV05uSHE1ZTRvMS1odmgyb2I0THdxZ21KaXZSVFZwaUx6U2x6RElWMnNZR3BwS05qR1FLSFZicjU4M3FFZdIBVEFVX3lxTE16ei1qZzhxWVZWdmR0R3psV05uSHE1ZTRvMS1odmgyb2I0THdxZ21KaXZSVFZwaUx6U2x6RElWMnNZR3BwS05qR1FLSFZicjU4M3FFZQ?oc=5",
-      "published_at": "2026-10-23T21:10:00+00:00",
-      "topic": "현대차",
-      "topics": [
-        "현대차"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -383,6 +384,21 @@
       "title_variants": 1
     },
     {
+      "id": "e8b342227c811e7294b1",
+      "title": "발리 누비는 현대차 전기버스···11대 공급",
+      "publisher": "뉴스웨이",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9Odnd5T1Y0MHFncmFKd0hpdmh0V0h6ZllVajlzUFoySlB3MWZIT0tmcmR4TjdoNjh3ejUzbTQ1M04wTGRHbDJkcU56Y0tvZkgwVThWaGc2eU1TS0J5X0diZUhnWnRiekZVTUE?oc=5",
+      "published_at": "2026-10-23T11:59:22+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "8917f106c60217054b83",
       "title": "’솔리다임’ SK하이닉스 4%↑…코스피 막판 상승 전환",
       "publisher": "연합뉴스TV",
@@ -414,21 +430,6 @@
       "title_variants": 1
     },
     {
-      "id": "b012d12d7596f0f197e0",
-      "title": "현대차, 인도네시아 발리에 전기버스 11대 공급",
-      "publisher": "IT조선",
-      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5SRFVWYlpGS19BZDUxMk5aWC1xRHY2ODhNZ2J0Q21fbGhnRHRTRjJ6SllBZnY3d2laTnhlc1dCc3hFcG5xZmgxSGFaN19kS0FXbmQ2MVVuaTFYZF8wb05DMWFhbzh1YlpYYXh3OWVqMlFrN3ZD0gF0QVVfeXFMTlJEVVZiWkZLX0FkNTEyTlpYLXFEdjY4OE1nYnRDbV9saGdEdFNGMnpKWUFmdjd3aVpOeGVzV0JzeEVwbnFmaDFIYVo3X2RLQVduZDYxVW5pMVhkXzBvTkMxYWFvOHViWlhheHc5ZWoyUWs3dkM?oc=5",
-      "published_at": "2026-10-23T09:24:22+00:00",
-      "topic": "현대차",
-      "topics": [
-        "현대차"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "9736244926fa45158af3",
       "title": "원·달러 환율 연저점 경신…일부 전문가 “연내 1200원대 가능”",
       "publisher": "인더스트리뉴스",
@@ -444,44 +445,13 @@
       "title_variants": 1
     },
     {
-      "id": "a754426dffeb1cfbb39d",
-      "title": "[1023마감체크] 코스피, 장중 4%대 급락 딛고 반등... 5500선 사수 By 인포스탁데일리",
-      "publisher": "Investing.com 한국어",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE42TE10NTBzdVBPV1dJZDBiN0tBZFpzbkszdFZ5bFR4SDVDall0WVRwZm1Pa0dDejhkbXNsUXRYWFFYdWUxazZqd1dHZnI5bndfQm01dmtOb1VabThvd2JfXzdOMjc2NXRfbXVqOWZva0o?oc=5",
-      "published_at": "2026-10-23T09:00:00+00:00",
-      "topic": "코스피",
-      "topics": [
-        "코스피"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "fe9416e1e1a404ccd79a",
-      "title": "첫 ‘동전주 상폐’도 법정으로…거래소, 코스닥 5곳 정리매매 일괄 보류 - 조선비즈",
-      "publisher": "Chosunbiz",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOUEF3VUM2eFM2blVaNjY3MzY4OF95NWYtMk16QWU5R2l6d1lxelZ0bjhPWGJGbVdrQl9PMUNFNFhVZWZCTzdhR2MyM2E2ZnVEakU3VnlENnVLVzJ1RWp4eWRJdTNfc2RJVWpEYWM2STY2Y3NnUlBZVkNNQ01oREFQWWpTQWNXUVhm0gGcAUFVX3lxTE10YXhUWnR1OUM5Z0xUNS1zUmlIbHlWYVZVSmZ6RDBhWHJhal9rZFVxaHZad056ZF9YekNkOVpLTWd6QVhURmo4SXI0ZGJ0NmZ1M2g3dUd4X0lORGMyUjJESlBaVVY2M0FaRndmdjhmaW1UeVNPXzQ5eVhFQk9GQXIwZGc3WnBLTVBCSnVhaWhUeUc1MXF5SDdkODF1NQ?oc=5",
-      "published_at": "2026-10-23T08:44:00+00:00",
-      "topic": "코스닥",
-      "topics": [
-        "코스닥"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "5181c9b105822ed5dd2b",
       "title": "반도체 ‘쌍끌이’에 웃은 코스피, 5550선 회복…코스닥은 1.6% 하락",
       "publisher": "더나은미래",
       "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE8xMTRWTFpNRnd0M3FHV2ptWDRUWlVfbVlfeWVOdFRjRUdXbFdNWktHMWoxaE9hdjd1M0FoQVJ0blhiX0JBRzZGdEFwdDRwOGZ6TkE?oc=5",
       "published_at": "2026-10-23T08:40:00+00:00",
-      "topic": "코스피",
+      "topic": "코스닥",
       "topics": [
-        "코스피",
         "코스닥"
       ],
       "first_observed": "2026-10-23",
@@ -520,10 +490,10 @@
       "title_variants": 1
     },
     {
-      "id": "a4dc187cdd1b69310f12",
+      "id": "357a5afb59293fd8bfea",
       "title": "코스피, 장 초반 4% 급락 딛고 '5500선 마감'…코스닥 1.62%↓",
       "publisher": "프라임경제",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE90LW5JMWlWbjVCOVJMNEVJQkFXeVYzaFRrTVR2OXU0Yk5yTlBKNXpYQnJGNUZGNWRvLVpDcEx5TEV4VU9PSWZ4Z0dJYUVrV2dXOFJrYXlDUnJlTFJTNjc0MkVMRnE4ZHU4U2RDNg?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE51b2Z2VS1jajVmUkFESzY2TUlyZ2w0Um12MkZfVHBUWVhJdEJhMU9RLUppMmdyREY5SkotZGo5c1JteTVJNFVPeVJhWnBxN2FTeTlKSEdJemphVHhDT2ZWemd2OUxSUQ?oc=5",
       "published_at": "2026-10-23T07:14:37+00:00",
       "topic": "코스닥",
       "topics": [
@@ -532,6 +502,21 @@
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
       "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "c310e201ef9af3d626db",
+      "title": "현대차, 발리에 전기버스 11대 공급…동남아 시장 공략 확대 By 알파경제 alphabiz",
+      "publisher": "Investing.com 한국어",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9MdHJ1cGVWNTRQYThheTd0V3lDV0tLMGliVFgyYXc3RGNYWGRJMUY3YjBFVTdLMUt6eVQzWVJ6UHZzU1NYemFtcU15bUVMa25rckpnaHQ0OWpqa19HeTZ0RkpESnJ2X1ppSTc4THBzbE4?oc=5",
+      "published_at": "2026-10-23T07:08:00+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
       "title_variants": 1
     },
     {
@@ -610,6 +595,36 @@
       "title_variants": 1
     },
     {
+      "id": "1e4d3e29fd5f29c01f77",
+      "title": "[산업이(異)면]AI·로봇 올인한다던 테슬라, 투자 50억달러 축소…K산업 변수 2가지",
+      "publisher": "경향신문",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5SdUJQel8zeUdiTk1WWWVtOU5wV3ZYTDBJMEZGeWVEcXhscXN2UGVQeldocTBmS2F1MDRUdnFqWWlIbEptRHdwZGZVOWpFYlEwSjVWVmYwZXotQQ?oc=5",
+      "published_at": "2026-10-23T06:15:00+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "762edd2488d82cc4e04e",
+      "title": "1000원 벽 못 넘은 코스닥 5사, 첫 ‘동전주 상폐’",
+      "publisher": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxONm5BZU5QVEM4dXhZemlNT0lHZGJRRWtDYmRQLTQyS1M3dHI5bzk0bFo5SmJtV05nUFVsUlBmUVpqNVJ1Nlk3c3hEZnRTd3BRZUhLNm1vRUFvMWhPX2plOVdmVkhpUC1NbmFLM0RySVp3X3R1bFVVbnA3d0tYb1J0Y2FEZmF3emZ1Ml80?oc=5",
+      "published_at": "2026-10-23T05:49:27+00:00",
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 2
+    },
+    {
       "id": "018d895b781a2a07a78a",
       "title": "현대차, 佛 법인차 시장서 '전기차 질주'…친환경 인증률 91%",
       "publisher": "더구루",
@@ -667,21 +682,6 @@
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
       "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "223fe92d9436d3e19d49",
-      "title": "AI 충격에 한국·일본 증시 급락…아시아 전반 하락세",
-      "publisher": "Investing.com 한국어",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB2Wnp6anp0TThTaE9SbWRfTDZnZ29nT1psWkxZNXlFUVFRLXNBWmlDQWZLLVl4ZWVjdFhCaWRUNi1NRi1EYTAyeDNFbE52M18wUkFJTTZDajFMblRQY25uYmJkVU5pUTNScEdYUE5fQmg?oc=5",
-      "published_at": "2026-10-23T03:25:00+00:00",
-      "topic": "한국 증시",
-      "topics": [
-        "한국 증시"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
       "title_variants": 1
     },
     {
