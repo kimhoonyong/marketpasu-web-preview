@@ -55,7 +55,9 @@ def fetch_daily(ticker:str,asof:dt.date,token:str,*,mode="real",
     ticker=ticker_code(ticker)
     if mode not in HOSTS or not token or not(1<=pages<=MAX_PAGES):
         raise MarketDataError("서버·토큰·페이지 설정이 유효하지 않습니다.")
-    continuation="",keys=set(),rows=[]
+    continuation=""
+    keys=set()
+    rows=[]
     for page in range(pages):
         response,meta=requester(HOSTS[mode],"/api/dostk/chart",
             {"stk_cd":ticker,"base_dt":asof.strftime("%Y%m%d"),"upd_stkpc_tp":"1"},
