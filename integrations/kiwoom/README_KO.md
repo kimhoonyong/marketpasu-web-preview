@@ -94,3 +94,28 @@
 
 파일: `marketpasu_local_chart_server.py`, `RUN_MARKETPASU_AUTO_CHARTS.cmd`, `rest_minutes.py`, `rest_daily.py`.
 기존 뉴스·수급 비교 CSV 입력은 **고급 분석의 선택사항**으로 유지합니다.
+
+## 2026-10-24: 기존 D:\ThemeManager 인증파일 자동 재사용
+
+PC 점검 결과 `D:\ThemeManager\secure_credentials.py`와 `data\kiwoom_rest_credentials.bin`이 확인되었습니다.
+기존 `load_credentials(path)` 함수의 사용 규격이 확인됐으므로, 이제 로컬 차트 서버는 다음 순서로 인증합니다.
+
+1. 기존 로컬 환경변수 KIWOOM_APP_KEY/KIWOOM_APP_SECRET 또는 KIWOOM_ACCESS_TOKEN이 설정돼 있다면 우선 이용합니다.
+2. 없으면 `D:\ThemeManager\secure_credentials.py`를 이 Windows 계정에서 불러와 `load_credentials(D:\ThemeManager\data\kiwoom_rest_credentials.bin)`을 **서버 메모리에서만 실행**합니다.
+3. 반환된 딕셔너리에 REST App Key와 Secret이 담긴 일반적인 키 이름이 있으면 기존 키움 OAuth로 토큰을 발급받습니다. 토큰은 서버 프로세스 메모리에서만 최대 12시간 보관합니다.
+4. 모듈을 찾을 수 없거나 암호 해제에 실패하거나 반환 형식을 이해하지 못하면 실패 상태 코드만 보여줍니다. 키·Secret·토큰 내용, 인증파일 내용, 예외 메시지는 출력·업로드하지 않습니다.
+5. 기존 인증모듈 또는 인증파일의 **수정·삭제·복사·GitHub 전송은 전혀 하지 않습니다.** 기존 프로그램의 암호화 방식을 바꾸지도 않습니다.
+
+**연결 점검 시나리오:** 기존 검은색 `127.0.0.1:8765` 창을 먼저 닫고, **새 버전**의 실행 파일을 사용하세요. 이전 실행기는 예전 커밋을 내려받으므로 현재 인증 연결 기능이 포함되지 않습니다.
+
+- 검은색 창에 `KIWOOM_AUTH: READY_TO_VERIFY`가 나오면 인증 형식이 읽혔다는 뜻입니다. **실제 로그인 성공이 아닙니다.**
+- `KIWOOM_AUTH_SOURCE_STATUS: SCOUT_CREDENTIALS_READY`는 기존 ThemeManager 인증함수 연동에 성공했다는 뜻입니다.
+- `KIWOOM_AUTH_SOURCE_STATUS: EXISTING_AUTH_FORMAT_UNSUPPORTED`는 기존 함수의 반환 딕셔너리 구조가 현재 연결 코드와 다르다는 뜻입니다. App Key 값은 공유하지 말고 **상태 코드만** 알려주세요.
+- `KIWOOM_AUTH_SOURCE_STATUS: EXISTING_AUTH_LOAD_FAILED`는 인증파일/모듈 실행·복호화가 실패했다는 뜻입니다. 동일 Windows 계정인지와 기존 ThemeManager 실행 가능 여부부터 확인합니다.
+- `KIWOOM_AUTH: NOT_CONFIGURED`이면 키를 새로 발급받지 말고 로컬 연결 상태를 점검합니다.
+- 이후 PC 브라우저 마켓파수에서 **삼성전자**를 검색해 선택하고, 실제 키움 종목명 목록 및 일봉/1분봉의 응답이 나오는지 확인합니다. 성공 전까지는 실전 데이터 수신이라고 주장하지 않습니다.
+
+환경변수 `MARKETPASU_THEME_ROOT`로 루트 폴더를 변경할 수 있지만, 기본은 확인된 `D:\ThemeManager`입니다.
+공개 GitHub에 있는 코드는 암호화 파일 자체와 그 비밀값에 접근하지 못합니다. 사용자 PC에서 기존 프로그램의 인증 모듈을 호출할 때만 복호화가 진행됩니다.
+
+개인 PC의 읽기 전용 데이터 API 연결이며, 휴대폰 원격 중계·주문·계좌 연동은 추가하지 않았습니다.
