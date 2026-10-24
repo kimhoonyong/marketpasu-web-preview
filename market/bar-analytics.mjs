@@ -26,7 +26,7 @@ export function minuteTimeframe(rows,period=1){
  if(period===1)return bars.map(({stamp,...b})=>({...b,minutesCovered:1,partial:false,periodMinutes:1}));
  const groups=new Map(),size=period*60_000;
  for(const b of bars){
-  const start=Math.floor(b.stamp/size)*size; // trading-session clock boundaries in KST
+  const start=Math.floor((b.stamp+9*3600_000)/size)*size-9*3600_000; // bucket begins on KST wall-clock boundaries
   const key=String(start);
   if(!groups.has(key)){
    groups.set(key,{time:new Date(start).toISOString().slice(0,19)+"+00:00",
