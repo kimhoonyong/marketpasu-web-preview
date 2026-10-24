@@ -35,6 +35,18 @@ export function setupAutoCharts(){
        date=el("chart-date"),selection=el("chart-selected");
  const daily=mountCandleChart(el("chart-daily"),{kind:"daily",label:"일봉"});
  const minute=mountCandleChart(el("chart-minute"),{kind:"minute",label:"분봉"});
+ const dailyChoice=el("chart-daily-period");
+ const dailyTitle=el("chart-daily-label");
+ const labelDaily={daily:"일봉",weekly:"주봉",monthly:"월봉"};
+ dailyChoice.addEventListener("change",()=>{
+   const mode=dailyChoice.value;
+   if(!labelDaily[mode])return;
+   daily.setTimeframe(mode);
+   dailyTitle.textContent=labelDaily[mode]+" — 키움 일봉 원자료로 계산";
+   const state=el("chart-daily-status");
+   const base=state.dataset.sourceStatus||state.textContent;
+   state.textContent=base+(mode==="daily"?"":" · 현재 "+labelDaily[mode]+" 표시(실제 일봉을 묶어 생성)");
+ });
  date.value=koreaDay();
  date.max=isoKstToday();
  let chosen=null,searchId=0,chartId=0,timer=null,exchange="KRX";
@@ -178,6 +190,10 @@ export function setupAutoCharts(){
       " · 실제 "+data.count+"봉 조회"+(legacy?" · 구형 PC 조회기: 이전 기간 자료 제한 가능":"")+
       (stale?" · ⚠ 마지막 일봉이 선택 기준일보다 "+lag+"일 오래되었습니다. 키움 응답 날짜를 확인하세요.":"")+
       " · 실제 제공 범위까지만 표시";
+    if(kind==="daily"){
+      state.dataset.sourceStatus=state.textContent;
+      if(dailyChoice.value!=="daily")state.textContent+=" · 현재 "+labelDaily[dailyChoice.value]+" 표시(일봉 합성)";
+    }
     if(exchange==="SOR"){
       marketNote.textContent=String(data.note||marketDescriptions.SOR);
     }
