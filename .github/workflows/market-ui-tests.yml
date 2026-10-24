@@ -44,6 +44,8 @@ jobs:
           node --check market/candle-chart.mjs
           node --check market/auto-charts.mjs
           node --test tests/chart-model.test.mjs
+          node --check market/daily-periods.mjs
+          node --test tests/daily-periods.test.mjs
           node --test tests/chart-history.test.mjs
           node --check market/chart-sizing.mjs
           node --test tests/chart-sizing.test.mjs
