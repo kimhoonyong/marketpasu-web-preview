@@ -8,14 +8,14 @@ export function responsiveChartHeight(width,viewportHeight,enlarged=false){
  if(!Number.isFinite(w)||!Number.isFinite(vh)||w<=0||vh<=0)return 460;
  const clamp=(min,value,max)=>Math.max(min,Math.min(max,value));
  if(enlarged){
-   return Math.round(clamp(430,vh-215,1100));
+   return Math.round(clamp(430,vh-215,1750));
  }
  const compact=w<480;
  const min=compact?340:410;
  // A tall-ish plot makes volume, estimated money, six MAs and hover legible.
  // Limit it by the viewport to avoid a huge single scroll on 16:10 laptops.
  const suggested=Math.min(w*.80,vh*.76);
- return Math.round(clamp(min,suggested,930));
+ return Math.round(clamp(min,suggested,1300));
 }
 export function chartTextSize(width){
  const w=Number(width);
