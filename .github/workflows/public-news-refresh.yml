@@ -60,6 +60,8 @@ jobs:
           node --test tests/bar-analytics.test.mjs
           node --check market/chart-hover.mjs
           node --test tests/chart-hover.test.mjs
+          node --check market/candle-pressure.mjs
+          node --test tests/candle-pressure.test.mjs
           node --check market/moving-average.mjs
           node --test tests/moving-average.test.mjs
           python3 -m py_compile scripts/update-public-news.py
