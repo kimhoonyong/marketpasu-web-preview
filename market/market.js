@@ -1,11 +1,13 @@
 import {uniqueArticles,visibleArticles,groupRelatedReports} from "./feed-model.mjs";
 import {setupFlowAnalyzer} from "./flow-ui.mjs";
+import {setupAutoCharts} from "./auto-charts.mjs";
 const q = (id) => document.getElementById(id);
 const elements = {
   search:q("search"),watchlist:q("watchlist"),save:q("save-watch"),focus:q("keyword-focus"),
   status:q("feed-status"),count:q("count"),refresh:q("refresh"),
   articles:q("articles"),empty:q("empty"),groupToggle:q("group-toggle")
 };
+const autoCharts=setupAutoCharts();
 const flow=setupFlowAnalyzer();
 const STORAGE_KEY = "marketpasu_personal_keywords_v1";
 const VIEW_KEY = "marketpasu_personal_news_view_v1";
