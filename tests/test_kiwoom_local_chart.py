@@ -69,7 +69,7 @@ class LocalChartTests(unittest.TestCase):
         provider=mod.ChartProvider()
         with patch.dict(mod.os.environ,{},clear=True):
             with self.assertRaises(mod.MarketDataError):
-                provider.symbols("삼성전자")
+                provider.symbols("미확인종목")
 
     def test_cached_symbols_do_not_repeat_api_calls(self):
         p=mod.ChartProvider(clock=lambda:100)
