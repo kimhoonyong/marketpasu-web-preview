@@ -129,6 +129,10 @@ export function setupAutoCharts(){
     const data=await localJson("/chart?code="+encodeURIComponent(chosen.code)+
       "&kind="+kind+"&date="+encodeURIComponent(selectedDay)+"&exchange="+exchange,{timeout:24000});
     if(version!==chartId)return;
+    if(data.market!==exchange){
+      state.textContent="로컬 조회기가 이전 버전입니다. 새 연결기를 실행해야 "+exchange+" 데이터를 구분할 수 있습니다.";
+      chart.setData([]);return;
+    }
     if(!Array.isArray(data.bars)||!data.bars.length){
       state.textContent="해당 거래일의 "+(kind==="daily"?"일봉":"분봉")+"이 없습니다. 휴장일·인증·거래일을 확인하세요.";
       chart.setData([]);return;
