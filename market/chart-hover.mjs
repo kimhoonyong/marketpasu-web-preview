@@ -1,6 +1,16 @@
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {formatNumber} from "./chart-model.mjs";
 
+/**
+ * Price OHLC is opt-in, displayed OUTSIDE the plot, never floating over candles.
+ * Volume / trading-value tooltips remain as before.
+ */
+export function hoverSurface(pane,ohlcEnabled=false){
+ if(pane==="price")return ohlcEnabled?"strip":"none";
+ if(pane==="volume"||pane==="turnover")return "tooltip";
+ return "none";
+}
+
 /** Match the three plotted panels in candle-chart.mjs; no fake values. */
 export function panelAt(y,height){
  if(!Number.isFinite(y)||!Number.isFinite(height)||height<=0)return null;
