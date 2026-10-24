@@ -405,3 +405,25 @@ body{width:100%}
 .chart-range-selection{position:absolute;z-index:3;pointer-events:none;background:rgba(105,216,187,.18);border:1px solid #8ae9c7;border-radius:3px}
 .charts-wide .chart-area canvas{cursor:crosshair}
 @media(max-width:699px){.daily-period-select{width:100%;justify-content:flex-start}.chart-ohlc-cell b{font-size:13px}}
+
+
+/* Opt-in OHLC occupies its own thin line ABOVE the chart: never hides candles. */
+.chart-ohlc-toggle{display:inline-flex;align-items:center;justify-content:center;
+ min-height:35px;padding:6px 12px;border:1px solid #5793a0;border-radius:7px;
+ background:#123146;color:#d8eff5;font-size:13px;font-weight:850}
+.chart-ohlc-toggle[aria-pressed="true"]{background:#28584a;color:#e7fff3;border-color:#87d9b6}
+.chart-ohlc-toggle:hover{border-color:#b1e7dc}
+.chart-ohlc-strip{display:flex;align-items:center;gap:clamp(8px,1.2vw,24px);
+ flex-wrap:wrap;margin:5px 0 9px;padding:8px 12px;
+ background:#102b39;border:1px solid #416d76;border-radius:8px;
+ font-size:13px;line-height:1.45;min-height:43px}
+.chart-ohlc-strip[hidden]{display:none!important}
+.chart-ohlc-date{color:#bad3df;min-width:145px;font-size:12px;font-variant-numeric:tabular-nums}
+.chart-ohlc-inline-cell{display:inline-flex;align-items:baseline;gap:6px}
+.chart-ohlc-inline-cell>span{font-size:12px;color:#9dc4d2;font-weight:700}
+.chart-ohlc-inline-cell strong{font-size:14px;color:#f5faf9;font-weight:850;font-variant-numeric:tabular-nums}
+@media(max-width:699px){
+ .chart-ohlc-strip{gap:7px 12px;padding:8px}
+ .chart-ohlc-date{flex:1 0 100%;min-width:0}
+ .chart-ohlc-inline-cell strong{font-size:13px}
+}

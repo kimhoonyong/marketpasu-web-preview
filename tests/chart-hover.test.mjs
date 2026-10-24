@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {panelAt,hoveredBarIndex,describeBarHover} from "../market/chart-hover.mjs";
+import {panelAt,hoveredBarIndex,describeBarHover,hoverSurface} from "../market/chart-hover.mjs";
 
 const day={
  date:"2026-10-23",open:9000,high:11000,low:8500,close:10000,
@@ -76,4 +76,19 @@ test("five-minute resampled bar carries actual summed volume in tooltip",()=>{
  const row={...minute,date:"2026-10-23T10:00:00+09:00",volume:12000,partial:false};
  assert.equal(describeBarHover(row,"minute","volume").value,"12,000주");
  assert.equal(describeBarHover(row,"minute","turnover").value,"109,200,000원");
+});
+
+test("OHLC price hover is OFF by default and never opens a blocking popup",()=>{
+ assert.equal(hoverSurface("price"),"none");
+ assert.equal(hoverSurface("price",false),"none");
+});
+test("enabled OHLC uses an outside-chart strip, not the floating plot popup",()=>{
+ assert.equal(hoverSurface("price",true),"strip");
+});
+test("volume and monetary tooltips remain available whether OHLC is on or off",()=>{
+ for(const state of [true,false]){
+   assert.equal(hoverSurface("volume",state),"tooltip");
+   assert.equal(hoverSurface("turnover",state),"tooltip");
+ }
+ assert.equal(hoverSurface(null,true),"none");
 });

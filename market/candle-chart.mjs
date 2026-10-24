@@ -1,7 +1,7 @@
 import {checkedBars,constrainRange,scaleWindow,formatNumber,defaultVisibleBars} from "./chart-model.mjs";
 import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
-import {panelAt,hoveredBarIndex,describeBarHover} from "./chart-hover.mjs";
+import {panelAt,hoveredBarIndex,describeBarHover,hoverSurface} from "./chart-hover.mjs";
 import {candlePressure} from "./candle-pressure.mjs";
 import {responsiveChartHeight,chartTextSize} from "./chart-sizing.mjs";
 import {aggregateDailyBars,calendarGuides,chartAnchor,rangeForSelection} from "./daily-periods.mjs";
@@ -29,7 +29,7 @@ export function mountCandleChart(root,{kind,label}){
  const selection=document.createElement("div");selection.className="chart-range-selection";
  selection.hidden=true;selection.setAttribute("aria-hidden","true");
  area.append(focusGuide,selection);
- let maValues=new Map(),enabled=new Set(MA_PERIODS),showPressure=true;
+ let maValues=new Map(),enabled=new Set(MA_PERIODS),showPressure=true,ohlcEnabled=false;
  const controls=document.createElement("div");controls.className="chart-ma-controls";
  controls.setAttribute("role","group");controls.setAttribute("aria-label",label+" 이동평균선 표시");
  const labels=new Map();
@@ -62,7 +62,53 @@ export function mountCandleChart(root,{kind,label}){
    render();
  });
  controls.append(pressureToggle);
+ // OFF by default. When enabled, OHLC appears in a narrow strip above the
+ // canvas, NEVER as a popup that covers candle prices or moving averages.
+ const ohlcToggle=document.createElement("button");
+ ohlcToggle.type="button";
+ ohlcToggle.className="chart-ohlc-toggle";
+ ohlcToggle.setAttribute("aria-pressed","false");
+ ohlcToggle.textContent="OHLC 보기";
+ ohlcToggle.title="시가·고가·종가·저가 표시 켜기/끄기 (차트 위를 가리지 않음)";
+ controls.append(ohlcToggle);
  root.querySelector(".chart-head").after(controls);
+ const ohlcStrip=document.createElement("div");
+ ohlcStrip.className="chart-ohlc-strip";
+ ohlcStrip.hidden=true;
+ ohlcStrip.setAttribute("aria-live","off");
+ ohlcStrip.setAttribute("aria-label","선택한 가격봉 시가 고가 종가 저가");
+ const ohlcDate=document.createElement("span");
+ ohlcDate.className="chart-ohlc-date";
+ const ohlcCells=new Map();
+ for(const key of ["시가","고가","종가","저가"]){
+   const cell=document.createElement("span");
+   cell.className="chart-ohlc-inline-cell";
+   const name=document.createElement("span");name.textContent=key;
+   const value=document.createElement("strong");value.textContent="—";
+   cell.append(name,value);ohlcStrip.append(cell);
+   ohlcCells.set(key,value);
+ }
+ ohlcStrip.prepend(ohlcDate);
+ area.before(ohlcStrip);
+ function clearOhlc(){
+   ohlcDate.textContent="가격봉에 마우스를 올리면 OHLC를 표시합니다.";
+   for(const value of ohlcCells.values())value.textContent="—";
+ }
+ function updateOhlc(description){
+   if(!ohlcEnabled||!description?.ohlc)return;
+   ohlcDate.textContent=description.time;
+   for(const [key,value] of ohlcCells){
+     value.textContent=description.ohlc[key]||"—";
+   }
+ }
+ ohlcToggle.addEventListener("click",()=>{
+   ohlcEnabled=!ohlcEnabled;
+   ohlcToggle.setAttribute("aria-pressed",String(ohlcEnabled));
+   ohlcToggle.textContent=ohlcEnabled?"OHLC 숨기기":"OHLC 보기";
+   ohlcStrip.hidden=!ohlcEnabled;
+   clearOhlc();
+ });
+ clearOhlc();
  function updateButtons(){
    for(const period of MA_PERIODS){
      const button=labels.get(period),available=data.length>=period;
@@ -89,8 +135,15 @@ export function mountCandleChart(root,{kind,label}){
  }
  function showHover(index,pane,x,y){
    const record=data[index];
+   const surface=hoverSurface(pane,ohlcEnabled);
+   if(surface==="none"){hideHover();return;}
    const description=describeBarHover(record,kind,pane);
    if(!description){hideHover();return;}
+   if(surface==="strip"){
+     hideHover();
+     updateOhlc(description);
+     return;
+   }
    hover.replaceChildren();
    const heading=document.createElement("strong");
    heading.textContent=description.heading;
@@ -100,21 +153,10 @@ export function mountCandleChart(root,{kind,label}){
    value.className="chart-hover-value";value.textContent=description.value;
    const note=document.createElement("span");
    note.className="chart-hover-note";note.textContent=description.note;
-   if(description.ohlc){
-     hover.classList.add("is-ohlc");
-     const numbers=document.createElement("div");
-     numbers.className="chart-ohlc-grid";
-     for(const [key,val] of Object.entries(description.ohlc)){
-       const cell=document.createElement("div");cell.className="chart-ohlc-cell";
-       const name=document.createElement("span");name.textContent=key;
-       const amount=document.createElement("b");amount.textContent=val;
-       cell.append(name,amount);numbers.append(cell);
-     }
-     hover.append(heading,time,numbers);
-   }else{
-     hover.classList.remove("is-ohlc");
-     hover.append(heading,time,value,note);
-   }
+   // The only floating tooltips are volume and turnover. Price OHLC is
+   // handled by the separate opt-in strip before reaching this branch.
+   hover.classList.remove("is-ohlc");
+   hover.append(heading,time,value,note);
    hover.hidden=false;
    // Position after the text dimensions are known; never leave the chart area.
    const maxX=Math.max(4,area.clientWidth-hover.offsetWidth-5);
@@ -167,6 +209,7 @@ export function mountCandleChart(root,{kind,label}){
  }
  function setTimeframe(mode){
    if(kind!=="daily"||!["daily","weekly","monthly"].includes(mode))return;
+   clearOhlc();
    timeMode=mode;
    data=aggregateDailyBars(sourceDaily,timeMode);
    maValues=movingAverages(data);
@@ -326,6 +369,7 @@ export function mountCandleChart(root,{kind,label}){
   updateFocusGuide();
  }
  function setData(rows){
+   clearOhlc();
    const incoming=checkedBars(rows,kind);
    if(kind==="daily"){
      sourceDaily=incoming;
@@ -469,7 +513,7 @@ export function mountCandleChart(root,{kind,label}){
    end(e);hideHover();
  });
  canvas.addEventListener("lostpointercapture",end);
- canvas.addEventListener("pointerleave",hideHover);
+ canvas.addEventListener("pointerleave",()=>{hideHover();if(ohlcEnabled)clearOhlc();});
  canvas.addEventListener("pointerdown",e=>{
    if(e.pointerType!=="touch"||pointers.size!==1)return;
    const r=canvas.getBoundingClientRect();
