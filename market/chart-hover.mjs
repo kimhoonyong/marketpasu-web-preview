@@ -1,10 +1,12 @@
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {formatNumber} from "./chart-model.mjs";
+import {candlePressure} from "./candle-pressure.mjs";
 
 /** Match the three plotted panels in candle-chart.mjs; no fake values. */
 export function panelAt(y,height){
  if(!Number.isFinite(y)||!Number.isFinite(height)||height<=0)return null;
  const priceBottom=Math.round(height*.59);
+ if(y>=20&&y<=priceBottom)return "price";
  const volumeTop=priceBottom+21;
  const volumeBottom=Math.round(height*.77);
  const moneyTop=volumeBottom+14;
@@ -23,10 +25,16 @@ export function hoveredBarIndex(x,width,range,{left=68,right=75}={}){
  return range.start+bar;
 }
 export function describeBarHover(bar,kind,panel){
- if(!bar||!["volume","turnover"].includes(panel))return null;
+ if(!bar||!["price","volume","turnover"].includes(panel))return null;
  const time=String(bar.date||bar.time||"").replace("T"," ").slice(0,kind==="daily"?10:16);
  const a=barAnalytics(bar,{kind});
  const partial=bar.partial===true?" · 1분봉 일부 누락 가능":"";
+ if(panel==="price"){
+   const clue=candlePressure(bar);
+   return {time,heading:"가격봉 · "+clue.label,
+     value:formatNumber(bar.close)+"원",
+     note:clue.basis+" "+(clue.warning||"가격봉만으로 실제 매수·매도 체결 방향은 알 수 없습니다.")+partial};
+ }
  if(panel==="volume"){
   return {time,heading:"거래량",value:
     (a.volume===null?"미제공":formatNumber(a.volume)+"주"),

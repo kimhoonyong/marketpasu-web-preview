@@ -13,7 +13,7 @@ const minute={
 test("hover hit tests identify volume and money subpanels in 460px chart",()=>{
  assert.equal(panelAt(305,460),"volume");
  assert.equal(panelAt(370,460),"turnover");
- assert.equal(panelAt(155,460),null);
+ assert.equal(panelAt(155,460),"price");
  assert.equal(panelAt(280,460),null);
  assert.equal(panelAt(357,460),null);
  assert.equal(panelAt(450,460),null);
@@ -21,7 +21,7 @@ test("hover hit tests identify volume and money subpanels in 460px chart",()=>{
 test("panel hit zones scale with enlarged chart height",()=>{
  assert.equal(panelAt(525,780),"volume");
  assert.equal(panelAt(670,780),"turnover");
- assert.equal(panelAt(200,780),null);
+ assert.equal(panelAt(200,780),"price");
 });
 test("hover pointer maps to visible bars with zoom/pan start offset",()=>{
  const range={start:50,count:20};
@@ -69,7 +69,7 @@ test("missing broker-reported day turnover stays missing, never reconstructed",(
  assert.doesNotMatch(m.note,/추정 거래대금/);
 });
 test("unsupported kind and invalid pane do not present fabricated data",()=>{
- assert.equal(describeBarHover(day,"daily","price"),null);
+ assert.match(describeBarHover(day,"daily","price").heading,/가격봉/);
  assert.equal(describeBarHover(null,"daily","volume"),null);
 });
 test("five-minute resampled bar carries actual summed volume in tooltip",()=>{
