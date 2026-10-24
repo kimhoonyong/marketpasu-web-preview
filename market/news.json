@@ -2,7 +2,7 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-24",
-  "updated_at": "2026-10-24T00:59:01.155440+00:00",
+  "updated_at": "2026-10-24T01:05:40.041917+00:00",
   "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
   "items": [
     {
@@ -126,6 +126,21 @@
       "title_variants": 1
     },
     {
+      "id": "653fe10a7d3a22067a9a",
+      "title": "삼성·LG가 TV에 명화 띄우는 이유…아트 콘텐츠·플랫폼 경쟁 확대",
+      "publisher": "빅데이터뉴스",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5ibkhLWTdrMXlHc2cyanljbmZ5Q1JWQ0JIQ0RKZU1VT2xrZldtZTZoVE9wbTQ1US1YeWExUG9Ua0MxbFFXbTBwRVQxUGYydU1INngyMzQ2UG1WdjlQRkg3clRkWWN5dW9aUVJkLVVrMnFNTFlESzFfU2hkVW4?oc=5",
+      "published_at": "2026-10-24T00:00:00+00:00",
+      "topic": "LG전자",
+      "topics": [
+        "LG전자"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "1007baed6c84275a762e",
       "title": "유아교육진흥원, 조부모와 손주가 함께하는 공감동행 가족체험 : 네이버 블로그",
       "publisher": "Naver Blog",
@@ -194,21 +209,6 @@
       "topic": "테슬라",
       "topics": [
         "테슬라"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "3830608dffade244876b",
-      "title": "HBM만으론 부족한 AI인프라…삼전닉스, 차세대 메모리 전쟁",
-      "publisher": "연합뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBGYXVOdGVhU1F0dlFjMm9JMC1mNWVocmc2YWRGQVVmSXJHc3YtQ2FPNnd2WFVMaHcyVWdyQnFYVVFrOF85NkNPQnl3bTlOdlEtR0ZZRnJzdGJpWl9Vby0xctIBYEFVX3lxTFBGYXVOdGVhU1F0dlFjMm9JMC1mNWVocmc2YWRGQVVmSXJHc3YtQ2FPNnd2WFVMaHcyVWdyQnFYVVFrOF85NkNPQnl3bTlOdlEtR0ZZRnJzdGJpWl9Vby0xcg?oc=5",
-      "published_at": "2026-10-23T23:01:01+00:00",
-      "topic": "삼성전자",
-      "topics": [
-        "삼성전자"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -381,14 +381,14 @@
       "title_variants": 1
     },
     {
-      "id": "fa632f57505bcc4b1f28",
-      "title": "겨울의 문턱, 우리 아이가 주인공이 되는 충북 교육 이야기 : 네이버 블로그",
-      "publisher": "Naver Blog",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNY1NlX0pUWXM0ejhjVXJGM0s0Q3hVMHBIOFFpY0VBR3ZPRGhOYnp1RzNCYjROa1loc3ZQWmdBaEJGYVlmOHFFNV9aOXNYdDFTS09yRXEyZ09iUWhnVGg2MC1xaFNkN3JSU2tUdnpldm1fTXBtajZCSHZpZUhlZHBlemRvNmdYcHAxY2F4ZUFNbw?oc=5",
-      "published_at": "2026-10-23T22:00:06+00:00",
-      "topic": "NAVER",
+      "id": "2edfa748aeec425a9e3e",
+      "title": "현대차, 남아공에 6t 트럭 출시…물류 고객 공략 강화",
+      "publisher": "글로벌이코노믹",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNQklLZWRUZ0JYcVRtZDZOeWd5WTkyaEh4Y1I5MnAtRnMybzRYS2lpV2I0dUdacUdMN2hJc085ZzJlRDJsQU9NU194eGgydVN1RU03QlNCcXpUaDFHZTVnV2ZUQlhuLUxMQVhZN1JuMldOY016YUpVUUYzVk5hb05hUkxkWVRVbWh0?oc=5",
+      "published_at": "2026-10-23T22:04:34+00:00",
+      "topic": "현대차",
       "topics": [
-        "NAVER"
+        "현대차"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -562,14 +562,14 @@
       "title_variants": 1
     },
     {
-      "id": "8609f6579bca4a1f31d5",
-      "title": "[증시 리스크 관리-中] 금리 인상에 자산시장 위축 공포···종목 선별 기준은",
-      "publisher": "시사저널e",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1LZnMwa0NDaGZIaHRXY0lrTVVKVnRnZ0pmbG5CYjlwYnlseXViTHgwaEVTc0x4aVQ0LWktbkFNM1F4ZGFoMjBiYUh3c1o4dDBhSnFFMjJITzhGYjhQbkZTOW9jazVmbjU2eF9Qb3VrT0dCcllrcHfSAXZBVV95cUxNS2ZzMGtDQ2hmSGh0V2NJa01VSlZ0Z2dKZmxuQmI5cGJ5bHl1Ykx4MGhFU3NMeGlUNC1pLW5BTTNReGRhaDIwYmFId3NaOHQwYUpxRTIySE84RmI4UG5GUzlvY2s1Zm41NnhfUG91a09HQnJZa3B3?oc=5",
-      "published_at": "2026-10-23T10:24:21+00:00",
-      "topic": "한국 증시",
+      "id": "0f4e2e0aa69b7712df35",
+      "title": "(10월 23일~11월 1일) 지역과 일상을 연결하는 : 네이버 블로그",
+      "publisher": "Naver Blog",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOOE02N1BmaVFDYS1yaWZZZHNacWpKa3AxNlE5dnFHc0NYd21KWklPaVBGdGJ2aGk2UUs1a21tVVJWYU9haHI5SFBWaERucVV5ZHlvVzVndVptNWZCUFY1S1MzeGpNUGpROHprWTJhc0U0d3dENkVuUFlEbHlhck1XcHRSRllGa0V4VmFDcTYtU28?oc=5",
+      "published_at": "2026-10-23T11:09:57+00:00",
+      "topic": "NAVER",
       "topics": [
-        "한국 증시"
+        "NAVER"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -642,21 +642,6 @@
       "publisher": "더나은미래",
       "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE8xMTRWTFpNRnd0M3FHV2ptWDRUWlVfbVlfeWVOdFRjRUdXbFdNWktHMWoxaE9hdjd1M0FoQVJ0blhiX0JBRzZGdEFwdDRwOGZ6TkE?oc=5",
       "published_at": "2026-10-23T08:40:00+00:00",
-      "topic": "코스닥",
-      "topics": [
-        "코스닥"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "a5f5780045cbdea608ff",
-      "title": "코스피 5,550.30 코스닥 751.69",
-      "publisher": "KBS 뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9UbzdxTU9UeGg3aG9EMDh6NlRzYnYxRVREa0FwSm5KMmRuN0JDelhyTlZ0ck9hUWNNXzB4R3FxZXY1QnluYXpWZ0tGX0VPWjQtN0gtcER2bGFxdVU?oc=5",
-      "published_at": "2026-10-23T08:25:00+00:00",
       "topic": "코스닥",
       "topics": [
         "코스닥"
@@ -742,18 +727,33 @@
       "title_variants": 1
     },
     {
-      "id": "cc9df9738c03f5ea2576",
-      "title": "LG전자 베스트샵 롯데 평촌점, ‘팝업스토어 GRAND OPEN’ 행사 진행",
-      "publisher": "대한경제",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9CbmtWMXYycE05UDcyOEJCLXRwaEVTWGd2MDdiYTRRNm5Gemplb0dzRFU5VllDdkNKbUxzdXNmRDA3MWpTcWZ3ZjVoZzNwRXhxTDZuWUNUcXFXRDh1S1dxRnE2TmZhbWY4REpMX3RjMWpNMHc?oc=5",
-      "published_at": "2026-10-23T07:21:41+00:00",
+      "id": "a1e853cab2d31548171c",
+      "title": "\"화면크기·화질 다 잡았다\"…'LG 스탠바이미2 맥스', 국내외서 인기몰이",
+      "publisher": "뉴시스",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBaMkw3WVFYeXNOWjQxWThGU0tBOHpnS09GdW5qZWF6Ul9PdUxLWXRWcnhYS1hfekRPdVZlTmZQTTVvdzlidURKNkk1SzFRS2NNSUM2OHNSU2dIWnk2Nlg4bGRfaGtSdHIzaUZFOHRZYVVxT0Z6Vm5OdNIBeEFVX3lxTFBaMkw3WVFYeXNOWjQxWThGU0tBOHpnS09GdW5qZWF6Ul9PdUxLWXRWcnhYS1hfekRPdVZlTmZQTTVvdzlidURKNkk1SzFRS2NNSUM2OHNSU2dIWnk2Nlg4bGRfaGtSdHIzaUZFOHRZYVVxT0Z6Vm5OdA?oc=5",
+      "published_at": "2026-10-23T07:23:52+00:00",
       "topic": "LG전자",
       "topics": [
         "LG전자"
       ],
-      "first_observed": "2026-10-24",
+      "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
-      "observed_days": 1,
+      "observed_days": 2,
+      "title_variants": 1
+    },
+    {
+      "id": "e5495fa34e60251a79cc",
+      "title": "얼음 깰 때 ‘오싹한 청량감’…LG전자 ‘팅글 마케팅’ 한국PR대상 최우수상",
+      "publisher": "비즈월드",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1BUWdXTW1rM25KZVlPMVJtZHctZnJtZDFhOFQ5QTQ5aW5nYk1Za25sWVkzbkJNcjY1Z0Qwc2g4NXdBcWdLcGNOUklZSFF3Um9NM0pkSG9kNFoybEpGY19HU1ZGcmRITDVUenRn?oc=5",
+      "published_at": "2026-10-23T07:22:00+00:00",
+      "topic": "LG전자",
+      "topics": [
+        "LG전자"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
       "title_variants": 1
     },
     {
@@ -787,14 +787,29 @@
       "title_variants": 1
     },
     {
-      "id": "872bf03c5c42b5737109",
+      "id": "87d37f426b72550fb9c0",
       "title": "LG전자, 가전 '팅글' 영상으로 한국PR대상 최우수상",
       "publisher": "팍스경제TV",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1uXzdFV0tFa2FKUkZfaTFvWXY0Zkg3RUVjMnM4ZXUxMldhZHc4OXJfV0JfLWlJVm9SOW96UmtZYjRBRnFTbWdWQXVOdEJ1VFBSX1JaVEtrUVJ1Sng3SnV2VW9QODhSTHc?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9MMHBjVGZOdm1xS3FZN1Y5aTVWNkEtZTRUMWVsZDdETGdXUzdVMUVXcTZ2cHNsV3oxT3R4cmdENGhSUkZIVWZZWUVNdDRGckduS3pYcjBzWnF0T2tMRHlWVTNRYUpYeWVE?oc=5",
       "published_at": "2026-10-23T06:40:04+00:00",
       "topic": "LG전자",
       "topics": [
         "LG전자"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 1
+    },
+    {
+      "id": "854dba964e02316283cf",
+      "title": "[특징주] 디티에스, 코스닥 상장 첫날 35% 강세 마감…상승폭은 줄어(종합)",
+      "publisher": "연합뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE16TVY0SGdHWE5jdVdodXJielZOMldEUkM5T19DaTB5RGNQeGRFUjVDaFhQSWRuYmVQT2lBa0p3T3l4eXBBMFRscUJGVGozbDlHclY5Zko1Wk5odUnSAWBBVV95cUxQMFNub01lWGpWM2tqalRCSkRXbkZVWEZpRkNBdkxTZlVHVzdlckNNRVhmbzdwQndoNC03dWhoanVOQ1N4QXpfV01EZHN3YnVOVG9EcjFWdXhMMEZrLUFPNEM?oc=5",
+      "published_at": "2026-10-23T06:38:29+00:00",
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
@@ -817,18 +832,18 @@
       "title_variants": 1
     },
     {
-      "id": "9a75f8d20125ae1ad464",
-      "title": "2026 파리 모터쇼, 현대차그룹이 제시한 유럽 맞춤형 포트폴리오 | 저널 | 현대자동차그룹",
-      "publisher": "Hyundai Motor Group",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNQmkxT1ZubFZWWGJ0aEhzY3NHdlFOaDN3MVhQbjlELVdRQzN1V2RvMWFzVzIwSE9HaW5Mc2tDelNsZFYtMTJqRlBPTXFfVHJscGpiR1k3ZXR2Tm5zTm00TWViNzZKSUYzaExHQ1JtckFvOG91OE5jOEdIMFRlSzdJbFhOdWZ5TElxY0FraA?oc=5",
-      "published_at": "2026-10-23T06:20:00+00:00",
-      "topic": "현대차",
+      "id": "d73aabcb8e751140053c",
+      "title": "대통령의 '증시 자신감', 참을 수 없는 '오만과 편견'",
+      "publisher": "뉴데일리",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE41N080cE9FZTJWTG9LY21CQzR5eU1PanpNaTAzaExsQUlYTWxHaHcyd0ZKMWd0ZW05UGxMWXFETUR0YkVKQXFyUmxTVVdCVlhBYVF6Vk4yMnRyT0dVb1pJLVBZV2tuYVcxdFNuYmtFRG1KQ3ZEakhXNXMxRdIBgAFBVV95cUxNay1md0FOZkRLX1dPa2RkOUVSQ0c1akFVZWJvUng5QlJhYlBQbHZ3NThwSnJwcUtld1I1NmJJVnRSellRU3VwSWtsU2VxQzFSd3hnSFJNUUhrQXNQUTc0YWtBNFVBTGxTNkVzbXpqSUtuUVhqY2NUMmZNWmo1X3pweg?oc=5",
+      "published_at": "2026-10-23T06:37:00+00:00",
+      "topic": "한국 증시",
       "topics": [
-        "현대차"
+        "한국 증시"
       ],
-      "first_observed": "2026-10-23",
+      "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
-      "observed_days": 2,
+      "observed_days": 1,
       "title_variants": 1
     },
     {
@@ -845,21 +860,6 @@
       "last_observed": "2026-10-24",
       "observed_days": 2,
       "title_variants": 2
-    },
-    {
-      "id": "a2f73784a82926f69d82",
-      "title": "LG전자, 공감각 브랜딩으로 한국PR대상 2관왕",
-      "publisher": "투데이에너지",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5GQktzcXJsbEt5LWxzeUhmZlVSR0lDczUxaHA1M0JLYWhZTjZyR1Axa1pzN1drNkR5X19OM3c2THRGUi1CSkdnbUdzdHYyYW92c3gtMURCUENRUHpMYmY4VGR2bUZfc2Y0bWdXT0t3?oc=5",
-      "published_at": "2026-10-23T05:28:14+00:00",
-      "topic": "LG전자",
-      "topics": [
-        "LG전자"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
     },
     {
       "id": "bd144be510dacc459e59",
