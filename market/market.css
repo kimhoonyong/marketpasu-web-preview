@@ -389,3 +389,19 @@ body{width:100%}
 .chart-recent:hover{border-color:#85ceba}
 .charts-wide .chart-status{line-height:1.8;overflow-wrap:anywhere}
 @media(max-width:699px){.chart-recent{font-size:12px;padding:7px 8px}}
+
+
+/* Compact four-value OHLC hover, chart click focus, shift-drag range zoom. */
+.daily-period-select{display:flex;align-items:center;gap:6px;color:#d0e9ec;font-size:13px;font-weight:800}
+.daily-period-select select{background:#112b3e;color:#defaef;border:1px solid #517d8f;border-radius:8px;min-height:40px;padding:7px 11px;font-size:14px;font-weight:800}
+.chart-hover-tooltip.is-ohlc{min-width:178px;max-width:240px;gap:5px;padding:9px 11px}
+.chart-hover-tooltip.is-ohlc .chart-hover-time{font-size:12px}
+.chart-ohlc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 11px}
+.chart-ohlc-cell{display:flex;flex-direction:column;gap:1px;font-variant-numeric:tabular-nums}
+.chart-ohlc-cell span{font-size:11px;color:#a9c4d2;font-weight:700}
+.chart-ohlc-cell b{font-size:14px;color:#f7faf9;white-space:nowrap}
+.chart-focus-guide{position:absolute;pointer-events:none;z-index:4;border-left:2px solid #89e9b6;width:0;opacity:.8}
+.chart-focus-guide[hidden],.chart-range-selection[hidden]{display:none!important}
+.chart-range-selection{position:absolute;z-index:3;pointer-events:none;background:rgba(105,216,187,.18);border:1px solid #8ae9c7;border-radius:3px}
+.charts-wide .chart-area canvas{cursor:crosshair}
+@media(max-width:699px){.daily-period-select{width:100%;justify-content:flex-start}.chart-ohlc-cell b{font-size:13px}}

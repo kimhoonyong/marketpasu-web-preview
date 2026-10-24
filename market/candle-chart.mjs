@@ -4,6 +4,7 @@ import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {panelAt,hoveredBarIndex,describeBarHover} from "./chart-hover.mjs";
 import {candlePressure} from "./candle-pressure.mjs";
 import {responsiveChartHeight,chartTextSize} from "./chart-sizing.mjs";
+import {aggregateDailyBars,calendarGuides,chartAnchor,rangeForSelection} from "./daily-periods.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -20,18 +21,26 @@ export function mountCandleChart(root,{kind,label}){
  reset.parentElement.insertBefore(recent,reset);
  reset.textContent="전체 기간";
  reset.title="PC에 조회된 모든 실제 봉을 표시합니다. 많은 봉은 겹칠 수 있으니 확대해 보세요.";
- let data=[],windowRange={start:0,count:0},pointers=new Map(),dragX=null,pinch=null;
+ let data=[],sourceDaily=[],timeMode="daily",windowRange={start:0,count:0};
+ let pointers=new Map(),dragX=null,pinch=null,downX=null,dragMoved=false;
+ let lockedFocus=null,selectionDrag=null;
+ const focusGuide=document.createElement("div");focusGuide.className="chart-focus-guide";
+ focusGuide.hidden=true;focusGuide.setAttribute("aria-hidden","true");
+ const selection=document.createElement("div");selection.className="chart-range-selection";
+ selection.hidden=true;selection.setAttribute("aria-hidden","true");
+ area.append(focusGuide,selection);
  let maValues=new Map(),enabled=new Set(MA_PERIODS),showPressure=true;
  const controls=document.createElement("div");controls.className="chart-ma-controls";
  controls.setAttribute("role","group");controls.setAttribute("aria-label",label+" 이동평균선 표시");
  const labels=new Map();
+ const unit=()=>kind==="minute"?"분":timeMode==="weekly"?"주":timeMode==="monthly"?"개월":"일";
  for(const period of MA_PERIODS){
    const btn=document.createElement("button");btn.type="button";
    btn.className="chart-ma-switch"+(period===20||period===240?" emphasized":"");
    btn.dataset.period=String(period);btn.setAttribute("aria-pressed","true");
    const swatch=document.createElement("span");swatch.className="ma-color";
    swatch.style.backgroundColor=MA_STYLE[period].color;
-   const txt=document.createElement("span");txt.textContent=String(period)+(kind==="daily"?"일":"분");
+   const txt=document.createElement("span");txt.textContent=String(period)+unit();
    btn.append(swatch,txt);controls.append(btn);labels.set(period,btn);
    btn.addEventListener("click",()=>{
      if(!maValues.get(period)?.some(v=>v!==null))return;
@@ -59,7 +68,8 @@ export function mountCandleChart(root,{kind,label}){
      const button=labels.get(period),available=data.length>=period;
      button.disabled=!available;
      button.setAttribute("aria-pressed",String(enabled.has(period)&&available));
-     button.title=available?"종가 "+period+"봉 단순이동평균선":"계산에 "+period+"개 봉 필요 (현재 "+data.length+"개)";
+     button.title=available?"종가 "+period+unit()+" 단순이동평균선":"계산에 "+period+unit()+" 자료 필요 (현재 "+data.length+"개)";
+     button.querySelector("span:last-child").textContent=period+unit();
    }
  }
  const colors={up:"#fa666b",down:"#6cb5ff",grid:"#36506a",text:"#afc4d5",wick:"#b4bfc9"};
@@ -90,7 +100,21 @@ export function mountCandleChart(root,{kind,label}){
    value.className="chart-hover-value";value.textContent=description.value;
    const note=document.createElement("span");
    note.className="chart-hover-note";note.textContent=description.note;
-   hover.append(heading,time,value,note);
+   if(description.ohlc){
+     hover.classList.add("is-ohlc");
+     const numbers=document.createElement("div");
+     numbers.className="chart-ohlc-grid";
+     for(const [key,val] of Object.entries(description.ohlc)){
+       const cell=document.createElement("div");cell.className="chart-ohlc-cell";
+       const name=document.createElement("span");name.textContent=key;
+       const amount=document.createElement("b");amount.textContent=val;
+       cell.append(name,amount);numbers.append(cell);
+     }
+     hover.append(heading,time,numbers);
+   }else{
+     hover.classList.remove("is-ohlc");
+     hover.append(heading,time,value,note);
+   }
    hover.hidden=false;
    // Position after the text dimensions are known; never leave the chart area.
    const maxX=Math.max(4,area.clientWidth-hover.offsetWidth-5);
@@ -122,12 +146,33 @@ export function mountCandleChart(root,{kind,label}){
    insights.querySelector(".insights-average").textContent=avg+
       " · 거래량 "+formatNumber(b.volume)+"주";
    insights.querySelector(".insights-pressure").textContent=
-     "봉별 "+clue.label+" ("+clue.basis+")"+
-     " · 실제 매수·매도 체결 방향은 0B 체결데이터 미수집으로 확인 불가"+
+     "가격압력 참고: "+clue.label+
+     " · 실제 매수·매도 체결자료 없음"+
      (b.partial?" · 이 시간 구간의 1분봉 표본이 일부만 있음":"");
  }
 
  const heightFor=w=>responsiveChartHeight(w,window.innerHeight,root.classList.contains("chart-enlarged"));
+ function updateFocusGuide(){
+   if(!lockedFocus||!data.length||!windowRange.count){focusGuide.hidden=true;return;}
+   if(lockedFocus.index<windowRange.start||lockedFocus.index>=windowRange.start+windowRange.count){
+     focusGuide.hidden=true;return;
+   }
+   const rect=canvas.getBoundingClientRect();
+   const xpos=68+(lockedFocus.index-windowRange.start+.5)*
+     (rect.width-68-75)/windowRange.count;
+   focusGuide.style.left=xpos+"px";
+   focusGuide.style.top="20px";
+   focusGuide.style.height=Math.max(0,rect.height-53)+"px";
+   focusGuide.hidden=false;
+ }
+ function setTimeframe(mode){
+   if(kind!=="daily"||!["daily","weekly","monthly"].includes(mode))return;
+   timeMode=mode;
+   data=aggregateDailyBars(sourceDaily,timeMode);
+   maValues=movingAverages(data);
+   lockedFocus=null;activeIndex=null;
+   updateButtons();recentView();
+ }
  function render(){
   hideHover();
   const rect=area.getBoundingClientRect();
@@ -143,6 +188,7 @@ export function mountCandleChart(root,{kind,label}){
   ctx.clearRect(0,0,w,h);
   ctx.fillStyle="#0b1b2d";ctx.fillRect(0,0,w,h);
   if(!data.length){
+   focusGuide.hidden=true;
    ctx.fillStyle=colors.text;ctx.font="14px sans-serif";ctx.fillText("키움 연결 후 실제 차트가 표시됩니다.",18,h/2);
    return;
   }
@@ -178,6 +224,26 @@ export function mountCandleChart(root,{kind,label}){
    ctx.beginPath();ctx.moveTo(left,yy);ctx.lineTo(w-right,yy);ctx.stroke();
    ctx.fillText(formatNumber(high-(high-low)*i/4),w-right+6,yy+4);
   }
+  // Real calendar transition markers, distinguished by line weight.
+  // Labels are thinned automatically when the full 2021~ period is viewed.
+  let lastMonthLabelX=-999;
+  ctx.save();
+  for(const item of calendarGuides(data,windowRange.start,visible.length,
+      kind==="daily"?timeMode:"minute")){
+    const x=left+each*(item.index-windowRange.start);
+    const year=item.type==="year";
+    ctx.strokeStyle=year?"rgba(117,196,213,.72)":"rgba(82,116,143,.29)";
+    ctx.lineWidth=year?1.7:1;
+    ctx.beginPath();ctx.moveTo(x,20);ctx.lineTo(x,h-29);ctx.stroke();
+    if(year||x-lastMonthLabelX>=52){
+      ctx.fillStyle=year?"#b2f4e3":"#789eb8";
+      ctx.font=(year?"bold ":"")+chartTextSize(w)+"px sans-serif";
+      ctx.fillText(item.label,Math.min(w-right-45,x+4),14);
+      lastMonthLabelX=x;
+    }
+  }
+  ctx.restore();
+  ctx.font=chartTextSize(w)+"px sans-serif";
   const bodyWidth=Math.max(1,Math.min(16,each*.66));
   for(let i=0;i<visible.length;i++){
    const v=visible[i],x=left+each*(i+.5);
@@ -250,36 +316,51 @@ export function mountCandleChart(root,{kind,label}){
   ctx.fillText(compactWon(moneyMax),w-right+6,moneyTop+12);
   const first=visible[0],last=visible[visible.length-1];
   const allFirst=data[0],allLast=data[data.length-1];
-  info(label+" · 화면 "+first.date.replace("T"," ")+" ~ "+last.date.replace("T"," ")+" ("+visible.length+"개)"+
+  info((kind==="daily"?timeMode==="weekly"?"주봉":timeMode==="monthly"?"월봉":"일봉":label)+
+    " · 화면 "+first.date.replace("T"," ")+" ~ "+last.date.replace("T"," ")+" ("+visible.length+"개)"+
     " / 실제 조회 전체 "+allFirst.date.slice(0,10)+" ~ "+allLast.date.slice(0,10)+" ("+data.length+"개)"+
     " · 마지막 "+formatNumber(last.close)+"원 · 거래량 "+formatNumber(last.volume)+
     (data.length>visible.length?" · [전체 기간]에서 모두 확인 가능":" · 조회된 전체 봉 표시 중"));
   if(activeIndex===null||activeIndex<windowRange.start||activeIndex>=windowRange.start+visible.length)activeIndex=windowRange.start+visible.length-1;
   inspect(activeIndex);
+  updateFocusGuide();
  }
  function setData(rows){
-   data=checkedBars(rows,kind);
-   activeIndex=null;
+   const incoming=checkedBars(rows,kind);
+   if(kind==="daily"){
+     sourceDaily=incoming;
+     data=aggregateDailyBars(sourceDaily,timeMode);
+   }else data=incoming;
+   activeIndex=null;lockedFocus=null;
    maValues=movingAverages(data);
    updateButtons();
    recentView();
  }
  function recentView(){
+   lockedFocus=null;
    const visible=defaultVisibleBars(data.length,kind,area.clientWidth);
    windowRange=constrainRange(data.length,data.length-visible,visible);
    render();
  }
  function resetView(){
+   lockedFocus=null;
    windowRange=constrainRange(data.length,0,data.length);
    render();
  }
- function zoom(factor,anchor=.5){windowRange=scaleWindow(data.length,windowRange,factor,anchor);render();}
+ function zoom(factor,anchor=null){
+   const focus=lockedFocus;
+   const fixed=focus&&focus.index>=windowRange.start&&
+     focus.index<windowRange.start+windowRange.count?
+       Math.max(0,Math.min(1,(focus.index+.5-windowRange.start)/windowRange.count)):null;
+   windowRange=scaleWindow(data.length,windowRange,factor,anchor??fixed??.5);
+   render();
+ }
  function pan(deltaPx){
    if(!data.length)return;
    const width=Math.max(300,area.getBoundingClientRect().width);
    const change=Math.round(-deltaPx/Math.max(5,width-120)*windowRange.count);
    windowRange=constrainRange(data.length,windowRange.start+change,windowRange.count);
-   render();
+   lockedFocus=null;render();
  }
  plus.addEventListener("click",()=>zoom(.74));
  minus.addEventListener("click",()=>zoom(1.35));
@@ -294,10 +375,18 @@ export function mountCandleChart(root,{kind,label}){
    if(!data.length)return;
    e.preventDefault();
    const r=canvas.getBoundingClientRect();
-   zoom(e.deltaY>0?1.18:.84,(e.clientX-r.left)/r.width);
+   zoom(e.deltaY>0?1.18:.84,lockedFocus?null:chartAnchor(e.clientX-r.left,r.width));
  },{passive:false});
  canvas.addEventListener("pointerdown",e=>{
    if(!data.length)return;
+   if(e.pointerType==="mouse"&&e.button!==0)return;
+   if(e.pointerType!=="touch"){
+     downX=e.clientX;dragMoved=false;
+     if(e.shiftKey&&e.button===0){
+       selectionDrag={from:e.clientX,to:e.clientX};
+       selection.hidden=false;
+     }
+   }
    canvas.setPointerCapture(e.pointerId);
    pointers.set(e.pointerId,e.clientX);
    if(pointers.size===1)dragX=e.clientX;
@@ -322,7 +411,19 @@ export function mountCandleChart(root,{kind,label}){
     }
   }else hideHover();
   if(!pointers.has(e.pointerId))return;
-  const old=pointers.get(e.pointerId);
+  if(downX!==null&&Math.abs(e.clientX-downX)>4)dragMoved=true;
+  if(selectionDrag){
+    selectionDrag.to=e.clientX;
+    const rect=canvas.getBoundingClientRect();
+    const min=Math.max(68,Math.min(selectionDrag.from,selectionDrag.to)-rect.left);
+    const max=Math.min(rect.width-75,Math.max(selectionDrag.from,selectionDrag.to)-rect.left);
+    selection.style.left=min+"px";
+    selection.style.width=Math.max(0,max-min)+"px";
+    selection.style.top="20px";
+    selection.style.height=Math.max(0,rect.height-53)+"px";
+    selection.hidden=false;
+    return;
+  }
   pointers.set(e.pointerId,e.clientX);
   if(pointers.size===2){
    const xs=[...pointers.values()];
@@ -339,11 +440,34 @@ export function mountCandleChart(root,{kind,label}){
   }
  });
  function end(e){
+  const selected=selectionDrag;
+  if(selected&&data.length){
+    const rect=canvas.getBoundingClientRect();
+    const l=hoveredBarIndex(selected.from-rect.left,rect.width,windowRange);
+    const r=hoveredBarIndex(selected.to-rect.left,rect.width,windowRange);
+    selectionDrag=null;selection.hidden=true;
+    if(dragMoved&&l!==null&&r!==null&&Math.abs(r-l)>=4){
+      windowRange=constrainRange(data.length,
+        rangeForSelection(windowRange,data.length,l,r).start,
+        rangeForSelection(windowRange,data.length,l,r).count);
+      lockedFocus=null;render();
+    }
+  }else if(!dragMoved&&e.pointerType!=="touch"&&e.button===0&&data.length){
+    const rect=canvas.getBoundingClientRect();
+    const i=hoveredBarIndex(e.clientX-rect.left,rect.width,windowRange);
+    if(i!==null){
+      lockedFocus={index:i};activeIndex=i;
+      inspect(i);updateFocusGuide();
+    }
+  }
   pointers.delete(e.pointerId);
-  pinch=null;dragX=null;
+  pinch=null;dragX=null;downX=null;dragMoved=false;
  }
  canvas.addEventListener("pointerup",end);
- canvas.addEventListener("pointercancel",e=>{end(e);hideHover();});
+ canvas.addEventListener("pointercancel",e=>{
+   selectionDrag=null;selection.hidden=true;dragMoved=true;
+   end(e);hideHover();
+ });
  canvas.addEventListener("lostpointercapture",end);
  canvas.addEventListener("pointerleave",hideHover);
  canvas.addEventListener("pointerdown",e=>{
@@ -377,5 +501,5 @@ export function mountCandleChart(root,{kind,label}){
  if(typeof ResizeObserver!=="undefined")new ResizeObserver(render).observe(area);
  window.addEventListener("resize",render);
  updateButtons();render();
- return {setData,reset:resetView};
+ return {setData,setTimeframe,reset:resetView};
 }

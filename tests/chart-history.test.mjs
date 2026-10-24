@@ -18,7 +18,7 @@ test("full-history control can show every actual loaded candle",()=>{
  const n=8000;
  assert.deepEqual(constrainRange(n,0,n),{start:0,count:8000});
  const code=readFileSync(new URL("../market/candle-chart.mjs",import.meta.url),"utf8");
- assert.match(code,/function resetView\(\)\{\s*windowRange=constrainRange\(data.length,0,data.length\)/);
+ assert.match(code,/function resetView\(\)\{\s*lockedFocus=null;\s*windowRange=constrainRange\(data.length,0,data.length\)/);
  assert.match(code,/function recentView\(\)/);
  assert.match(code,/reset\.textContent="전체 기간"/);
 });
