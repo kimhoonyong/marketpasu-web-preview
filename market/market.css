@@ -274,3 +274,25 @@
  .bar-insights{padding:9px}
  .chart-wide-heading h2{font-size:20px}
 }
+
+
+/* Bar-specific volume / turnover inspection, without obscuring mouse targets. */
+.charts-wide .chart-area{position:relative;overflow:hidden}
+.chart-hover-tooltip{
+  position:absolute;z-index:8;pointer-events:none;max-width:min(300px,92%);
+  min-width:168px;display:flex;flex-direction:column;gap:3px;
+  padding:10px 12px;border:1px solid #80d7c9;border-radius:10px;
+  background:rgba(9,29,41,.97);box-shadow:0 8px 24px rgba(0,0,0,.40);
+  color:#eefaff;font-size:13px;line-height:1.45;
+}
+.chart-hover-tooltip[hidden],.chart-hover-guide[hidden]{display:none!important}
+.chart-hover-tooltip strong{color:#9fe7d1;font-size:13px}
+.chart-hover-time{color:#aecada;font-size:12px;letter-spacing:.01em}
+.chart-hover-value{font-size:17px;font-weight:900;color:#fff;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.chart-hover-note{color:#e6d19e;font-size:12px;line-height:1.5}
+.chart-hover-guide{position:absolute;z-index:6;pointer-events:none;width:0;border-left:1px dashed #8ee0c8;opacity:.72}
+.chart-area canvas:focus-visible{outline:2px solid #85e8ce;outline-offset:-3px}
+@media(max-width:650px){
+ .chart-hover-tooltip{padding:8px 9px;min-width:142px;font-size:12px}
+ .chart-hover-value{font-size:15px}
+}
