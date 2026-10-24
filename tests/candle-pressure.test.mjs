@@ -45,12 +45,13 @@ test("invalid OHLC closes abstain",()=>{
  assert.equal(candlePressure(bar(100,101,102,95)).code,"UNKNOWN");
  assert.equal(candlePressure({}).code,"UNKNOWN");
 });
-test("price-panel hover reports clear estimate and no actual buy/sell attribution",()=>{
+test("price-panel hover shows OHLC only, without pressure explanations",()=>{
  const tip=describeBarHover(bar(100,160,95,105),"minute","price");
  assert.equal(tip.time,"2026-10-23 19:40");
- assert.match(tip.heading,/매도압력 추정/);
- assert.match(tip.note,/실제 매수·매도 체결 방향/);
- assert.equal(tip.value,"105원");
+ assert.equal(tip.heading,"가격봉 OHLC");
+ assert.equal(tip.note,"");
+ assert.deepEqual(tip.ohlc,{"시가":"100원","고가":"160원","종가":"105원","저가":"95원"});
+ assert.doesNotMatch(JSON.stringify(tip),/매도압력|추정/);
 });
 test("price hover is independent of turnover hover at same timestamp",()=>{
  const b=bar(100,160,95,105);
