@@ -4,7 +4,7 @@ import {readFileSync} from "node:fs";
 import {checkedBars,defaultVisibleBars,constrainRange} from "../market/chart-model.mjs";
 import {minuteTimeframe} from "../market/bar-analytics.mjs";
 
-const candle=(n)=>({time:new Date(Date.UTC(2026,9,10,0,0)+n*60000).toISOString(),
+const candle=(n)=>({time:new Date(Date.UTC(2026,9,10,0,0)+n*60000).toISOString().slice(0,19)+"+00:00",
   open:100,high:110,low:90,close:100,volume:500,turnover:null});
 test("initial daily view expands from 60 to roughly 240 bars",()=>{
  assert.equal(defaultVisibleBars(320,"daily",700),240);
