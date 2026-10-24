@@ -29,7 +29,7 @@ export function minuteTimeframe(rows,period=1){
   const start=Math.floor((b.stamp+9*3600_000)/size)*size-9*3600_000; // bucket begins on KST wall-clock boundaries
   const key=String(start);
   if(!groups.has(key)){
-   groups.set(key,{time:new Date(start).toISOString().slice(0,19)+"+00:00",
+   groups.set(key,{time:new Date(start+9*3600_000).toISOString().slice(0,19)+"+09:00",
     open:b.open,high:b.high,low:b.low,close:b.close,volume:0,
     minuteSamples:0,periodMinutes:period,firstObserved:b.time});
   }
