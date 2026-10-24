@@ -1,5 +1,6 @@
 import {checkedBars,constrainRange,scaleWindow,formatNumber} from "./chart-model.mjs";
 import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
+import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 
 /** Browser canvas OHLC + volume chart, wheel + pinch zoom, pointer pan. */
 export function mountCandleChart(root,{kind,label}){
@@ -40,7 +41,29 @@ export function mountCandleChart(root,{kind,label}){
  }
  const colors={up:"#fa666b",down:"#6cb5ff",grid:"#36506a",text:"#afc4d5",wick:"#b4bfc9"};
  const info=(txt)=>{detail.textContent=txt;};
- const heightFor=()=>root.classList.contains("chart-enlarged")?Math.max(420,Math.min(window.innerHeight-190,770)):310;
+ let activeIndex=null;
+ const insights=root.querySelector(".bar-insights");
+ function inspect(index){
+   const b=data[index];if(!b||!insights)return;
+   const a=barAnalytics(b,{kind});
+   const time=b.date.replace("T"," ").slice(0,kind==="daily"?10:16);
+   const money=kind==="daily"?
+     (a.turnoverWon!==null?"거래대금 (키움 일봉 제공): "+compactWon(a.turnoverWon):
+       "일봉 실제 거래대금 미제공"):
+     ("거래대금 추정 (종가×거래량): "+compactWon(a.estimatedValueWon)+" · 실제 거래대금 아님");
+   const avg=kind==="daily"?
+     (a.verifiedVwapWon!==null?"봉 평균체결단가 (거래대금÷거래량): "+formatNumber(a.verifiedVwapWon)+"원":"봉 평균체결단가: 거래대금 미확인"):
+     ("참고가격 (고+저+종)/3: "+formatNumber(a.referencePriceWon)+"원 · 실제 평균체결단가 아님");
+   insights.querySelector(".insights-turnover").textContent=time+" · "+money;
+   insights.querySelector(".insights-average").textContent=avg+
+      " · 거래량 "+formatNumber(b.volume)+"주";
+   insights.querySelector(".insights-pressure").textContent=
+     "종가 위치: "+a.pricePressure+
+     " · 양봉/음봉은 실제 매수·매도 우위가 아님 · 체결 방향별 데이터 미제공"+
+     (b.partial?" · 이 시간 구간의 1분봉 표본이 일부만 있음":"");
+ }
+
+ const heightFor=()=>root.classList.contains("chart-enlarged")?Math.max(480,Math.min(window.innerHeight-205,790)):460;
  function render(){
   const rect=area.getBoundingClientRect();
   const w=Math.max(300,Math.round(rect.width||600)),h=heightFor();
@@ -61,7 +84,7 @@ export function mountCandleChart(root,{kind,label}){
   windowRange=constrainRange(data.length,windowRange.start,windowRange.count);
   const visible=data.slice(windowRange.start,windowRange.start+windowRange.count);
   if(!visible.length)return;
-  const left=58,right=65,top=20,priceBottom=Math.round(h*.72),volTop=priceBottom+22,volBottom=h-34;
+  const left=68,right=75,top=20,priceBottom=Math.round(h*.59),volTop=priceBottom+21,volBottom=Math.round(h*.77),moneyTop=volBottom+14,moneyBottom=h-33;
   const graphWidth=w-left-right,each=graphWidth/visible.length;
   let low=Math.min(...visible.map(v=>v.low)),high=Math.max(...visible.map(v=>v.high));
   for(const period of enabled){
@@ -76,6 +99,11 @@ export function mountCandleChart(root,{kind,label}){
   low-=pad;high+=pad;
   const yp=price=>priceBottom-(price-low)/(high-low)*(priceBottom-top);
   const volumeMax=Math.max(1,...visible.map(v=>v.volume));
+  const amounts=visible.map(v=>{
+    const a=barAnalytics(v,{kind});
+    return kind==="daily"?a.turnoverWon:a.estimatedValueWon;
+  });
+  const moneyMax=Math.max(1,...amounts.filter(v=>v!==null));
   ctx.font="12px sans-serif";
   ctx.strokeStyle=colors.grid;
   ctx.fillStyle=colors.text;
@@ -97,6 +125,12 @@ export function mountCandleChart(root,{kind,label}){
    ctx.fillRect(x-bodyWidth/2,y0,bodyWidth,Math.max(1.3,y1-y0));
    const vy=volBottom-v.volume/volumeMax*(volBottom-volTop);
    ctx.fillRect(x-bodyWidth/2,vy,bodyWidth,Math.max(1,volBottom-vy));
+   if(amounts[i]!==null){
+     const my=moneyBottom-amounts[i]/moneyMax*(moneyBottom-moneyTop);
+     ctx.globalAlpha=.82;
+     ctx.fillRect(x-bodyWidth/2,my,bodyWidth,Math.max(1,moneyBottom-my));
+     ctx.globalAlpha=1;
+   }
   }
   // Paint MA lines over candles; use the FULL history, not the zoomed slice.
   // The 20/240 lines are deliberately thicker for quick recognition.
@@ -135,11 +169,16 @@ export function mountCandleChart(root,{kind,label}){
   ctx.textAlign="left";
   ctx.fillText("거래량",8,volTop+11);
   ctx.fillText(formatNumber(volumeMax),w-right+6,volTop+11);
+  ctx.fillText(kind==="daily"?"거래대금":"금액추정",3,moneyTop+12);
+  ctx.fillText(compactWon(moneyMax),w-right+6,moneyTop+12);
   const first=visible[0],last=visible[visible.length-1];
   info(label+" · "+first.date.replace("T"," ")+" ~ "+last.date.replace("T"," ")+" · "+visible.length+"봉 / "+data.length+"봉 · 마지막 "+formatNumber(last.close)+"원 · 거래량 "+formatNumber(last.volume));
+  if(activeIndex===null||activeIndex<windowRange.start||activeIndex>=windowRange.start+visible.length)activeIndex=windowRange.start+visible.length-1;
+  inspect(activeIndex);
  }
  function setData(rows){
    data=checkedBars(rows,kind);
+   activeIndex=null;
    maValues=movingAverages(data);
    updateButtons();
    const visible=kind==="daily"?Math.min(data.length,60):Math.min(data.length,160);
@@ -180,6 +219,13 @@ export function mountCandleChart(root,{kind,label}){
    }
  });
  canvas.addEventListener("pointermove",e=>{
+  if(data.length){
+    const r=canvas.getBoundingClientRect();
+    const left=68,right=75;
+    const frac=Math.max(0,Math.min(1,(e.clientX-r.left-left)/Math.max(1,r.width-left-right)));
+    activeIndex=Math.min(data.length-1,windowRange.start+Math.floor(frac*windowRange.count));
+    inspect(activeIndex);
+  }
   if(!pointers.has(e.pointerId))return;
   const old=pointers.get(e.pointerId);
   pointers.set(e.pointerId,e.clientX);
