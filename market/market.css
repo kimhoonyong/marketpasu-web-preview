@@ -147,3 +147,65 @@
  .market-chart{padding:9px}
  .market-chart.chart-enlarged{inset:1vh 1vw}
 }
+
+
+/* 2026-10 market-focused desktop composition: use the whole monitor. */
+.app{max-width:1640px;padding-inline:clamp(14px,2vw,32px)}
+.quick-nav{display:flex;gap:12px;flex-wrap:wrap;margin:13px 0 0}
+.quick-nav a{text-decoration:none;border:1px solid #4b7e83;border-radius:9px;padding:9px 14px;color:#a9f5d9;background:#153746;font-size:14px;font-weight:800}
+.quick-nav a:hover{background:#22536a}
+.section-eyebrow{font-size:11px!important;letter-spacing:.14em;color:#8ed8d0!important;font-weight:800;margin:0 0 4px!important}
+.news-quality-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:#0e2935;border:1px solid #305968;border-radius:11px;padding:10px 12px;margin:0 0 13px}
+.quality-status{font-size:14px;color:#abe8d2;margin:0;line-height:1.55}
+.news-quality-toolbar label{display:flex;align-items:center;gap:8px;color:#c5e5ec;font-size:13px;font-weight:800}
+.news-quality-toolbar select{max-width:100%;min-height:42px;border:1px solid #54748b;border-radius:7px;background:#0c1e30;color:#ecf8fc;padding:8px 11px;font-size:14px}
+.show-more-news{display:block;margin:16px auto 0;width:min(480px,100%);padding:13px 18px;min-height:50px;border:1px solid #76d3b7;background:#193c3d;border-radius:10px;font-size:15px;font-weight:800;color:#c6fae9}
+.show-more-news:hover{background:#245858}
+.show-more-news[hidden]{display:none!important}
+.article{position:relative;padding:16px 17px;min-width:0}
+.article.high-impact{border-color:#468071}
+.article.high-impact:before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:5px;background:#6cd8bb}
+.article h3{margin:9px 0 12px;font-size:19px;line-height:1.45}
+.article-actions{gap:8px}
+.related-reports{margin-top:10px;padding:9px 12px}
+.related-reports summary{font-size:13px}
+.observations{margin-top:9px;padding:7px 10px}
+.observations summary{font-size:12px}
+.history-caption{line-height:1.6}
+@media(min-width:1180px){
+  .app main{display:grid;grid-template-columns:minmax(320px,.74fr) minmax(0,1.7fr);align-items:start;gap:18px 22px}
+  .app main>.intro{grid-column:1/-1;padding:18px 0 5px}
+  .intro h1{font-size:clamp(30px,3vw,41px);margin:8px 0}
+  .intro>p:not(.eyebrow){font-size:15px;max-width:900px;margin:8px 0}
+  .intro .state-line{margin-top:12px}
+  .app main>.controls{grid-column:1;margin:0;position:relative}
+  .app main>.auto-chart-panel{grid-column:2;margin:0}
+  .app main>.flow-panel,.app main>.feed,.app main>.details{grid-column:1/-1;margin:0}
+  .app main>.feed{margin-top:6px}
+  .app main>.details{margin-bottom:24px}
+  .articles{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .auto-chart-panel{padding:16px}
+  .auto-chart-header h2{font-size:22px}
+  .auto-chart-header p{font-size:14px}
+}
+@media(min-width:1460px){
+  .chart-grids{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:1180px) and (max-width:1459px){
+  .chart-grids{grid-template-columns:1fr}
+}
+@media(max-width:1179px){
+ .app{max-width:900px}
+ .auto-chart-panel{margin-block:16px 22px}
+ .articles{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+ .app{padding-inline:12px}
+ .feed{padding:13px 10px}
+ .news-quality-toolbar{flex-direction:column;align-items:stretch}
+ .news-quality-toolbar label{justify-content:space-between}
+ .article{padding:14px 13px}
+ .article h3{font-size:18px}
+ .quick-nav a{flex:1 1 auto;text-align:center}
+ .auto-chart-panel{padding:13px}
+}
