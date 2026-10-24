@@ -77,6 +77,7 @@ class LocalChartTests(unittest.TestCase):
         class Fake:
             def symbols(self,q):return [{"code":"005930","name":"삼성전자"}]
             def chart(self,*args):return {"bars":[]}
+            def auth_info(self):return {"authConfigured":False,"authStatus":"NOT_CHECKED"}
         server=mod.ThreadingHTTPServer(("127.0.0.1",0),mod.handler_factory(Fake()))
         thread=threading.Thread(target=server.serve_forever,daemon=True)
         thread.start()
