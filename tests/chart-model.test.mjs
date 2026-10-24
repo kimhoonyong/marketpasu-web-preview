@@ -42,5 +42,5 @@ test("pan is bounded even at the start or end",()=>{
 });
 test("no data chart remains empty",()=>{
  assert.deepEqual(scaleWindow(0,{start:0,count:0},.5),{start:0,count:0});
- assert.equal(formatNumber(null),"0");
+ assert.equal(formatNumber(null),"-");
 });
