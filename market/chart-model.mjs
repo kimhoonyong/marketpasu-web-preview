@@ -27,6 +27,6 @@ export function scaleWindow(total,current,factor,anchor=.5){
  return constrainRange(total,center-count*Math.max(0,Math.min(1,anchor)),count);
 }
 export function formatNumber(n){
- if(!Number.isFinite(Number(n)))return "-";
+ if(n===null||n===undefined||!Number.isFinite(Number(n)))return "-";
  return new Intl.NumberFormat("ko-KR",{maximumFractionDigits:2}).format(n);
 }
