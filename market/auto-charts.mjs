@@ -1,4 +1,5 @@
 import {mountCandleChart} from "./candle-chart.mjs";
+import {minuteTimeframe,MINUTE_PERIODS} from "./bar-analytics.mjs";
 
 const BASE="http://127.0.0.1:8765";
 function el(id){return document.getElementById(id);}
@@ -37,6 +38,24 @@ export function setupAutoCharts(){
  date.value=koreaDay();
  date.max=isoKstToday();
  let chosen=null,searchId=0,chartId=0,timer=null,exchange="KRX";
+ let minuteRaw=[],period=1;
+ const minuteChoice=el("chart-minute-period");
+ const minuteHeading=el("chart-minute-label");
+ function applyMinutePeriod(){
+   minuteHeading.textContent=period+"분봉 — 조회일 장중 흐름";
+   const converted=minuteTimeframe(minuteRaw,period);
+   minute.setData(converted);
+   const state=el("chart-minute-status");
+   if(minuteRaw.length){
+     state.textContent="키움 1분봉 "+minuteRaw.length+"개 → "+period+"분봉 "+converted.length+
+       "개 구성 · 선택 거래소 기준 · 120분봉은 원본 1분 자료를 합성한 결과입니다.";
+   }
+ }
+ minuteChoice.addEventListener("change",()=>{
+   const value=Number(minuteChoice.value);
+   if(!MINUTE_PERIODS.includes(value))return;
+   period=value;applyMinutePeriod();
+ });
  const marketNote=el("chart-market-note");
  const marketDescriptions={
    KRX:"KRX 단독 시세입니다. NXT 거래는 이 차트에 포함된 것으로 간주하지 않습니다.",
@@ -85,7 +104,7 @@ export function setupAutoCharts(){
   chosen=null;
   chartId++;
   selection.textContent="검색한 종목을 선택하세요.";
-  daily.setData([]);minute.setData([]);
+  daily.setData([]);minuteRaw=[];minute.setData([]);
   if(query.length<1){results.replaceChildren();return;}
   noResults("종목명을 조회 중입니다…");
   try{
@@ -120,7 +139,7 @@ export function setupAutoCharts(){
   const selectedDay=date.value;
   if(!/^\d{4}-\d\d-\d\d$/.test(selectedDay))return;
   selection.textContent="선택된 종목: "+chosen.name+" ("+chosen.code+") · "+exchange+" · 조회 기준일 "+selectedDay;
-  daily.setData([]);minute.setData([]);
+  daily.setData([]);minuteRaw=[];minute.setData([]);
   const kinds=[["daily",daily],["minute",minute]];
   await Promise.all(kinds.map(async([kind,chart])=>{
    const state=el("chart-"+kind+"-status");
@@ -131,20 +150,27 @@ export function setupAutoCharts(){
     if(version!==chartId)return;
     if(data.market!==exchange){
       state.textContent="로컬 조회기가 이전 버전입니다. 새 연결기를 실행해야 "+exchange+" 데이터를 구분할 수 있습니다.";
+      if(kind==="minute")minuteRaw=[];
       chart.setData([]);return;
     }
     if(!Array.isArray(data.bars)||!data.bars.length){
       state.textContent="해당 거래일의 "+(kind==="daily"?"일봉":"분봉")+"이 없습니다. 휴장일·인증·거래일을 확인하세요.";
+      if(kind==="minute")minuteRaw=[];
       chart.setData([]);return;
     }
-    chart.setData(data.bars);
-    state.textContent="키움 "+data.source+" / "+data.market+" / "+data.count+"봉 조회 · "+selectedDay+
+    if(kind==="minute"){
+      minuteRaw=data.bars;applyMinutePeriod();
+    }else{
+      chart.setData(data.bars);
+    }
+    state.textContent="키움 "+data.source+" / "+data.market+" / "+data.count+"개 원본 봉 조회 · "+selectedDay+
       (kind==="daily"?" 이전 일봉 포함":" 당일 1분봉")+" · 자동조회"+(data.aggregationVerified?" · 통합 검증됨":" · 거래소별 자료");
     if(exchange==="SOR"){
       marketNote.textContent=String(data.note||marketDescriptions.SOR);
     }
    }catch(error){
     if(version!==chartId)return;
+    if(kind==="minute")minuteRaw=[];
     chart.setData([]);
     state.textContent=safeErr(error);
    }

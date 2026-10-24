@@ -57,7 +57,13 @@ class LocalChartTests(unittest.TestCase):
             "일자":"2026-10-21","시가":99,"고가":110,"저가":98,"종가":105,
             "거래량":1234,"거래대금":500000
         }])
-        self.assertEqual(daily[0]["turnover"],500000)
+        self.assertEqual(daily[0]["turnover"],500000*1_000_000)
+        self.assertTrue(daily[0]["turnoverVerified"])
+        self.assertEqual(daily[0]["turnoverSource"],"ka10081_trde_prica_KRW_millions")
+        self.assertEqual(data[0]["turnover"],None)
+        self.assertFalse(data[0]["turnoverVerified"])
+        self.assertIsNone(data[0]["actualBuyVolume"])
+        self.assertIsNone(data[0]["actualSellVolume"])
 
     def test_missing_existing_keys_blocks_api_before_remote_network(self):
         provider=mod.ChartProvider()

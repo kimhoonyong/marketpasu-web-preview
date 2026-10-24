@@ -9,8 +9,11 @@ export function checkedBars(bars,kind){
         close=Number(raw?.close),volume=Number(raw?.volume);
   if(!id||!Number.isFinite(stamp)||![open,high,low,close].every(x=>Number.isFinite(x)&&x>0)
     ||high<Math.max(open,close)||low>Math.min(open,close)||low>high||!Number.isFinite(volume)||volume<0)continue;
-  keyed.set(id,{date:id,stamp,open,high,low,close,volume,turnover:
-    raw.turnover===null||raw.turnover===undefined?null:Number(raw.turnover)});
+  keyed.set(id,{date:id,stamp,open,high,low,close,volume,
+    turnover:raw.turnover===null||raw.turnover===undefined?null:Number(raw.turnover),
+    turnoverVerified:raw.turnoverVerified===true,partial:raw.partial===true,
+    minutesCovered:Number.isInteger(raw.minutesCovered)?raw.minutesCovered:null,
+    periodMinutes:Number.isInteger(raw.periodMinutes)?raw.periodMinutes:1});
  }
  return [...keyed.values()].sort((a,b)=>a.stamp-b.stamp);
 }

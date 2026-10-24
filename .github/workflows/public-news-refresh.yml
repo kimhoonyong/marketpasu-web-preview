@@ -56,6 +56,8 @@ jobs:
           node --check market/candle-chart.mjs
           node --check market/auto-charts.mjs
           node --test tests/chart-model.test.mjs
+          node --check market/bar-analytics.mjs
+          node --test tests/bar-analytics.test.mjs
           node --check market/moving-average.mjs
           node --test tests/moving-average.test.mjs
           python3 -m py_compile scripts/update-public-news.py

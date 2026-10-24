@@ -83,7 +83,9 @@ def normalize_minute_rows(rows):
         try:
             timestamp=datetime.fromisoformat(x["일시"]).isoformat()
             out.append({"time":timestamp,"open":x["시가"],"high":x["고가"],
-                        "low":x["저가"],"close":x["종가"],"volume":x["거래량"]})
+                        "low":x["저가"],"close":x["종가"],"volume":x["거래량"],
+                        "turnover":None,"turnoverVerified":False,
+                        "actualBuyVolume":None,"actualSellVolume":None})
         except (KeyError,ValueError,TypeError):
             continue
     return out
@@ -95,7 +97,9 @@ def normalize_daily_rows(rows):
         try:
             out.append({"date":x["일자"],"open":x["시가"],"high":x["고가"],
                         "low":x["저가"],"close":x["종가"],"volume":x["거래량"],
-                        "turnover":x["거래대금"] if isinstance(x.get("거래대금"),(float,int)) else None})
+                        "turnover":x["거래대금"]*1_000_000 if isinstance(x.get("거래대금"),(float,int)) else None,
+                        "turnoverVerified":isinstance(x.get("거래대금"),(float,int)),
+                        "turnoverSource":"ka10081_trde_prica_KRW_millions"})
         except (KeyError,ValueError,TypeError):
             continue
     return out
@@ -171,7 +175,8 @@ class ChartProvider:
             result={"code":code,"kind":kind,"asOf":day,"market":exchange,
                     "bars":data,"count":len(data),"source":"Kiwoom REST",
                     "aggregationVerified":False,
-                    "note":note+" 체결주체별 순매수 자료가 아닙니다."}
+                    "note":note+(" 일봉 거래대금 trde_prica는 백만원 단위를 원으로 변환했습니다."
+                          if kind=="daily" else " 분봉 거래대금·매수주도/매도주도 체결량은 ka10080에 없습니다.")}
             self._chart_cache[key]=(self.clock(),result)
             if len(self._chart_cache)>40:
                 oldest=min(self._chart_cache,key=lambda k:self._chart_cache[k][0])

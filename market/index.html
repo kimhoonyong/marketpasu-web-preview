@@ -38,7 +38,7 @@
       </div>
       <label class="focus-field" for="keyword-focus"><strong>관심 종목별 보기</strong><select id="keyword-focus" aria-label="관심 종목 선택"><option value="">모든 관심 키워드</option></select></label>
     </section>
-    <section class="auto-chart-panel" aria-labelledby="auto-chart-title">
+    <section class="stock-lookup" aria-labelledby="auto-chart-title">
       <div class="auto-chart-header">
         <div>
           <h2 id="auto-chart-title">종목명으로 바로 보는 일봉·분봉</h2>
@@ -66,6 +66,11 @@
       </div>
       <p id="chart-market-note" class="chart-market-note">키움 KRX 차트 표시 중입니다. NXT 또는 SOR 자료는 해당 버튼을 눌러 별도 조회합니다. SOR 조회만으로 KRX+NXT 거래량 완전 합산이 검증되는 것은 아닙니다.</p>
       <p class="chart-security-note">기존 API 인증정보는 PC에만 두고, 이 화면에는 전달하지 않습니다. 현재는 PC의 로컬 키움 조회 서비스가 실행된 경우에만 자동조회됩니다. 휴대폰에서 같은 자료를 자동 조회하려면 별도의 안전한 기기 간 연결이 필요합니다.</p>
+    </section>
+    <section class="auto-chart-panel charts-wide" aria-label="일봉과 분봉 전체 폭 차트">
+      <div class="chart-wide-heading">
+        <div><h2>일봉 · 장중 분봉 차트</h2><p>일봉·분봉 전체 폭 표시 · 확대/축소 · 거래량 및 거래대금 · 평균단가와 가격압력 참고값</p></div>
+      </div>
       <div class="chart-grids">
         <section class="market-chart" id="chart-daily" aria-labelledby="chart-daily-label">
           <div class="chart-head">
@@ -80,10 +85,23 @@
           <p id="chart-daily-status" class="chart-status">조회할 종목을 선택하세요.</p>
           <div class="chart-area"><canvas aria-label="일봉 캔들·거래량 차트"></canvas></div>
           <p class="chart-detail">자료 없음</p>
+          <div class="bar-insights" aria-live="polite">
+            <p class="insights-turnover">거래대금 자료 없음</p>
+            <p class="insights-average">평균단가 자료 없음</p>
+            <p class="insights-pressure">매수·매도 실제 체결분류 미제공</p>
+          </div>
         </section>
         <section class="market-chart" id="chart-minute" aria-labelledby="chart-minute-label">
           <div class="chart-head">
             <h3 id="chart-minute-label">1분봉 — 조회일 장중 흐름</h3>
+            <label class="minute-period-select" for="chart-minute-period">봉 간격
+              <select id="chart-minute-period" aria-label="분봉 시간 간격">
+                <option value="1">1분봉</option><option value="3">3분봉</option>
+                <option value="5">5분봉</option><option value="10">10분봉</option>
+                <option value="15">15분봉</option><option value="30">30분봉</option>
+                <option value="60">60분봉</option><option value="120">120분봉</option>
+              </select>
+            </label>
             <div class="chart-buttons">
               <button type="button" class="chart-plus" aria-label="분봉 확대">+</button>
               <button type="button" class="chart-minus" aria-label="분봉 축소">−</button>
@@ -94,8 +112,14 @@
           <p id="chart-minute-status" class="chart-status">조회할 종목을 선택하세요.</p>
           <div class="chart-area"><canvas aria-label="1분봉 캔들·거래량 차트"></canvas></div>
           <p class="chart-detail">자료 없음</p>
+          <div class="bar-insights" aria-live="polite">
+            <p class="insights-turnover">거래대금 자료 없음</p>
+            <p class="insights-average">평균단가 자료 없음</p>
+            <p class="insights-pressure">매수·매도 실제 체결분류 미제공</p>
+          </div>
         </section>
       </div>
+      <p class="chart-method-warning">일봉 거래대금은 키움 제공치(백만원 단위를 원으로 환산)이며, 분봉 거래대금은 ka10080 미제공으로 <strong>종가×거래량 추정치</strong>만 표시합니다. 일봉 평균체결단가(거래대금÷거래량)는 제공된 일봉 거래대금이 있을 때만 산출하며, 분봉에는 <strong>(고가+저가+종가)÷3 참고가격</strong>만 표시합니다. 저가권 종가·윗꼬리 등 매도압력 가능성은 가격 패턴이지 실제 매도 체결량 증거가 아닙니다.</p>
       <p class="chart-legend"><span class="chart-red">■ 상승봉</span> <span class="chart-blue">■ 하락봉</span> · 이동평균선은 종가 기준 5·10·20·60·120·240봉이며, <strong>20선·240선은 굵게</strong> 표시합니다. 필요한 봉 수가 부족한 선은 그리지 않습니다. 마우스 휠·손가락 벌리기로 확대/축소하고 차트를 드래그해 이동하세요.</p>
     </section>
     <details id="money-flow-panel" class="flow-panel">
