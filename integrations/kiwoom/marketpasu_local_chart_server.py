@@ -21,6 +21,7 @@ from urllib.parse import urlsplit, parse_qs
 from rest_minutes import (HOSTS, MarketDataError, get_access_token,
                           fetch_minute_rows, ticker_code, request_json)
 from rest_daily import fetch_daily
+from existing_rest_auth import ExistingRestAuth
 
 ALLOWED_ORIGIN="https://kimhoonyong.github.io"
 MAX_QUERY=65
@@ -101,15 +102,31 @@ def normalize_daily_rows(rows):
 
 
 class ChartProvider:
-    def __init__(self,mode="real",*,clock=time.time):
+    def __init__(self,mode="real",*,clock=time.time,auth=None):
         self.mode=mode
         self.clock=clock
+        self._auth=auth if auth is not None else ExistingRestAuth()
+        self._cached_access_token=None
+        self._access_token_until=0
         self._lock=threading.RLock()
         self._symbols=None
         self._symbols_until=0
         self._chart_cache={}
+    def auth_info(self):
+        # No token or key fields ever leave this process.
+        return {"authConfigured":self._auth.ready(),"authStatus":self._auth.status()}
+
     def _token(self):
-        return get_access_token(HOSTS[self.mode],os.environ)
+        if self._cached_access_token and self.clock()<self._access_token_until:
+            return self._cached_access_token
+        credentials=self._auth.credentials()
+        if not credentials:
+            raise MarketDataError("기존 ThemeManager REST 인증을 확인하지 못했습니다. 로컬 연결 상태를 확인하세요.")
+        fresh=get_access_token(HOSTS[self.mode],credentials)
+        self._cached_access_token=fresh
+        # 12h conservative in-process cache; never write OAuth tokens to disk.
+        self._access_token_until=self.clock()+12*3600
+        return fresh
     def symbols(self,query):
         with self._lock:
             if self._symbols is None or self.clock()>=self._symbols_until:
@@ -200,8 +217,7 @@ def handler_factory(provider):
                 if parsed.path=="/health":
                     self._response({"status":"local_only","origin":ALLOWED_ORIGIN,
                                     "service":"MarketPasu Kiwoom read-only",
-                                    "authConfigured":bool(os.environ.get("KIWOOM_ACCESS_TOKEN")) or
-                                        bool(os.environ.get("KIWOOM_APP_KEY") and os.environ.get("KIWOOM_APP_SECRET"))})
+                                    **provider.auth_info()})
                     return
                 if parsed.path=="/symbols":
                     q=args.get("q",[""])[0]
@@ -231,11 +247,15 @@ def main(argv=None):
     args=parser.parse_args(argv)
     if args.port<1024 or args.port>65535:
         parser.error("포트는 1024~65535이어야 합니다.")
-    server=ThreadingHTTPServer(("127.0.0.1",args.port),handler_factory(ChartProvider(mode=args.mode)))
+    provider=ChartProvider(mode=args.mode)
+    server=ThreadingHTTPServer(("127.0.0.1",args.port),handler_factory(provider))
     print(f"MARKETPASU_KIWOOM_LOCAL: http://127.0.0.1:{args.port}")
     print("ORIGIN: "+ALLOWED_ORIGIN+" / NO_ACCOUNT / NO_ORDERS / NO_PUBLIC_LISTENER")
-    print("KIWOOM_AUTH: "+("CONFIGURED" if os.environ.get("KIWOOM_ACCESS_TOKEN") or
-          (os.environ.get("KIWOOM_APP_KEY") and os.environ.get("KIWOOM_APP_SECRET")) else "NOT_CONFIGURED"))
+    # Report only a fixed, non-sensitive state identifier.
+    auth_state=provider.auth_info()
+    print("KIWOOM_AUTH: "+("READY_TO_VERIFY" if auth_state["authConfigured"] else "NOT_CONFIGURED"))
+    print("KIWOOM_AUTH_SOURCE_STATUS: "+auth_state["authStatus"])
+    print("LIVE_KIWOOM_API_REQUESTS_AT_START: 0")
     print("이 창을 닫으면 자동차트 연결도 종료됩니다. 기존 로컬 REST 인증 환경을 사용합니다.")
     try:
         server.serve_forever(poll_interval=.4)
