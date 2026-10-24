@@ -23,6 +23,8 @@ jobs:
           node --check market/market.js
           node --check market/feed-model.mjs
           node --test tests/feed-model.test.mjs
+          node --check market/news-quality.mjs
+          node --test tests/news-quality.test.mjs
           node --test tests/late-news-risk.test.mjs
           node --check market/accumulation-evidence.mjs
           node --check market/minute-csv.mjs
