@@ -2,9 +2,84 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-24",
-  "updated_at": "2026-10-24T00:37:33.524733+00:00",
+  "updated_at": "2026-10-24T00:59:01.155440+00:00",
   "update_note": "Google News 공개 RSS에 표시된 기사 제목·발행처·링크입니다. 재탕/제목 변경 여부는 판정하지 않습니다.",
   "items": [
+    {
+      "id": "eaa8cd5367018d52ad2a",
+      "title": "엔비디아, AI 영상기업 힉스필드 투자…응용 서비스 생태계 확대",
+      "publisher": "코인리더스",
+      "url": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE5MRk5kVElCVm8zTTJNYll1Q21QQzJpdVNvYWF5RlM1VmVZeGk3NGRMRGRTaTRDQWV6NzhobXJxZU1lV1JaTzBlZ0xn?oc=5",
+      "published_at": "2026-10-24T00:55:00+00:00",
+      "topic": "엔비디아",
+      "topics": [
+        "엔비디아"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "2388732ca46762d6ffa5",
+      "title": "[시승기] 쾌적한 승차감 돋보이는 SUV..현대차 ‘디 올 뉴 투싼’",
+      "publisher": "데일리카",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBsMmc0OFZGdTdEUTlmLVdMbFNreUZkY3FCRFlPdUFmMzNLR1NTUUdqeVJuajMxV0tDNmJVbmNoSlVEM3NNOHE5eThIbDVFQVFwRXd3ZV9sRUlQZTNoOFlZQUtocFBKdWhLbkxIeXlxdVFtQk1mSUE?oc=5",
+      "published_at": "2026-10-24T00:53:01+00:00",
+      "topic": "현대차",
+      "topics": [
+        "현대차"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "6c8c7a517135a0f0b311",
+      "title": "삼성E&A, 첨단산업·뉴에너지 성장에 화공 수익성 더했다 : 네이버 블로그",
+      "publisher": "Naver Blog",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQWThoaE0zVGIzSGVhdXpQcUdjWDNtNFk0TTNkUkFKcUhUM1R0WGpkVDZNQUpRQmNjdjZvNFplandDS21ZRmJmV1AwSjF4Wk91bWg5dlhWNl9FQUd5OXVxa3JXWE51czFrTzNhZFBOUFFZelUtc0M0NVFoM25CVkJ4XzlMNVBHaF9HVTJmVS1yRQ?oc=5",
+      "published_at": "2026-10-24T00:46:28+00:00",
+      "topic": "NAVER",
+      "topics": [
+        "NAVER"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "a46ba6ccd1cc4948e4ad",
+      "title": "롯데자산개발, 1600억 유상감자…지주·호텔 출자금 회수 : 네이버 블로그",
+      "publisher": "Naver Blog",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQRDdIc05QTzRrMjIzZG01aThKOGliRi10cjl3d0dEU0x0b2lrYzFBTmxyT3VORG1BUFlOQVdJOTVGbzNiY2JTeVkzemxHZ1FXUnNfME5XeGk3Rjh1ZXAtYVlXNzFwX0p5N1czZTdYV00tamo0OG5NWXpFQ1VtOGZIakxPSU5iZWZsM1gyR3dvcw?oc=5",
+      "published_at": "2026-10-24T00:45:26+00:00",
+      "topic": "NAVER",
+      "topics": [
+        "NAVER"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "e55031d18f59cd94ded2",
+      "title": "[주末머니]\"하늘을 나는 자동차가 떴다\"…머스크 어떻게 했나 봤더니",
+      "publisher": "아시아경제",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5SYXV5Vno1YTJxeEtpdEtBaUlUV0ZBa3I5c3NRWTV6dnBnc0RRc1JOOWptRldrdE0tRm1Ld1ZoWDFUNklua0VtSnB4cXpDUGluZHN3ZGhpVmlfM1ZIZWx5T1RB?oc=5",
+      "published_at": "2026-10-24T00:35:00+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
     {
       "id": "2e4508b45530f58f6211",
       "title": "솔리다임 상장 '전격 철회'…\"SK하이닉스 주가 반등 신호탄\" [강경주의 테크X]",
@@ -111,21 +186,6 @@
       "title_variants": 1
     },
     {
-      "id": "728d94f86d57d3c86597",
-      "title": "55조원 매수 끝낸 삼전·닉스…코스피 다음 '수급 방파제' 누구",
-      "publisher": "연합인포맥스",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9MdUFDVmJ3LXlZMXcxbUtualRzWnBpWDkteTZoenoxejQtRnVqdUFxdG9mNWx4cldRLS04S093YzR4SlIwUWY3cnpxSk9XSHJCZXpycFNzUGZkMWoxcnR2VllLSEM2QXlZSGFXNVNyRVQ?oc=5",
-      "published_at": "2026-10-23T23:10:16+00:00",
-      "topic": "코스피",
-      "topics": [
-        "코스피"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "a75d1b88d9f9ec71e1c3",
       "title": "테슬라 로드스터가 날아다니는 이유",
       "publisher": "연합인포맥스",
@@ -134,6 +194,21 @@
       "topic": "테슬라",
       "topics": [
         "테슬라"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "3830608dffade244876b",
+      "title": "HBM만으론 부족한 AI인프라…삼전닉스, 차세대 메모리 전쟁",
+      "publisher": "연합뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBGYXVOdGVhU1F0dlFjMm9JMC1mNWVocmc2YWRGQVVmSXJHc3YtQ2FPNnd2WFVMaHcyVWdyQnFYVVFrOF85NkNPQnl3bTlOdlEtR0ZZRnJzdGJpWl9Vby0xctIBYEFVX3lxTFBGYXVOdGVhU1F0dlFjMm9JMC1mNWVocmc2YWRGQVVmSXJHc3YtQ2FPNnd2WFVMaHcyVWdyQnFYVVFrOF85NkNPQnl3bTlOdlEtR0ZZRnJzdGJpWl9Vby0xcg?oc=5",
+      "published_at": "2026-10-23T23:01:01+00:00",
+      "topic": "삼성전자",
+      "topics": [
+        "삼성전자"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -171,10 +246,10 @@
       "title_variants": 1
     },
     {
-      "id": "8197e599c9fc4a5e8226",
+      "id": "6d92eb16a231dd959c07",
       "title": "유럽 파고든 中 잡는다…현대차, 튀르키예산 '아이오닉3' 승부수 - 머니투데이",
       "publisher": "머니투데이",
-      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9za0dldWFPN0dnQmJ4anp2OGJ5aW1BbGVkczFzMGdLOE84UmlpeXlGRTBfMFo1bFgxdVRrOTE1VGpFMnFNYzU3bE9FV3ltUXFDVTdZRlZpY21hNmVMcDZhMHlheFlYRlM1VjVPVVJYa3Atb1p6c3VpejVn0gF_QVVfeXFMTk5HalZxZERzamo0WWpueVBWazh0UlZlRGozbVhqQW1TQ3ZCRVlnUFBtRkhPb2hQT3ZVMkFiLUZlOHhLUzJpRVZWVU4xX3ZVNWUtTWdQTUM3cDdhRU5yYzVZTDBMcDBkd3lPNU83MDFVUlJYbjl1THkzc3dzSnozNA?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE54UDgxR2NnUmtaWURDcXFfYk9XdDJ6blNPQjR5bmM3c0UtNnlSZzg3UjlLR0VtbmFXSGQwOW5MQU5CaDU0ZlREZDZKQm5XeHc0QjgtSlRyVjROXzJFa2NnVURra3lDWEF0a3N1M2R1bkd3UdIBckFVX3lxTE54UDgxR2NnUmtaWURDcXFfYk9XdDJ6blNPQjR5bmM3c0UtNnlSZzg3UjlLR0VtbmFXSGQwOW5MQU5CaDU0ZlREZDZKQm5XeHc0QjgtSlRyVjROXzJFa2NnVURra3lDWEF0a3N1M2R1bkd3UQ?oc=5",
       "published_at": "2026-10-23T23:00:00+00:00",
       "topic": "현대차",
       "topics": [
@@ -261,11 +336,11 @@
       "title_variants": 1
     },
     {
-      "id": "3fffdadbb52c299a48a8",
-      "title": "[속보] 뉴욕증시 기술주 혼조…마이크론·AMD 상승, 엔비디아·테슬라 하락",
-      "publisher": "CBC뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9IUmo4RkI3djRxLUtTdzlhSUJvSHVqdkRwQ0g2eFhoSEZSUGY2cEwxUGpYMjF0ZS1OcHgzRWpKZ3hXOXc2d3lDa0pfRUpRU1dta3VUV0NCalQ0S3RaMllGNmFkZXRaZkRx?oc=5",
-      "published_at": "2026-10-23T22:30:00+00:00",
+      "id": "59268544e96711f3b856",
+      "title": "엔비디아 주가 4.4% 하락…인공지능 투자 부담에 기술주 흔들",
+      "publisher": "제민일보",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9UZ2h2SzZuNFRoNWJMUEJHaHVfS0NVRzNkXzZGYzcybUpnZF9oSUJfcDFLTDdJNW5aalBteV9GaU9GSHZjNTh5UlZrRTdmdkpWZzlhNVpMS1hWaXlzXzY4RHlSSktRUGM?oc=5",
+      "published_at": "2026-10-23T22:23:05+00:00",
       "topic": "엔비디아",
       "topics": [
         "엔비디아"
@@ -277,7 +352,7 @@
     },
     {
       "id": "0b65b2ae93ce2cc9c802",
-      "title": "'얌체운전'은 대체 어디서 배웠니...테슬라X FSD 타보니[시승기] - 머니투데이",
+      "title": "운전대 놨더니 슥~ 얌체운전…테슬라X FSD 타보니[시승기] - 머니투데이",
       "publisher": "머니투데이",
       "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5lZ0tIek9QZnRrdVdaZ0lTaGZRS2dVZ19Kb1RBUXBiR1lLR09yWlJwRElBOFhNVW5aX0tJMWF1S1hkeWt5dDJXRWRfdjlVNUFHVVlFVGRKQVZ4Mk1nTi1DX0MzaUJHUEdXNENOZtIBckFVX3lxTE5FUzlTV3ZIVGx3SEZPZ2ZQdXgxS0ZHUW5lamU2ZWctMURjU2JxR1IyZkhoUXdYNUhQNHBuMmlJZkkybElCVzFfc3dKSG8ydXdDSkNnREpQSnpRRHNBSVMwSU54Tk95RXAySlZ0QzFWR0RoQQ?oc=5",
       "published_at": "2026-10-23T22:15:00+00:00",
@@ -288,7 +363,7 @@
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
       "observed_days": 1,
-      "title_variants": 1
+      "title_variants": 2
     },
     {
       "id": "8b3e35966d7c070dcdce",
@@ -299,21 +374,6 @@
       "topic": "한국 증시",
       "topics": [
         "한국 증시"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "6922b78bbb458c0cf17e",
-      "title": "솔리다임 상장 접은 SK하이닉스…‘30조 주주환원’, 코스피 반등 카드 될까",
-      "publisher": "서울경제",
-      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5iT3hvbW01YUtadkFFbkZYdjJZNUUtVDdpZTBvRXh1UzlyT0dRbXlHV1J1dl9ta08taUlrNXRzendueFFIRFVNUzBFMVlsUmpVQ1HSAVNBVV95cUxOSDVPZHZBeWNNa2VxUUlNVWU3SEZaZFREOHhPaE1YTmFBZUNSeFc1MExzS0k2TExmeE9EUzN0MkdKV05mWEtYck5ubDFQUTQzQUNjMA?oc=5",
-      "published_at": "2026-10-23T22:01:00+00:00",
-      "topic": "SK하이닉스",
-      "topics": [
-        "SK하이닉스"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -351,21 +411,6 @@
       "title_variants": 1
     },
     {
-      "id": "2388732ca46762d6ffa5",
-      "title": "[시승기] 쾌적한 승차감 돋보이는 SUV..현대차 ‘디 올 뉴 투싼’",
-      "publisher": "데일리카",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBsMmc0OFZGdTdEUTlmLVdMbFNreUZkY3FCRFlPdUFmMzNLR1NTUUdqeVJuajMxV0tDNmJVbmNoSlVEM3NNOHE5eThIbDVFQVFwRXd3ZV9sRUlQZTNoOFlZQUtocFBKdWhLbkxIeXlxdVFtQk1mSUE?oc=5",
-      "published_at": "2026-10-23T21:49:23+00:00",
-      "topic": "현대차",
-      "topics": [
-        "현대차"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "c1b489cd43d2bd70dbfe",
       "title": "실적 좋은데도 미장보다 더 크게 빠지는 국장…전문가 원인 분석은",
       "publisher": "매일경제",
@@ -381,29 +426,14 @@
       "title_variants": 1
     },
     {
-      "id": "57da9a201634355eeb03",
-      "title": "‘롤러코스피’서 689억원 순매수···연기금, 삼바 사고 닉스는 매도",
-      "publisher": "시사저널e",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9qTmpLd09Nek1UUEEzWUxkTmdFWlR6Rl9samEtamU5aGlna1Z2RGVXa2JKVmEydXpTRjlING1WRm4tMVpkWUQ1ZEl1UzV4b3lBdnBCeE14QnNzanBBTnktdnYtLU1yRDFEWjdwazhwZGc5ZFVwX0HSAXZBVV95cUxPak5qS3dPTXpNVFBBM1lMZE5nRVpUekZfbGphLWplOWhpZ2tWdkRlV2tiSlZhMnV6U0Y5SDRtVkZuLTFaZFlENWRJdVM1eG95QXZwQnhNeEJzc2pwQU55LXZ2LS1NckQxRFo3cGs4cGRnOWRVcF9B?oc=5",
-      "published_at": "2026-10-23T21:28:09+00:00",
-      "topic": "코스피",
+      "id": "15cbd6bf686a08934e50",
+      "title": "SK하이닉스 ADR, 솔리다임 美 IPO 철회 소식에 4% 급등",
+      "publisher": "글로벌이코노믹",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNbDNlVkJLeWpEMEhpZ2sxd2poTTE1a09NQVVMWlJBV3luc2RHb094aHFrUFZyNlZub056M1k3OXR2Z0JqaXROSTZ2N1JaWGtuWld6TmlyWndJQ0JaT21wTVNyd0RfR21tWnhCc09VRHM5a1FubWFqNEduZzZuUWRSbVV1eEw5TkJ6?oc=5",
+      "published_at": "2026-10-23T21:24:07+00:00",
+      "topic": "SK하이닉스",
       "topics": [
-        "코스피"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "93b316461f98c42b0b3b",
-      "title": "스페이스X·테슬라 합병 탄력 받나?...주주 표결·중국 규제가 변수",
-      "publisher": "디지털투데이",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1PREFDNmFwMm1PRzRielJaU3JxUXZMaDQ5Uk5PbG9MYUItUW9VNVdzTmE0ZV93NGRyaHRwQVJSTWNKVjF2RXVOUmRCOThlU1lSWGN4LUJDdEJhNWh2Y2xlb1BoQW53Rk1iUkt1TXFFYmExZm8?oc=5",
-      "published_at": "2026-10-23T21:22:12+00:00",
-      "topic": "테슬라",
-      "topics": [
-        "테슬라"
+        "SK하이닉스"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -532,21 +562,6 @@
       "title_variants": 1
     },
     {
-      "id": "0f4e2e0aa69b7712df35",
-      "title": "(10월 23일~11월 1일) 지역과 일상을 연결하는 : 네이버 블로그",
-      "publisher": "Naver Blog",
-      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOOE02N1BmaVFDYS1yaWZZZHNacWpKa3AxNlE5dnFHc0NYd21KWklPaVBGdGJ2aGk2UUs1a21tVVJWYU9haHI5SFBWaERucVV5ZHlvVzVndVptNWZCUFY1S1MzeGpNUGpROHprWTJhc0U0d3dENkVuUFlEbHlhck1XcHRSRllGa0V4VmFDcTYtU28?oc=5",
-      "published_at": "2026-10-23T11:09:57+00:00",
-      "topic": "NAVER",
-      "topics": [
-        "NAVER"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "8609f6579bca4a1f31d5",
       "title": "[증시 리스크 관리-中] 금리 인상에 자산시장 위축 공포···종목 선별 기준은",
       "publisher": "시사저널e",
@@ -607,6 +622,21 @@
       "title_variants": 1
     },
     {
+      "id": "a754426dffeb1cfbb39d",
+      "title": "[1023마감체크] 코스피, 장중 4%대 급락 딛고 반등... 5500선 사수 By 인포스탁데일리",
+      "publisher": "Investing.com 한국어",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE42TE10NTBzdVBPV1dJZDBiN0tBZFpzbkszdFZ5bFR4SDVDall0WVRwZm1Pa0dDejhkbXNsUXRYWFFYdWUxazZqd1dHZnI5bndfQm01dmtOb1VabThvd2JfXzdOMjc2NXRfbXVqOWZva0o?oc=5",
+      "published_at": "2026-10-23T09:00:00+00:00",
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 1
+    },
+    {
       "id": "5181c9b105822ed5dd2b",
       "title": "반도체 ‘쌍끌이’에 웃은 코스피, 5550선 회복…코스닥은 1.6% 하락",
       "publisher": "더나은미래",
@@ -615,21 +645,6 @@
       "topic": "코스닥",
       "topics": [
         "코스닥"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "f2511a3df6b462e64e45",
-      "title": "1분 만에 품절된 아이폰 듀오, 지금 주문해도 내년에 받는다고?",
-      "publisher": "네이버페이 머니스토리",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBSdGtHbzQyM091WEZFRmtxNkdsVVlOTkU5QURwMTBtLWdtWFRBbS1ybFRPTHBtMnBlXzRpZFhadFdhQ0VnRl8tYWtDekFUZ0p0ZUhDMWhlQlI?oc=5",
-      "published_at": "2026-10-23T08:36:11+00:00",
-      "topic": "NAVER",
-      "topics": [
-        "NAVER"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
@@ -697,6 +712,21 @@
       "title_variants": 1
     },
     {
+      "id": "588ffb091bfdb72e4f03",
+      "title": "코스피, 낙폭 좁혀 5,500선 회복 마감…하이닉스 4.42% 급등",
+      "publisher": "KBS 뉴스",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE03UkFoczdmSkJxc0l5dWpzWXFxc1VGRThpMHEzNnhMYk5KVk1VM1pTeHpoWmNRSHdLOElhNUxUUndvVVctOFh3YXJJZDUzRWdJemo0cFQ2QTJGZWc?oc=5",
+      "published_at": "2026-10-23T07:36:00+00:00",
+      "topic": "코스피",
+      "topics": [
+        "코스피"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 1
+    },
+    {
       "id": "81ce35bebab223721c85",
       "title": "故 이건희 삼성전자 선대회장 6주기 추도식 엄수…경영진 집결",
       "publisher": "FETV",
@@ -705,36 +735,6 @@
       "topic": "삼성전자",
       "topics": [
         "삼성전자"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "a1e853cab2d31548171c",
-      "title": "\"화면크기·화질 다 잡았다\"…'LG 스탠바이미2 맥스', 국내외서 인기몰이",
-      "publisher": "뉴시스",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBaMkw3WVFYeXNOWjQxWThGU0tBOHpnS09GdW5qZWF6Ul9PdUxLWXRWcnhYS1hfekRPdVZlTmZQTTVvdzlidURKNkk1SzFRS2NNSUM2OHNSU2dIWnk2Nlg4bGRfaGtSdHIzaUZFOHRZYVVxT0Z6Vm5OdNIBeEFVX3lxTFBaMkw3WVFYeXNOWjQxWThGU0tBOHpnS09GdW5qZWF6Ul9PdUxLWXRWcnhYS1hfekRPdVZlTmZQTTVvdzlidURKNkk1SzFRS2NNSUM2OHNSU2dIWnk2Nlg4bGRfaGtSdHIzaUZFOHRZYVVxT0Z6Vm5OdA?oc=5",
-      "published_at": "2026-10-23T07:23:52+00:00",
-      "topic": "LG전자",
-      "topics": [
-        "LG전자"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "e5495fa34e60251a79cc",
-      "title": "얼음 깰 때 ‘오싹한 청량감’…LG전자 ‘팅글 마케팅’ 한국PR대상 최우수상",
-      "publisher": "비즈월드",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1BUWdXTW1rM25KZVlPMVJtZHctZnJtZDFhOFQ5QTQ5aW5nYk1Za25sWVkzbkJNcjY1Z0Qwc2g4NXdBcWdLcGNOUklZSFF3Um9NM0pkSG9kNFoybEpGY19HU1ZGcmRITDVUenRn?oc=5",
-      "published_at": "2026-10-23T07:22:00+00:00",
-      "topic": "LG전자",
-      "topics": [
-        "LG전자"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
@@ -817,21 +817,6 @@
       "title_variants": 1
     },
     {
-      "id": "f0e1088eb6bdbce14e52",
-      "title": "자다라, 엔비디아 검증 통과…AI 클라우드 경쟁력 강화",
-      "publisher": "지디넷코리아",
-      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1hY0p2NElFWGVBZGNBVmRLejN3MTY3b0hPSm8yZjBKb0JnWlk3Rk14SlMxNjllTHpQZ2dsM0tkR1V3QUpxNFRiQndwYW1BbGZJZFdVbUJn?oc=5",
-      "published_at": "2026-10-23T06:21:01+00:00",
-      "topic": "엔비디아",
-      "topics": [
-        "엔비디아"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
       "id": "9a75f8d20125ae1ad464",
       "title": "2026 파리 모터쇼, 현대차그룹이 제시한 유럽 맞춤형 포트폴리오 | 저널 | 현대자동차그룹",
       "publisher": "Hyundai Motor Group",
@@ -860,6 +845,21 @@
       "last_observed": "2026-10-24",
       "observed_days": 2,
       "title_variants": 2
+    },
+    {
+      "id": "a2f73784a82926f69d82",
+      "title": "LG전자, 공감각 브랜딩으로 한국PR대상 2관왕",
+      "publisher": "투데이에너지",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5GQktzcXJsbEt5LWxzeUhmZlVSR0lDczUxaHA1M0JLYWhZTjZyR1Axa1pzN1drNkR5X19OM3c2THRGUi1CSkdnbUdzdHYyYW92c3gtMURCUENRUHpMYmY4VGR2bUZfc2Y0bWdXT0t3?oc=5",
+      "published_at": "2026-10-23T05:28:14+00:00",
+      "topic": "LG전자",
+      "topics": [
+        "LG전자"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
     },
     {
       "id": "bd144be510dacc459e59",
