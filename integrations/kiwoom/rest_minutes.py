@@ -25,7 +25,8 @@ KST = dt.timezone(dt.timedelta(hours=9))
 HOSTS = {"real": "https://api.kiwoom.com", "demo": "https://mockapi.kiwoom.com"}
 API_ID = "ka10080"
 PATH = "/api/dostk/chart"
-MAX_PAGES = 3
+MAX_PAGES = 12
+MAX_BARS = 8000
 RECORD_KEY = "stk_min_pole_chart_qry"
 HEADINGS = ["일시", "종목코드", "시가", "고가", "저가", "종가", "거래량",
             "거래대금", "매수주도체결량", "매도주도체결량"]
@@ -87,7 +88,8 @@ def nonnegative_qty(value: object) -> int:
     return n
 
 
-def decode_minutes(payload: dict, ticker: str, trading_date: dt.date) -> list[dict]:
+def decode_minutes(payload: dict, ticker: str, trading_date: dt.date,
+                   earliest_date: dt.date | None = None) -> list[dict]:
     if not isinstance(payload, dict) or not isinstance(payload.get(RECORD_KEY), list):
         raise MarketDataError("키움 ka10080 분봉 응답 배열이 없습니다.")
     rows = []
@@ -96,7 +98,8 @@ def decode_minutes(payload: dict, ticker: str, trading_date: dt.date) -> list[di
             continue
         try:
             timestamp = local_minute(str(item.get("cntr_tm", "")))
-            if dt.date.fromisoformat(timestamp[:10]) != trading_date:
+            actual_date = dt.date.fromisoformat(timestamp[:10])
+            if not ((earliest_date or trading_date) <= actual_date <= trading_date):
                 continue
             o, h, l, c = (positive_price(item.get(field)) for field in
                            ("open_pric", "high_pric", "low_pric", "cur_prc"))
@@ -165,15 +168,20 @@ def get_access_token(base_url: str, env: dict, requester=request_json) -> str:
 
 def fetch_minute_rows(ticker: str, trading_date: dt.date, token: str,
                       *, mode="real", pages=MAX_PAGES, requester=request_json,
-                      sleep=time.sleep, exchange="KRX") -> list[dict]:
+                      sleep=time.sleep, exchange="KRX",
+                      lookback_calendar_days=1) -> list[dict]:
     if mode not in HOSTS:
         raise MarketDataError("키움 서버 유형은 real 또는 demo만 지원합니다.")
     code = ticker_code(ticker)
     provider_code = exchange_stock_code(code, exchange)
     if not token:
         raise MarketDataError("키움 REST 액세스 토큰이 없습니다.")
-    if not (1 <= pages <= MAX_PAGES):
-        raise MarketDataError("요청 페이지는 1~3만 지원합니다.")
+    if not (1 <= pages <= MAX_PAGES) or not (1<=lookback_calendar_days<=60):
+        raise MarketDataError("분봉 페이지 또는 조회 기간이 허용 범위를 벗어났습니다.")
+    # The source may return multiple historical trading days per page. The
+    # old parser discarded all but the requested date; retain actual older
+    # minutes up to this bounded calendar lookback, without inventing gaps.
+    earliest_date=trading_date-dt.timedelta(days=lookback_calendar_days-1)
     result = []
     next_key = ""
     seen_keys = set()
@@ -185,7 +193,8 @@ def fetch_minute_rows(ticker: str, trading_date: dt.date, token: str,
         body = {"stk_cd": provider_code, "tic_scope": "1", "upd_stkpc_tp": "1",
                 "base_dt": trading_date.strftime("%Y%m%d")}
         response, meta = requester(HOSTS[mode], PATH, body, headers)
-        result.extend(decode_minutes(response, code, trading_date))
+        rows=decode_minutes(response, code, trading_date, earliest_date)
+        result.extend(rows)
         continued = (meta.get("cont-yn", "").upper() == "Y")
         new_key = meta.get("next-key", "")
         if not continued or not new_key or new_key in seen_keys:
@@ -196,7 +205,8 @@ def fetch_minute_rows(ticker: str, trading_date: dt.date, token: str,
             sleep(0.25)
     # Distinct minutes; prefer the most recent response if duplicated.
     dedup = {item["일시"]: item for item in result}
-    return [dedup[k] for k in sorted(dedup)]
+    dates=sorted(dedup)
+    return [dedup[k] for k in dates[-MAX_BARS:]]
 
 
 def default_output() -> pathlib.Path:
@@ -224,7 +234,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--ticker", required=True, help="국내주식 KRX 종목코드 6자리")
     parser.add_argument("--date", help="거래일 YYYY-MM-DD (기본: 오늘 한국시간)")
     parser.add_argument("--mode", choices=["real", "demo"], default="real")
-    parser.add_argument("--pages", type=int, default=MAX_PAGES, choices=[1, 2, 3])
+    parser.add_argument("--pages", type=int, default=3, choices=range(1, MAX_PAGES+1))
     args = parser.parse_args(argv)
     try:
         code = ticker_code(args.ticker)

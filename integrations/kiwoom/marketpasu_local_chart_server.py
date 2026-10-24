@@ -27,7 +27,7 @@ ALLOWED_ORIGIN="https://kimhoonyong.github.io"
 MAX_QUERY=65
 KST=timezone(timedelta(hours=9))
 PORT=8765
-CHART_MINUTE_MAX=4000
+CHART_MINUTE_MAX=8000
 SYMBOL_TTL=6*3600
 
 
@@ -93,7 +93,7 @@ def normalize_minute_rows(rows):
 
 def normalize_daily_rows(rows):
     out=[]
-    for x in rows[-400:]:
+    for x in rows[-1200:]:
         try:
             out.append({"date":x["일자"],"open":x["시가"],"high":x["고가"],
                         "low":x["저가"],"close":x["종가"],"volume":x["거래량"],
@@ -160,10 +160,11 @@ class ChartProvider:
                 return entry[1]
             token=self._token()
             if kind=="minute":
-                records=fetch_minute_rows(code,when,token,mode=self.mode,pages=3,exchange=exchange)
+                records=fetch_minute_rows(code,when,token,mode=self.mode,pages=12,
+                                          exchange=exchange,lookback_calendar_days=21)
                 data=normalize_minute_rows(records)
             else:
-                records=fetch_daily(code,when,token,mode=self.mode,pages=6,exchange=exchange)
+                records=fetch_daily(code,when,token,mode=self.mode,pages=8,exchange=exchange)
                 data=normalize_daily_rows(records)
             # SOR (_AL) is a Kiwoom trading-route code. Neither this API nor
             # a successful request proves a complete KRX+NXT summed tape.
@@ -172,8 +173,17 @@ class ChartProvider:
             note=("키움 SOR(_AL) 조회자료입니다. KRX+NXT 통합 거래량으로 검증되지 않았습니다."
                   if exchange=="SOR" else
                   "선택 거래소의 키움 조회자료입니다. 다른 거래소 거래량은 포함되지 않을 수 있습니다.")
+            first_date=(data[0].get("date") or data[0].get("time","")[:10])
+            last_date=(data[-1].get("date") or data[-1].get("time","")[:10])
+            # Make source-limited history visible; this cannot imply complete
+            # coverage. Day bars may be stale even with a recent base_dt.
+            lag_days=(when-date.fromisoformat(last_date)).days
             result={"code":code,"kind":kind,"asOf":day,"market":exchange,
                     "bars":data,"count":len(data),"source":"Kiwoom REST",
+                    "firstAvailableDate":first_date,"lastAvailableDate":last_date,
+                    "lastAvailableLagDays":lag_days,
+                    "historyScope":"up_to_21_calendar_days_actual_minutes" if kind=="minute" else "up_to_1200_daily_bars",
+                    "historyComplete":False,
                     "aggregationVerified":False,
                     "note":note+(" 일봉 거래대금 trde_prica는 백만원 단위를 원으로 변환했습니다."
                           if kind=="daily" else " 분봉 거래대금·매수주도/매도주도 체결량은 ka10080에 없습니다.")}

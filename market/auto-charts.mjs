@@ -38,7 +38,7 @@ export function setupAutoCharts(){
  date.value=koreaDay();
  date.max=isoKstToday();
  let chosen=null,searchId=0,chartId=0,timer=null,exchange="KRX";
- let minuteRaw=[],period=1;
+ let minuteRaw=[],period=1,minuteHistory=null;
  const minuteChoice=el("chart-minute-period");
  const minuteHeading=el("chart-minute-label");
  function applyMinutePeriod(){
@@ -47,8 +47,10 @@ export function setupAutoCharts(){
    minute.setData(converted);
    const state=el("chart-minute-status");
    if(minuteRaw.length){
-     state.textContent="키움 1분봉 "+minuteRaw.length+"개 → "+period+"분봉 "+converted.length+
-       "개 구성 · 선택 거래소 기준 · 120분봉은 원본 1분 자료를 합성한 결과입니다.";
+     const dates=minuteHistory?minuteHistory.first+" ~ "+minuteHistory.last:"날짜 확인 필요";
+     state.textContent="키움 실제 분봉 "+dates+" · 1분봉 "+minuteRaw.length+"개 → "+period+
+       "분봉 "+converted.length+"개 · 과거 거래일 포함"+
+       (minuteHistory?.legacy?" · 구형 PC 조회기: 이전 날짜 미제공 가능":"");
    }
  }
  minuteChoice.addEventListener("change",()=>{
@@ -104,7 +106,7 @@ export function setupAutoCharts(){
   chosen=null;
   chartId++;
   selection.textContent="검색한 종목을 선택하세요.";
-  daily.setData([]);minuteRaw=[];minute.setData([]);
+  daily.setData([]);minuteRaw=[];minuteHistory=null;minute.setData([]);
   if(query.length<1){results.replaceChildren();return;}
   noResults("종목명을 조회 중입니다…");
   try{
@@ -139,38 +141,49 @@ export function setupAutoCharts(){
   const selectedDay=date.value;
   if(!/^\d{4}-\d\d-\d\d$/.test(selectedDay))return;
   selection.textContent="선택된 종목: "+chosen.name+" ("+chosen.code+") · "+exchange+" · 조회 기준일 "+selectedDay;
-  daily.setData([]);minuteRaw=[];minute.setData([]);
+  daily.setData([]);minuteRaw=[];minuteHistory=null;minute.setData([]);
   const kinds=[["daily",daily],["minute",minute]];
   await Promise.all(kinds.map(async([kind,chart])=>{
    const state=el("chart-"+kind+"-status");
-   state.textContent="키움 "+(kind==="daily"?"일봉":"1분봉")+" 조회 중…";
+   state.textContent="키움 "+(kind==="daily"?"최대 1,200개 일봉":"최대 8,000개·과거 최대 21일 분봉")+
+    " 조회 중… 실제 제공 범위만 표시됩니다.";
    try{
     const data=await localJson("/chart?code="+encodeURIComponent(chosen.code)+
-      "&kind="+kind+"&date="+encodeURIComponent(selectedDay)+"&exchange="+exchange,{timeout:24000});
+      "&kind="+kind+"&date="+encodeURIComponent(selectedDay)+"&exchange="+exchange,{timeout:85000});
     if(version!==chartId)return;
     if(data.market!==exchange){
       state.textContent="로컬 조회기가 이전 버전입니다. 새 연결기를 실행해야 "+exchange+" 데이터를 구분할 수 있습니다.";
-      if(kind==="minute")minuteRaw=[];
+      if(kind==="minute"){minuteRaw=[];minuteHistory=null;}
       chart.setData([]);return;
     }
     if(!Array.isArray(data.bars)||!data.bars.length){
       state.textContent="해당 거래일의 "+(kind==="daily"?"일봉":"분봉")+"이 없습니다. 휴장일·인증·거래일을 확인하세요.";
-      if(kind==="minute")minuteRaw=[];
+      if(kind==="minute"){minuteRaw=[];minuteHistory=null;}
       chart.setData([]);return;
     }
+    const sourceFirst=(data.firstAvailableDate||data.bars[0]?.date||data.bars[0]?.time?.slice(0,10)||"").slice(0,10);
+    const sourceLast=(data.lastAvailableDate||data.bars[data.bars.length-1]?.date||
+      data.bars[data.bars.length-1]?.time?.slice(0,10)||"").slice(0,10);
+    const legacy=!data.historyScope;
     if(kind==="minute"){
-      minuteRaw=data.bars;applyMinutePeriod();
+      minuteRaw=data.bars;
+      minuteHistory={first:sourceFirst,last:sourceLast,legacy};
+      applyMinutePeriod();
     }else{
       chart.setData(data.bars);
     }
-    state.textContent="키움 "+data.source+" / "+data.market+" / "+data.count+"개 원본 봉 조회 · "+selectedDay+
-      (kind==="daily"?" 이전 일봉 포함":" 당일 1분봉")+" · 자동조회"+(data.aggregationVerified?" · 통합 검증됨":" · 거래소별 자료");
+    const lag=Number(data.lastAvailableLagDays);
+    const stale=kind==="daily"&&Number.isFinite(lag)&&lag>10;
+    state.textContent="키움 "+data.source+" · "+data.market+" · "+sourceFirst+" ~ "+sourceLast+
+      " · 실제 "+data.count+"봉 조회"+(legacy?" · 구형 PC 조회기: 이전 기간 자료 제한 가능":"")+
+      (stale?" · ⚠ 마지막 일봉이 선택 기준일보다 "+lag+"일 오래되었습니다. 키움 응답 날짜를 확인하세요.":"")+
+      " · 실제 제공 범위까지만 표시";
     if(exchange==="SOR"){
       marketNote.textContent=String(data.note||marketDescriptions.SOR);
     }
    }catch(error){
     if(version!==chartId)return;
-    if(kind==="minute")minuteRaw=[];
+    if(kind==="minute"){minuteRaw=[];minuteHistory=null;}
     chart.setData([]);
     state.textContent=safeErr(error);
    }

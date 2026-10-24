@@ -382,3 +382,10 @@ body{width:100%}
  .charts-wide .chart-grids{grid-template-columns:1fr}
  .app main>.stock-lookup,.app main>.auto-chart-panel.charts-wide{width:100%;min-width:0}
 }
+
+/* Historical range awareness and explicit recent/all chart controls */
+.chart-history-note{margin:13px 0;padding:10px 14px;border:1px solid #466d79;border-radius:9px;background:#0b2b35;color:#bfdde6;font-size:13px;line-height:1.65}
+.chart-recent{min-height:37px;border:1px solid #587b8d;background:#1c3a4e;color:#d7f7ed;border-radius:7px;font-size:13px;font-weight:750;padding:7px 11px}
+.chart-recent:hover{border-color:#85ceba}
+.charts-wide .chart-status{line-height:1.8;overflow-wrap:anywhere}
+@media(max-width:699px){.chart-recent{font-size:12px;padding:7px 8px}}

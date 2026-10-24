@@ -56,6 +56,7 @@ jobs:
           node --check market/candle-chart.mjs
           node --check market/auto-charts.mjs
           node --test tests/chart-model.test.mjs
+          node --test tests/chart-history.test.mjs
           node --check market/chart-sizing.mjs
           node --test tests/chart-sizing.test.mjs
           node --check market/bar-analytics.mjs
@@ -70,6 +71,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_public_news.py' -v
           python3 -m py_compile integrations/kiwoom/rest_minutes.py
           python3 -m unittest discover -s tests -p 'test_kiwoom_minutes.py' -v
+          python3 -m unittest discover -s tests -p 'test_kiwoom_chart_history.py' -v
           python3 -m py_compile integrations/kiwoom/scout_preflight.py integrations/kiwoom/realtime_0b_observe.py
           python3 -m unittest discover -s tests -p 'test_kiwoom_scout_bridge.py' -v
           python3 -m py_compile integrations/kiwoom/rest_daily.py
