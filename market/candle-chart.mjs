@@ -433,6 +433,7 @@ export function mountCandleChart(root,{kind,label}){
      const r=canvas.getBoundingClientRect();
      const index=hoveredBarIndex(e.clientX-r.left,r.width,windowRange);
      if(index===null)return;
+     canvas.style.cursor=e.button===0?"ew-resize":"grabbing";
      mouseDrag={id:e.pointerId,button:e.button,startX:e.clientX,
        initial:{...windowRange},anchor:chartAnchor(e.clientX-r.left,r.width),
        startIndex:index,moved:false,width:Math.max(1,r.width-143)};
@@ -509,6 +510,7 @@ export function mountCandleChart(root,{kind,label}){
  function end(e){
   if(mouseDrag&&e.pointerId===mouseDrag.id){
     const finished=mouseDrag;mouseDrag=null;
+    canvas.style.cursor="";
     const drag=selectionDrag;selectionDrag=null;selection.hidden=true;
     if(drag&&finished.moved&&data.length){
       const rect=canvas.getBoundingClientRect();
@@ -532,11 +534,11 @@ export function mountCandleChart(root,{kind,label}){
  canvas.addEventListener("pointerup",end);
  canvas.addEventListener("pointercancel",e=>{
    // Cancel should not treat the gesture as a left click.
-   if(mouseDrag&&mouseDrag.id===e.pointerId){mouseDrag=null;selectionDrag=null;selection.hidden=true;}
+   if(mouseDrag&&mouseDrag.id===e.pointerId){mouseDrag=null;selectionDrag=null;selection.hidden=true;canvas.style.cursor="";}
    pointers.delete(e.pointerId);pinch=null;dragX=null;hideHover();
  });
  canvas.addEventListener("lostpointercapture",e=>{
-   if(mouseDrag&&mouseDrag.id===e.pointerId){mouseDrag=null;selectionDrag=null;selection.hidden=true;}
+   if(mouseDrag&&mouseDrag.id===e.pointerId){mouseDrag=null;selectionDrag=null;selection.hidden=true;canvas.style.cursor="";}
    pointers.delete(e.pointerId);pinch=null;dragX=null;
  });
  canvas.addEventListener("pointerleave",()=>{hideHover();if(ohlcEnabled)clearOhlc();});
