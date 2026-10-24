@@ -28,6 +28,9 @@ ALLOWED_ORIGIN="https://kimhoonyong.github.io"
 MAX_QUERY=65
 KST=timezone(timedelta(hours=9))
 PORT=8765
+LOCAL_API_PROTOCOL="marketpasu-local-v3"
+LOCAL_API_VERSION=3
+LOCAL_API_ROUTES=("health","symbols","chart","diagnose")
 CHART_MINUTE_MAX=8000
 SYMBOL_TTL=6*3600
 
@@ -325,6 +328,9 @@ def handler_factory(provider):
                 if parsed.path=="/health":
                     self._response({"status":"local_only","origin":ALLOWED_ORIGIN,
                                     "service":"MarketPasu Kiwoom read-only",
+                                    "protocol":LOCAL_API_PROTOCOL,
+                                    "protocolVersion":LOCAL_API_VERSION,
+                                    "routes":list(LOCAL_API_ROUTES),
                                     **provider.auth_info()})
                     return
                 if parsed.path=="/diagnose":
@@ -366,6 +372,8 @@ def main(argv=None):
     server=ThreadingHTTPServer(("127.0.0.1",args.port),handler_factory(provider))
     print(f"MARKETPASU_KIWOOM_LOCAL: http://127.0.0.1:{args.port}")
     print("ORIGIN: "+ALLOWED_ORIGIN+" / NO_ACCOUNT / NO_ORDERS / NO_PUBLIC_LISTENER")
+    print("LOCAL_API_PROTOCOL: "+LOCAL_API_PROTOCOL)
+    print("LOCAL_API_ROUTES: "+",".join(LOCAL_API_ROUTES))
     # Report only a fixed, non-sensitive state identifier.
     auth_state=provider.auth_info()
     print("KIWOOM_AUTH: "+("READY_TO_VERIFY" if auth_state["authConfigured"] else "NOT_CONFIGURED"))
