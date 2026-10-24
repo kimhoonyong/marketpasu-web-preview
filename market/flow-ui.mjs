@@ -1,6 +1,7 @@
 import {parseMinuteBarCsv} from "./minute-csv.mjs";
 import {parseDailyBarCsv} from "./daily-csv.mjs";
 import {assessMultiweekSupport} from "./daily-support.mjs";
+import {assessDualHorizon} from "./cross-timeframe.mjs";
 import {assessNewsAccumulationEvidence} from "./accumulation-evidence.mjs";
 import {suggestStockFromTitle,stockKey} from "./stock-hints.mjs";
 import {saveImportedMinuteBars,findSavedBars,removeSavedBars} from "./local-bar-store.mjs";
@@ -45,7 +46,37 @@ export function setupFlowAnalyzer(){
   const file=el("flow-file"),paste=el("flow-paste"),result=el("flow-result");
   const ticker=el("flow-ticker"),confirmed=el("flow-match"),side=el("flow-side");
   const remember=el("flow-remember"),hint=el("flow-stock-hint"),cacheStatus=el("flow-cache-status");
-  let articles=[],savedSeries=null,loadSequence=0;
+  let articles=[],savedSeries=null,loadSequence=0,minuteEvidence=null,dailyEvidence=null;
+  const combinedResult=el("cross-evidence-result");
+  function contextKey(){
+    const row=articles.find(item=>item.id===select.value);
+    const code=stockKey(ticker.value);
+    return row&&code?row.id+"|"+row.published+"|"+code:"";
+  }
+  function renderCombined(){
+    const key=contextKey();
+    const minute=minuteEvidence?.key===key?minuteEvidence.analysis:null;
+    const daily=dailyEvidence?.key===key?dailyEvidence.analysis:null;
+    const comparison=assessDualHorizon({
+      daily,minute,sameNews:Boolean(key),sameStock:Boolean(confirmed.checked)
+    });
+    const wrapper=elem("div");
+    wrapper.append(elem("h4","",comparison.summary));
+    if(comparison.observations.length){
+      const list=elem("ul","flow-signals");
+      for(const text of comparison.observations)list.append(elem("li","",text));
+      wrapper.append(list);
+    }
+    for(const n of comparison.notes)wrapper.append(elem("p","flow-note",n));
+    wrapper.append(elem("p","flow-warning",comparison.disclaimer));
+    combinedResult.replaceChildren(wrapper);
+  }
+  function invalidateEvidence(reason="뉴스·종목 변경으로 이전 분석을 초기화했습니다."){
+    minuteEvidence=null;dailyEvidence=null;
+    result.replaceChildren(elem("p","flow-note",reason));
+    el("daily-result").replaceChildren(elem("p","flow-note",reason));
+    renderCombined();
+  }
   const chosenArticle=()=>articles.find(item=>item.id===select.value);
   async function loadLocalSeries(){
     const article=chosenArticle();
@@ -74,6 +105,7 @@ export function setupFlowAnalyzer(){
     if(!article)return;
     const match=suggestStockFromTitle(article.title);
     file.value="";paste.value="";confirmed.checked=false;side.checked=false;
+    invalidateEvidence();
     ticker.value=match.status==="suggested"?match.candidates[0].code:"";
     if(match.status==="suggested")
       hint.textContent="종목 후보 "+match.candidates[0].name+" ("+ticker.value+"). 제목 일치로 추천한 값이며, 기사와 분봉이 동일 종목인지 직접 확인해야 합니다.";
@@ -96,7 +128,7 @@ export function setupFlowAnalyzer(){
     select.replaceChildren(...options);
     const valid=articles.some(a=>a.id===value);
     select.value=valid?value:"";
-    if(!valid){savedSeries=null;loadSequence++;}
+    if(!valid){savedSeries=null;loadSequence++;invalidateEvidence("뉴스 목록이 변경되어 분석이 초기화됐습니다.");}
   }
   function selectArticle(id){
     if(!articles.some(a=>a.id===id))return;
@@ -111,6 +143,7 @@ export function setupFlowAnalyzer(){
     savedSeries=null;
     loadSequence++;
     confirmed.checked=false;
+    invalidateEvidence("종목코드가 바뀌었습니다. 일봉과 분봉을 다시 확인하세요.");
     cacheStatus.textContent="종목코드가 바뀌었습니다. 실제 종목을 다시 확인하고 입력칸 밖을 눌러 저장 분봉을 조회하세요.";
   });
   ticker.addEventListener("change",loadLocalSeries);
@@ -126,7 +159,9 @@ export function setupFlowAnalyzer(){
     }
   });
   function renderError(message){
+    minuteEvidence=null;
     result.replaceChildren(elem("p","flow-error",message));
+    renderCombined();
   }
   function renderAnalysis(analysis,sourceName,csv){
     const wrap=elem("div");
@@ -161,6 +196,7 @@ export function setupFlowAnalyzer(){
   }
   file.addEventListener("change",async()=>{
     const input=file.files?.[0];
+    minuteEvidence=null;renderCombined();
     if(!input)return;
     if(input.size>1_500_000){renderError("CSV 파일이 1.5MB를 초과했습니다. 필요한 시간 구간만 선택하세요.");return;}
     try{
@@ -175,7 +211,10 @@ export function setupFlowAnalyzer(){
   });
   paste.addEventListener("input",()=>{
     if(paste.value.trim())savedSeries=null;
+    minuteEvidence=null;renderCombined();
   });
+  confirmed.addEventListener("change",()=>{if(!confirmed.checked)invalidateEvidence("종목 검증이 해제돼 분석을 초기화했습니다.");else renderCombined();});
+  side.addEventListener("change",()=>{minuteEvidence=null;renderCombined();});
   form.addEventListener("submit",event=>{
     event.preventDefault();
     const item=articles.find(row=>row.id===select.value);
@@ -204,6 +243,8 @@ export function setupFlowAnalyzer(){
       aggressorSideVerified:strongSide,earliestSourceVerified:false,stockCode
     });
     renderAnalysis(assessment,item.title,csv);
+    minuteEvidence={key:contextKey(),analysis:assessment};
+    renderCombined();
     if(fromUpload&&remember.checked){
       saveImportedMinuteBars(stockCode,csv.bars).then(info=>{
         cacheStatus.textContent="이 기기에 분봉 "+info.savedSessions+"개 거래일 분량을 저장했습니다. (최대 12개 거래일 보관)";
@@ -217,6 +258,7 @@ export function setupFlowAnalyzer(){
   const dailyFile=el("daily-file"),dailyPaste=el("daily-paste"),dailyResult=el("daily-result");
   dailyFile.addEventListener("change",async()=>{
     const input=dailyFile.files?.[0];
+    dailyEvidence=null;renderCombined();
     if(!input)return;
     if(input.size>1_000_000){
       dailyResult.replaceChildren(elem("p","flow-error","일봉 CSV는 1MB 이하만 선택하세요."));
@@ -233,17 +275,21 @@ export function setupFlowAnalyzer(){
       dailyResult.replaceChildren(elem("p","flow-error","일봉 CSV 인코딩을 확인하거나 내용을 직접 붙여넣으세요."));
     }
   });
+  dailyPaste.addEventListener("input",()=>{dailyEvidence=null;renderCombined();});
+  el("daily-adjusted").addEventListener("change",()=>{dailyEvidence=null;renderCombined();});
   el("daily-form").addEventListener("submit",event=>{
     event.preventDefault();
     const article=chosenArticle();
     const code=stockKey(ticker.value);
     if(!article||!code||!confirmed.checked){
+      dailyEvidence=null;renderCombined();
       dailyResult.replaceChildren(elem("p","flow-error","뉴스와 종목코드가 일치하는지 확인하고 체크해 주세요."));
       return;
     }
     let parsed;
     try{parsed=parseDailyBarCsv(dailyPaste.value,{ticker:code});}
     catch(error){
+      dailyEvidence=null;renderCombined();
       dailyResult.replaceChildren(elem("p","flow-error","일봉 CSV 오류: "+String(error?.message||error)));
       return;
     }
@@ -288,6 +334,9 @@ export function setupFlowAnalyzer(){
     for(const note of analysis.notes)wrap.append(elem("p","flow-note",note));
     wrap.append(elem("p","flow-warning",analysis.disclaimer));
     dailyResult.replaceChildren(wrap);
+    dailyEvidence={key:contextKey(),analysis};
+    renderCombined();
   });
+  renderCombined();
   return {setArticles,selectArticle};
 }
