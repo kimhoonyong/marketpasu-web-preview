@@ -2,7 +2,7 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-24",
-  "updated_at": "2026-10-24T11:54:26.029824+00:00",
+  "updated_at": "2026-10-24T12:39:46.254157+00:00",
   "update_note": "투자 관련 기업·시장 제목만 선별한 Google 뉴스 공개 RSS입니다. 같은 사건의 다른 보도는 화면에서 묶어 보며 재탕 여부를 확정하지 않습니다.",
   "items": [
     {
@@ -174,14 +174,14 @@
       "title_variants": 1
     },
     {
-      "id": "c579bc484f4f85393c03",
-      "title": "출발증시 1부",
-      "publisher": "한국경제TV",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNYks2a3RMa0MyT3hZc2ZncHpSMDVpYW5aNmNnVEhGZXB1SUppS3d3S3JsN2hmdUlOSjA3NV9zVFBCbWwwQ05saEV2OTNHY2xULWVNSFdvUUxndnBlUmVpUnFVSE9sV0ZobWtLeUsyOUl4cWtOX2loMmtVTnVyeUtROTJ1cGFEQWtZWlJrbjhjTVJLLTlXUnNsYW9FM1dtS0lKelBZ?oc=5",
-      "published_at": "2026-10-24T06:41:19+00:00",
-      "topic": "한국 증시",
+      "id": "cb6eaa69c4933e4a7cb3",
+      "title": "여러 장애물들이 스페이스X와 테슬라의 거래 전망을 어둡게 하고 있다.",
+      "publisher": "Vietnam.vn",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQdXJTQXNTUEplR1FUcjF5UktYTXoyM3FWU2dTWFgzc0dLdVdjNGxaMnY0OUhScTlEcm80S20wNU1uSnJMZllXTzJLUDV2TU5mZnhzQVdGMUYxcVYxZ1Z6NDJrRlpnX3kzY0tvd2RSTncyRDAwNzBlelV6TTB4Rm9HbUR4Zw?oc=5",
+      "published_at": "2026-10-24T06:20:47+00:00",
+      "topic": "테슬라",
       "topics": [
-        "한국 증시"
+        "테슬라"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -224,9 +224,8 @@
       "publisher": "네이버페이 머니스토리",
       "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA1TW9QNkFqbnFTYXpabHNfYUFCM0IxeG5tYnFhOENfdEcwRGhDdl96Ukh5MU5ZaXd2OXdVU0dxRzFaUi01b2ZEMWZpMUhLMVBfdWliRW1ORmQ?oc=5",
       "published_at": "2026-10-24T05:36:12+00:00",
-      "topic": "테슬라",
+      "topic": "NAVER",
       "topics": [
-        "테슬라",
         "NAVER"
       ],
       "first_observed": "2026-10-24",
@@ -242,21 +241,7 @@
       "published_at": "2026-10-24T05:36:11+00:00",
       "topic": "NAVER",
       "topics": [
-        "NAVER"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "d338086fe059e1ce6ac5",
-      "title": "뜬구름 잡는 김정은 사망설…장마당 환율과 물가 보면 답 나온다",
-      "publisher": "프레시안",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBKVE5Edl9WR0p5YXpDeGVQRmh2V3FqVUt4MDVUTktCb2syR0VsYUtlbVlzZ2wxWlZONVVDZkw2YkxrSEJMZjA1WVh0TWttZ1JLS3RFdjVhd0w3NFJTRXhZeFcyQVM0LXgwd3hF?oc=5",
-      "published_at": "2026-10-24T05:32:45+00:00",
-      "topic": "환율",
-      "topics": [
+        "NAVER",
         "환율"
       ],
       "first_observed": "2026-10-24",
@@ -731,21 +716,6 @@
       "title_variants": 1
     },
     {
-      "id": "2337eac585f0d1c8b4c9",
-      "title": "'전약후강' 코스피, 급락 딛고 5500선 사수…코스닥 1% 넘게 하락",
-      "publisher": "한국경제",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9oMUNETTZfc2tabGo3Y2hLYnFQenpuX1ViYkNDWnRKbm01dnNFODRaU2dUMUx1aFlyX1hnU0MtaUQwQjZxTG9BMUlNaTFBMG44cW50TTI1akUyUQ?oc=5",
-      "published_at": "2026-10-23T06:41:56+00:00",
-      "topic": "코스닥",
-      "topics": [
-        "코스닥"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
       "id": "4b3aa1cd24e259ec6220",
       "title": "코스피, 0.30% 오른 5,550.30 마감…코스닥은 1%대 하락",
       "publisher": "연합뉴스TV",
@@ -759,6 +729,21 @@
       "last_observed": "2026-10-24",
       "observed_days": 2,
       "title_variants": 1
+    },
+    {
+      "id": "762edd2488d82cc4e04e",
+      "title": "1000원 벽 못 넘은 코스닥 5사, 첫 ‘동전주 상폐’",
+      "publisher": "조선일보",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxONm5BZU5QVEM4dXhZemlNT0lHZGJRRWtDYmRQLTQyS1M3dHI5bzk0bFo5SmJtV05nUFVsUlBmUVpqNVJ1Nlk3c3hEZnRTd3BRZUhLNm1vRUFvMWhPX2plOVdmVkhpUC1NbmFLM0RySVp3X3R1bFVVbnA3d0tYb1J0Y2FEZmF3emZ1Ml80?oc=5",
+      "published_at": "2026-10-23T05:49:27+00:00",
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
+      "title_variants": 2
     },
     {
       "id": "83aa5e0308ec64c39979",
@@ -803,21 +788,6 @@
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
       "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "16f41c7cec5df6c65b36",
-      "title": "[N2 증시 풍향계] 약세장 속 제약·보안주 매수세 유입…삼성E&A ‘강세’, 디티에스 ‘따블’ 데뷔 성공",
-      "publisher": "뉴스투데이",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1kUlItS2pMbG1DbFRpVWoyRmtYM2dDckhrQ2pHTG5DclZmV1hvaEE4VVZWeGp0MDB1MmtDZUttbjl6MS1kQWJNWk5MaWJMd0hJQTh6ZF9GdHhLVTV0QlE?oc=5",
-      "published_at": "2026-10-23T00:51:00+00:00",
-      "topic": "명신산업",
-      "topics": [
-        "명신산업"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
       "title_variants": 1
     },
     {
@@ -896,11 +866,11 @@
       "title_variants": 1
     },
     {
-      "id": "50299e8fa4863204fc7f",
-      "title": "SK하이닉스, 솔리다임 상장 접었다…\"AI 메모리 투자 기조는 유효\"",
-      "publisher": "뉴스퀘스트",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1XY1dtcXB4aDU0dlU1X0I4V1pxRmUwdnNnY3VBeUE4Qy1hdFlNNHp3cU5kQXlnSGQ2blg0azU0aTlUU0M4bEdObmhDT3JSUFp6Ul91TUlJQ250UGdLN3NpSDZLU19rVUdZOXBSZU9YWQ?oc=5",
-      "published_at": "2026-10-22T23:06:34+00:00",
+      "id": "f79c7862324e7697d975",
+      "title": "SK하이닉스, 솔리다임 美 상장 검토 중단…\"주주가치 제고 방안 계속 모색\"",
+      "publisher": "아이뉴스24",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFA4Snp3ZXc0X3I3UDByU2JfblFxMXE4bDhpOFdNQ1pja2wtZkpoLUVTTkw3a2ZrNV84MnRPOWJzamJ3TEd0LWdZNnNWaw?oc=5",
+      "published_at": "2026-10-22T22:43:55+00:00",
       "topic": "명신산업",
       "topics": [
         "명신산업"
@@ -908,6 +878,36 @@
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
       "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "f0c0a4d69f37777a4d4a",
+      "title": "‘독립 2년차’ LG전자 HVAC, 수주 쌓이는데 실적은",
+      "publisher": "IT조선",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40cHpZN20wMFJSaFpyZWoyNS1ncTRUQ0g2azZlUHZueVNCV3BnX0NWdHl5MkpYNm80OFA4WE90NWpSaXpvNjk0TTlZdkhZWU1FZXVMLXZlcjk1NUlhWWtEcGNXRExGYlVvMGlkOExIS3jSAXRBVV95cUxObGFoeGtna3VoM3lpN0ZCa05uRDNNNmZuNEVxSVdIckowRV9rUnNwRExxdEt3UGhQaVFsdEY3aHRIdloya0hwblJoZTlJQkktVnNkMFVGWWFOOGRYenpyaU5FSjIxUzhaRDIxUTZQVW1oUVRIUw?oc=5",
+      "published_at": "2026-10-22T22:00:00+00:00",
+      "topic": "LG전자",
+      "topics": [
+        "LG전자"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "fa47adcfc7ea6c0c21bb",
+      "title": "코스닥 제약바이오기업, 주식 시장 돌파구 찾을까",
+      "publisher": "의학신문",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9QZlp5VjRQbDBjdkQ4RVcyWnpzSnlOVUItVUJfblhwS1JSa0lEM1VNV0VrUnlSZWt3RVNRdEEzRlh2TV9Ea05yVXFPbjJXb0ZZb1kxM2RjSmJRUGJhOTg3U3dOR2tjaHFTR0E?oc=5",
+      "published_at": "2026-10-22T21:00:00+00:00",
+      "topic": "코스닥",
+      "topics": [
+        "코스닥"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
       "title_variants": 1
     }
   ]
