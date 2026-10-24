@@ -1,4 +1,4 @@
-import {checkedBars,constrainRange,scaleWindow,formatNumber} from "./chart-model.mjs";
+import {checkedBars,constrainRange,scaleWindow,formatNumber,defaultVisibleBars} from "./chart-model.mjs";
 import {MA_PERIODS,MA_STYLE,movingAverages} from "./moving-average.mjs";
 import {barAnalytics,compactWon} from "./bar-analytics.mjs";
 import {panelAt,hoveredBarIndex,describeBarHover} from "./chart-hover.mjs";
@@ -14,6 +14,12 @@ export function mountCandleChart(root,{kind,label}){
  const plus=root.querySelector(".chart-plus");
  const minus=root.querySelector(".chart-minus");
  const reset=root.querySelector(".chart-reset");
+ const recent=document.createElement("button");recent.type="button";
+ recent.className="chart-recent";recent.textContent="최근 구간";
+ recent.title="가장 최신 240일봉 또는 600개 분봉 근처로 확대";
+ reset.parentElement.insertBefore(recent,reset);
+ reset.textContent="전체 기간";
+ reset.title="PC에 조회된 모든 실제 봉을 표시합니다. 많은 봉은 겹칠 수 있으니 확대해 보세요.";
  let data=[],windowRange={start:0,count:0},pointers=new Map(),dragX=null,pinch=null;
  let maValues=new Map(),enabled=new Set(MA_PERIODS),showPressure=true;
  const controls=document.createElement("div");controls.className="chart-ma-controls";
@@ -243,7 +249,11 @@ export function mountCandleChart(root,{kind,label}){
   ctx.fillText(kind==="daily"?"거래대금":"금액추정",3,moneyTop+12);
   ctx.fillText(compactWon(moneyMax),w-right+6,moneyTop+12);
   const first=visible[0],last=visible[visible.length-1];
-  info(label+" · "+first.date.replace("T"," ")+" ~ "+last.date.replace("T"," ")+" · "+visible.length+"봉 / "+data.length+"봉 · 마지막 "+formatNumber(last.close)+"원 · 거래량 "+formatNumber(last.volume));
+  const allFirst=data[0],allLast=data[data.length-1];
+  info(label+" · 화면 "+first.date.replace("T"," ")+" ~ "+last.date.replace("T"," ")+" ("+visible.length+"개)"+
+    " / 실제 조회 전체 "+allFirst.date.slice(0,10)+" ~ "+allLast.date.slice(0,10)+" ("+data.length+"개)"+
+    " · 마지막 "+formatNumber(last.close)+"원 · 거래량 "+formatNumber(last.volume)+
+    (data.length>visible.length?" · [전체 기간]에서 모두 확인 가능":" · 조회된 전체 봉 표시 중"));
   if(activeIndex===null||activeIndex<windowRange.start||activeIndex>=windowRange.start+visible.length)activeIndex=windowRange.start+visible.length-1;
   inspect(activeIndex);
  }
@@ -252,11 +262,17 @@ export function mountCandleChart(root,{kind,label}){
    activeIndex=null;
    maValues=movingAverages(data);
    updateButtons();
-   const visible=kind==="daily"?Math.min(data.length,60):Math.min(data.length,160);
+   recentView();
+ }
+ function recentView(){
+   const visible=defaultVisibleBars(data.length,kind,area.clientWidth);
    windowRange=constrainRange(data.length,data.length-visible,visible);
    render();
  }
- function resetView(){const visible=kind==="daily"?Math.min(data.length,60):Math.min(data.length,160);windowRange=constrainRange(data.length,data.length-visible,visible);render();}
+ function resetView(){
+   windowRange=constrainRange(data.length,0,data.length);
+   render();
+ }
  function zoom(factor,anchor=.5){windowRange=scaleWindow(data.length,windowRange,factor,anchor);render();}
  function pan(deltaPx){
    if(!data.length)return;
@@ -268,6 +284,7 @@ export function mountCandleChart(root,{kind,label}){
  plus.addEventListener("click",()=>zoom(.74));
  minus.addEventListener("click",()=>zoom(1.35));
  reset.addEventListener("click",()=>resetView());
+ recent.addEventListener("click",()=>recentView());
  expand.addEventListener("click",()=>{
    root.classList.toggle("chart-enlarged");
    expand.textContent=root.classList.contains("chart-enlarged")?"원래 크기":"크게 보기";
