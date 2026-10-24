@@ -1,11 +1,12 @@
 import {uniqueArticles,visibleArticles,groupRelatedReports} from "./feed-model.mjs";
+import {focusedMarketStories,marketRelevanceScore} from "./news-quality.mjs";
 import {setupFlowAnalyzer} from "./flow-ui.mjs";
 import {setupAutoCharts} from "./auto-charts.mjs";
 const q = (id) => document.getElementById(id);
 const elements = {
   search:q("search"),watchlist:q("watchlist"),save:q("save-watch"),focus:q("keyword-focus"),
   status:q("feed-status"),count:q("count"),refresh:q("refresh"),
-  articles:q("articles"),empty:q("empty"),groupToggle:q("group-toggle")
+  articles:q("articles"),empty:q("empty"),groupToggle:q("group-toggle"),more:q("show-more-news"),sort:q("news-sort")
 };
 const autoCharts=setupAutoCharts();
 const flow=setupFlowAnalyzer();
@@ -14,9 +15,15 @@ const VIEW_KEY = "marketpasu_personal_news_view_v1";
 const READ_KEY = "marketpasu_read_articles_v1";
 const KNOWN_KEY = "marketpasu_known_articles_v1";
 const GROUP_KEY = "marketpasu_group_related_v1";
+const SORT_KEY = "marketpasu_news_sort_v1";
+const GROUP_PAGE = 10;
 const MAX_ITEMS = 80;
 let allItems = [];
 let groupedView = true;
+let visibleLimit=GROUP_PAGE;
+let removedByQuality=0;
+let sortOrder="priority";
+try {sortOrder=localStorage.getItem(SORT_KEY)==="latest"?"latest":"priority";} catch {}
 try {groupedView = localStorage.getItem(GROUP_KEY)!=="off";} catch {}
 let currentFilter = "all";
 try {const saved=localStorage.getItem(VIEW_KEY);currentFilter=["all","watch","unread"].includes(saved)?saved:"all";} catch {}
@@ -90,7 +97,7 @@ function node(tag,className,text){
   return elem;
 }
 function articleCard(item,related=[]){
-  const article=node("article","article"+(readIds.has(item.id)?" is-read":""));
+  const article=node("article","article"+(readIds.has(item.id)?" is-read":"")+(marketRelevanceScore(item)>=5?" high-impact":""));
   const meta=node("div","meta");
   meta.append(node("span","topic",item.topic),node("span","",item.publisher),
     node("span","",dateText(item.published)));
@@ -167,16 +174,24 @@ function render(){
     search:elements.search.value,filter:currentFilter,
     watchKeywords,focus:elements.focus.value,readIds
   });
+  if(sortOrder==="priority")rows.sort((a,b)=>
+    marketRelevanceScore(b)-marketRelevanceScore(a) ||
+    Date.parse(b.published||0)-Date.parse(a.published||0));
   const groups=groupedView?groupRelatedReports(rows):rows.map(item=>[item]);
   const fragment=document.createDocumentFragment();
-  for(const reports of groups)fragment.append(articleCard(reports[0],reports.slice(1)));
+  for(const reports of groups.slice(0,visibleLimit))fragment.append(articleCard(reports[0],reports.slice(1)));
   elements.articles.replaceChildren(fragment);
   elements.empty.hidden=rows.length!==0;
+  elements.more.hidden=groups.length<=visibleLimit;
+  if(!elements.more.hidden)elements.more.textContent="다음 핵심 뉴스 더 보기 · "+(groups.length-visibleLimit)+"개 남음";
+  elements.sort.value=sortOrder;
   const unread=allItems.filter(item=>!readIds.has(item.id)).length;
   const collapsed=rows.length-groups.length;
   elements.count.textContent=groupedView
-    ?"표시 "+groups.length+"개 · 원문 "+rows.length+"건 · 관련 보도 "+collapsed+"건 묶음 · 안 읽은 뉴스 "+unread+"건"
-    :"표시 "+rows.length+"건 / 전체 "+allItems.length+"건 · 안 읽은 뉴스 "+unread+"건";
+    ?"표시 "+Math.min(groups.length,visibleLimit)+"개 / 핵심 이슈 "+groups.length+"개 · 관련 보도 "+collapsed+"건 접음 · 안 읽은 뉴스 "+unread+"건"
+    :"표시 "+Math.min(rows.length,visibleLimit)+"건 / 주식 관련 "+allItems.length+"건 · 안 읽은 뉴스 "+unread+"건";
+  const quality=q("quality-status");
+  if(quality)quality.textContent="투자 관련 제목 "+allItems.length+"건 선별 · 무관한 글 "+removedByQuality+"건 제외 · 같은 사건은 원문 유지 후 묶음";
   elements.groupToggle.textContent=groupedView?"원문 전체 보기":"관련 보도 묶어 보기";
   elements.groupToggle.setAttribute("aria-pressed",String(groupedView));
 }
@@ -191,7 +206,9 @@ async function loadNews(){
     const data=await response.json();
     const rows=normalizeRows(data);
     if(rows.length===0)throw new Error("표시 가능한 기사가 없습니다");
-    allItems=uniqueArticles(rows);
+    const checked=focusedMarketStories(rows);
+    removedByQuality=rows.length-checked.length;
+    allItems=uniqueArticles(checked);
     flow.setArticles(allItems);
     newIds=knownIds.size===0?new Set():new Set(allItems.filter(item=>!knownIds.has(item.id)).map(item=>item.id));
     for(const item of allItems)knownIds.add(item.id);
@@ -199,7 +216,7 @@ async function loadNews(){
     const when = data.updated_at && Number.isFinite(Date.parse(data.updated_at)) ?
       "자동 갱신 "+dateText(data.updated_at) :
       "첫 확인 기사 기준일 "+(clean(data.snapshot_date,10)||"미확인");
-    elements.status.textContent=when+" · 공개 뉴스 "+allItems.length+"건 (실시간 시세 아님)";
+    elements.status.textContent=when+" · 주식 관련 뉴스 "+allItems.length+"건 (실시간 시세 아님)";
     render();
   }catch(err){
     elements.status.textContent=allItems.length ?
@@ -219,12 +236,15 @@ elements.save.addEventListener("click",()=>{
   elements.watchlist.value=values.join(", ");
   elements.save.textContent=writeKeywords(values)?"저장됨":"저장 제한 · 현재 탭에만 적용";
   populateFocus();
-  render();
+  resetPaging();
 });
-elements.search.addEventListener("input",render);
+const resetPaging=()=>{visibleLimit=GROUP_PAGE;render();};
+elements.search.addEventListener("input",resetPaging);
+elements.sort.addEventListener("change",()=>{sortOrder=elements.sort.value==="latest"?"latest":"priority";try{localStorage.setItem(SORT_KEY,sortOrder);}catch{}resetPaging();});
+elements.more.addEventListener("click",()=>{visibleLimit+=GROUP_PAGE;render();});
 elements.focus.addEventListener("change",()=>{
   if(elements.focus.value){currentFilter="watch";try{localStorage.setItem(VIEW_KEY,currentFilter);}catch{}syncFilterButtons();}
-  render();
+  resetPaging();
 });
 function syncFilterButtons(){
   for(const child of document.querySelectorAll("[data-filter]")){
@@ -238,7 +258,7 @@ for(const btn of document.querySelectorAll("[data-filter]")){
     currentFilter=["watch","unread"].includes(btn.dataset.filter)?btn.dataset.filter:"all";
     try {localStorage.setItem(VIEW_KEY,currentFilter);} catch {}
     syncFilterButtons();
-    render();
+    resetPaging();
   });
 }
 populateFocus();
@@ -246,7 +266,7 @@ syncFilterButtons();
 elements.groupToggle.addEventListener("click",()=>{
   groupedView=!groupedView;
   try {localStorage.setItem(GROUP_KEY,groupedView?"on":"off");} catch {}
-  render();
+  resetPaging();
 });
 elements.refresh.addEventListener("click",loadNews);
 render();
