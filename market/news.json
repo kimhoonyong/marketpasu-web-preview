@@ -2,7 +2,7 @@
   "version": 2,
   "source": "google_news_rss_public",
   "snapshot_date": "2026-10-24",
-  "updated_at": "2026-10-24T08:33:19.358946+00:00",
+  "updated_at": "2026-10-24T08:48:43.179597+00:00",
   "update_note": "투자 관련 기업·시장 제목만 선별한 Google 뉴스 공개 RSS입니다. 같은 사건의 다른 보도는 화면에서 묶어 보며 재탕 여부를 확정하지 않습니다.",
   "items": [
     {
@@ -68,6 +68,21 @@
       "title_variants": 1
     },
     {
+      "id": "cb6eaa69c4933e4a7cb3",
+      "title": "여러 장애물들이 스페이스X와 테슬라의 거래 전망을 어둡게 하고 있다.",
+      "publisher": "Vietnam.vn",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQdXJTQXNTUEplR1FUcjF5UktYTXoyM3FWU2dTWFgzc0dLdVdjNGxaMnY0OUhScTlEcm80S20wNU1uSnJMZllXTzJLUDV2TU5mZnhzQVdGMUYxcVYxZ1Z6NDJrRlpnX3kzY0tvd2RSTncyRDAwNzBlelV6TTB4Rm9HbUR4Zw?oc=5",
+      "published_at": "2026-10-24T06:20:47+00:00",
+      "topic": "테슬라",
+      "topics": [
+        "테슬라"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "52fa9ae6c388e3b9816e",
       "title": "칩 팔고 투자하고 보증까지…엔비디아 'AI 순환거래' 논란[AI 호황의 청구서③]",
       "publisher": "뉴시스",
@@ -83,14 +98,14 @@
       "title_variants": 1
     },
     {
-      "id": "fd695b601cff9fd2a2c4",
-      "title": "장중 4%대 급락 딛고 4%대 상승…SK하이닉스, 주주환원 기대 부각",
-      "publisher": "쿠키뉴스",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5MUDY2Y0Q0X1YyNTluMVNNOHpUaFI1TTQ0STZKcjg4T08ya3B2YzVZLTVLazJ4Wkh3NmFGRHZYMTcxZFVyMmRRV2MybjRpRG93SEgyTElkay1UYlA2X3lIZTZEMA?oc=5",
-      "published_at": "2026-10-24T05:49:59+00:00",
-      "topic": "SK하이닉스",
+      "id": "284feea0c60f7b76124d",
+      "title": "머스크, 스페이스X와 테슬라 합병 검토 공식화",
+      "publisher": "네이버페이 머니스토리",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA1TW9QNkFqbnFTYXpabHNfYUFCM0IxeG5tYnFhOENfdEcwRGhDdl96Ukh5MU5ZaXd2OXdVU0dxRzFaUi01b2ZEMWZpMUhLMVBfdWliRW1ORmQ?oc=5",
+      "published_at": "2026-10-24T05:36:12+00:00",
+      "topic": "NAVER",
       "topics": [
-        "SK하이닉스"
+        "NAVER"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -103,8 +118,9 @@
       "publisher": "네이버페이 머니스토리",
       "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE4wVWpxV2xCdUhGTkZDWGRqRU5qSmJFci1NdTd3RVlTeVVKeTlPYU1FNGsyODRyZV9heWYzeTZNQzJjVjNCT21zZWdVOXdZNVp5cVkybGRNeDI?oc=5",
       "published_at": "2026-10-24T05:36:11+00:00",
-      "topic": "환율",
+      "topic": "NAVER",
       "topics": [
+        "NAVER",
         "환율"
       ],
       "first_observed": "2026-10-24",
@@ -121,6 +137,21 @@
       "topic": "환율",
       "topics": [
         "환율"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "bb2759a2f610825a34f1",
+      "title": "SK하이닉스, 솔리다임 상장 철회에 4.42%↑…반등 기대",
+      "publisher": "팩트인뉴스",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5DWVVMNDlwZmYtLTRKNGhicDNBOFlOVWEwNWZvWGpOT3lQLXRNVnFPTVJwM04yUUFuZzJrbXFHVUdOQ0ptbmxoZWpQem1FRU1EVnJIZF9RTTRvd0t5SWZ6Sm1JN09LdVoyR1JjYUdEaXbSAXRBVV95cUxPWnk3QUVEcmxGYklkUWxBbmh4cWR2N2hWSjNNaGd3em1jTkZIN05aWTV6VUU2dzlSNndXRTFwZ1RNWXp6dEZvSXhNLVlLLVhnaXJ3RUY3YmUwcnA3MWVQd2hFUG5rMm9pdEVmUjBZbDZYTlNxaw?oc=5",
+      "published_at": "2026-10-24T05:25:19+00:00",
+      "topic": "SK하이닉스",
+      "topics": [
+        "SK하이닉스"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -211,6 +242,21 @@
       "topic": "코스피",
       "topics": [
         "코스피"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "5d1d36663ae86a9bf2fe",
+      "title": "같은 AI 과열론에도 엇갈린 한·대만 증시…반도체 구조가 갈랐다",
+      "publisher": "더퍼블릭",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9aQ2VCQVdoczlLM2huNG1uX0hqRkJtYlF6R2xKcUZUbC1KSWdVVFZEOEg0dFRYZlR6ZV9ZdUFpYjNUaFNrU1JHRWFoVXFGMXYxZFJvVzFSbWVSZUJLSXhmdHFUMUFKczNQSnoyRnNHSdIBb0FVX3lxTE9aQ2VCQVdoczlLM2huNG1uX0hqRkJtYlF6R2xKcUZUbC1KSWdVVFZEOEg0dFRYZlR6ZV9ZdUFpYjNUaFNrU1JHRWFoVXFGMXYxZFJvVzFSbWVSZUJLSXhmdHFUMUFKczNQSnoyRnNHSQ?oc=5",
+      "published_at": "2026-10-24T03:48:35+00:00",
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -354,14 +400,14 @@
       "title_variants": 1
     },
     {
-      "id": "7a714d6fcfa96fed8873",
-      "title": "\"인니 증시 반값 됐다\"…상반기 1위서 '최저가'로, 코스피 바닥 논쟁",
-      "publisher": "한국경제",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5kWEtuLWhKMHFsVVBTUFRDSkVEa2hlaHdndUcwSUFZRkN1dHRvSlVucEtYcHdQejVoc2Q1Rm4tSjF4YjFqQkdRRFdjSTRtYTJiNmZfck9KYzEzUQ?oc=5",
-      "published_at": "2026-10-24T01:00:06+00:00",
-      "topic": "한국 증시",
+      "id": "868b5e692c247e610141",
+      "title": "테슬라 주가 372달러대 마감…투자 지출 조정 속 AI·자율주행 사업 시험대",
+      "publisher": "제민일보",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5hRlFPcW5VUTZKYzMwZS1XOG54dVdONnBvQWFXSjg2MExQUjVjLS1wMm1yRzhCUXY2cWdCZjFseVpGS0trRzlDc2ZuSWp2SWp2WFJadDJ6UmNoR1djS1cxRzVvVTk4Vk0?oc=5",
+      "published_at": "2026-10-24T01:24:43+00:00",
+      "topic": "테슬라",
       "topics": [
-        "한국 증시"
+        "테슬라"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
@@ -579,21 +625,6 @@
       "title_variants": 1
     },
     {
-      "id": "2d1ac3eb0f6bd77212cd",
-      "title": "출발증시 1부",
-      "publisher": "한국경제TV",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQX1JsdlphUXd4QVFOZjZ5M0VrMmJsazlRd195OFIwbk5KSTRURnNINUotY1dkdXRjTVk2alZZaHRUa3lGMnpXZW84MjJpWFZNclMzcTVkZ0VNWUJtTUJIcHVXWGRmQnhxWFlCQW5BdFBXanA3d0ZpNkxWZmFfZzRoczUxVmdIRGtfMWRwdE9UWWhwYjBpMnRka3hGcWs3eHJfOEY4?oc=5",
-      "published_at": "2026-10-23T20:51:04+00:00",
-      "topic": "한국 증시",
-      "topics": [
-        "한국 증시"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
       "id": "30bb44eaa2363fc84436",
       "title": "\"美보다 더 빠진 국장\"…실적 두 배인데 주가 왜 이러나",
       "publisher": "뉴시스",
@@ -621,6 +652,36 @@
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
       "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "8609f6579bca4a1f31d5",
+      "title": "[증시 리스크 관리-中] 금리 인상에 자산시장 위축 공포···종목 선별 기준은",
+      "publisher": "시사저널e",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1LZnMwa0NDaGZIaHRXY0lrTVVKVnRnZ0pmbG5CYjlwYnlseXViTHgwaEVTc0x4aVQ0LWktbkFNM1F4ZGFoMjBiYUh3c1o4dDBhSnFFMjJITzhGYjhQbkZTOW9jazVmbjU2eF9Qb3VrT0dCcllrcHfSAXZBVV95cUxNS2ZzMGtDQ2hmSGh0V2NJa01VSlZ0Z2dKZmxuQmI5cGJ5bHl1Ykx4MGhFU3NMeGlUNC1pLW5BTTNReGRhaDIwYmFId3NaOHQwYUpxRTIySE84RmI4UG5GUzlvY2s1Zm41NnhfUG91a09HQnJZa3B3?oc=5",
+      "published_at": "2026-10-23T10:24:21+00:00",
+      "topic": "한국 증시",
+      "topics": [
+        "한국 증시"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
+      "id": "fec03b953ec2456c39dd",
+      "title": "SK하이닉스 반등·솔리다임 IPO 철회에 코스피 상승 전환",
+      "publisher": "네이버페이 머니스토리",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE12c3psTVRCcTZZS2pGMzFGWi1FSlVQanIwd1dTUGk3UnFEOHJ4a0lscjJhcGRqV2F1WkdWRjQ1VjZSekhLT2kxUjNhcU9XT1BYbUstdzRIZ3pJdw?oc=5",
+      "published_at": "2026-10-23T10:05:57+00:00",
+      "topic": "NAVER",
+      "topics": [
+        "NAVER"
+      ],
+      "first_observed": "2026-10-23",
+      "last_observed": "2026-10-24",
+      "observed_days": 2,
       "title_variants": 1
     },
     {
@@ -692,21 +753,6 @@
       "topic": "코스닥",
       "topics": [
         "코스닥"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "35b10fc85b0662fb73cd",
-      "title": "머스크의 스페이스X·테슬라 합병 공개 지지, 주주 공정성 논란에 협상 차질 우려 By The Guru",
-      "publisher": "Investing.com 한국어",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9PQl9BeWUwTXVPYUxKZnpPdEZmTkE0aERqb2hQOFhNSVQxT2J6NHQ1X0JteUxoTjlFaU1JWlpyMHVnSWJVY1BzOG1zSjFCeE83UC1KTlJIY24teVBoVl9jWFFmczFtTGtHbXZPd0ZHY28?oc=5",
-      "published_at": "2026-10-23T05:18:00+00:00",
-      "topic": "테슬라",
-      "topics": [
-        "테슬라"
       ],
       "first_observed": "2026-10-23",
       "last_observed": "2026-10-24",
@@ -804,6 +850,21 @@
       "title_variants": 1
     },
     {
+      "id": "7824622ccda5e9c68faf",
+      "title": "뉴욕 증시, 메타 AI 투자 우려와 테슬라 로봇 지연 충격",
+      "publisher": "네이버페이 머니스토리",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9XLTB2T3A4dWpwX0ZuUFRoVU5Rc3pZYUk3OGxyTV9jeHNGazRMdmJLRnNXNE9kbTJ1ZjZkTVE3VERjckRtdmFucm5RTHhQM3JGS2ZETkRmR2FyUQ?oc=5",
+      "published_at": "2026-10-22T23:37:21+00:00",
+      "topic": "NAVER",
+      "topics": [
+        "NAVER"
+      ],
+      "first_observed": "2026-10-24",
+      "last_observed": "2026-10-24",
+      "observed_days": 1,
+      "title_variants": 1
+    },
+    {
       "id": "0c40efe71dfdbce636c5",
       "title": "현대차, 인도네시아 발리 첫 전기버스 공급 | 뉴스 | 현대자동차그룹",
       "publisher": "Hyundai Motor Group",
@@ -842,66 +903,6 @@
       "topic": "명신산업",
       "topics": [
         "명신산업"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "176b5151a799b041af34",
-      "title": "SK하이닉스, 솔리다임 美 상장 검토 중단…\"주주가치 제고 방안 계속 모색\"",
-      "publisher": "아이뉴스24",
-      "url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTFB5QkpaSmhTclNRS3NvbnBNeXprdlB3VVhqZGlPV0wzS25ySDR5NVMwUVltMW1hcnhDU25iTTIyWjBrWEthTzgw?oc=5",
-      "published_at": "2026-10-22T22:43:55+00:00",
-      "topic": "명신산업",
-      "topics": [
-        "명신산업"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "f0c0a4d69f37777a4d4a",
-      "title": "‘독립 2년차’ LG전자 HVAC, 수주 쌓이는데 실적은",
-      "publisher": "IT조선",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40cHpZN20wMFJSaFpyZWoyNS1ncTRUQ0g2azZlUHZueVNCV3BnX0NWdHl5MkpYNm80OFA4WE90NWpSaXpvNjk0TTlZdkhZWU1FZXVMLXZlcjk1NUlhWWtEcGNXRExGYlVvMGlkOExIS3jSAXRBVV95cUxObGFoeGtna3VoM3lpN0ZCa05uRDNNNmZuNEVxSVdIckowRV9rUnNwRExxdEt3UGhQaVFsdEY3aHRIdloya0hwblJoZTlJQkktVnNkMFVGWWFOOGRYenpyaU5FSjIxUzhaRDIxUTZQVW1oUVRIUw?oc=5",
-      "published_at": "2026-10-22T22:00:00+00:00",
-      "topic": "LG전자",
-      "topics": [
-        "LG전자"
-      ],
-      "first_observed": "2026-10-24",
-      "last_observed": "2026-10-24",
-      "observed_days": 1,
-      "title_variants": 1
-    },
-    {
-      "id": "fa47adcfc7ea6c0c21bb",
-      "title": "코스닥 제약바이오기업, 주식 시장 돌파구 찾을까",
-      "publisher": "의학신문",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9QZlp5VjRQbDBjdkQ4RVcyWnpzSnlOVUItVUJfblhwS1JSa0lEM1VNV0VrUnlSZWt3RVNRdEEzRlh2TV9Ea05yVXFPbjJXb0ZZb1kxM2RjSmJRUGJhOTg3U3dOR2tjaHFTR0E?oc=5",
-      "published_at": "2026-10-22T21:00:00+00:00",
-      "topic": "코스닥",
-      "topics": [
-        "코스닥"
-      ],
-      "first_observed": "2026-10-23",
-      "last_observed": "2026-10-24",
-      "observed_days": 2,
-      "title_variants": 1
-    },
-    {
-      "id": "f87b0e084e61dbb2874c",
-      "title": "현대자동차, 5세대 '디 올 뉴 투싼' 풀체인지, 계약 첫날 1만 5천 대 돌파 - 역대 투싼 중 최고 인기몰이, 하이브리드 수요 증가",
-      "publisher": "블로그",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9IcDN2RHkwOHRPY2VwX0trVTc4MEZzUzN1eDF4Z0xSY1NGV0xiOW5tVExheDRhQzhpRkRkTUFlRm1NbUl3ZHAzUVdlVExvdFpQOUdvOHZfaENXMGlDbGxITXFXZTdSeXphUjVONUhnZEZpSFlCd2RncU5sbnVpdTA?oc=5",
-      "published_at": "2026-10-22T15:37:59+00:00",
-      "topic": "NAVER",
-      "topics": [
-        "NAVER"
       ],
       "first_observed": "2026-10-24",
       "last_observed": "2026-10-24",
