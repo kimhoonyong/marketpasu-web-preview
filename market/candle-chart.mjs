@@ -337,11 +337,13 @@ export function mountCandleChart(root,{kind,label}){
    recentView();
  }
  function recentView(){
+   lockedFocus=null;
    const visible=defaultVisibleBars(data.length,kind,area.clientWidth);
    windowRange=constrainRange(data.length,data.length-visible,visible);
    render();
  }
  function resetView(){
+   lockedFocus=null;
    windowRange=constrainRange(data.length,0,data.length);
    render();
  }
@@ -377,6 +379,14 @@ export function mountCandleChart(root,{kind,label}){
  },{passive:false});
  canvas.addEventListener("pointerdown",e=>{
    if(!data.length)return;
+   if(e.pointerType==="mouse"&&e.button!==0)return;
+   if(e.pointerType!=="touch"){
+     downX=e.clientX;dragMoved=false;
+     if(e.shiftKey&&e.button===0){
+       selectionDrag={from:e.clientX,to:e.clientX};
+       selection.hidden=false;
+     }
+   }
    canvas.setPointerCapture(e.pointerId);
    pointers.set(e.pointerId,e.clientX);
    if(pointers.size===1)dragX=e.clientX;
@@ -401,7 +411,19 @@ export function mountCandleChart(root,{kind,label}){
     }
   }else hideHover();
   if(!pointers.has(e.pointerId))return;
-  const old=pointers.get(e.pointerId);
+  if(downX!==null&&Math.abs(e.clientX-downX)>4)dragMoved=true;
+  if(selectionDrag){
+    selectionDrag.to=e.clientX;
+    const rect=canvas.getBoundingClientRect();
+    const min=Math.max(68,Math.min(selectionDrag.from,selectionDrag.to)-rect.left);
+    const max=Math.min(rect.width-75,Math.max(selectionDrag.from,selectionDrag.to)-rect.left);
+    selection.style.left=min+"px";
+    selection.style.width=Math.max(0,max-min)+"px";
+    selection.style.top="20px";
+    selection.style.height=Math.max(0,rect.height-53)+"px";
+    selection.hidden=false;
+    return;
+  }
   pointers.set(e.pointerId,e.clientX);
   if(pointers.size===2){
    const xs=[...pointers.values()];
@@ -418,11 +440,34 @@ export function mountCandleChart(root,{kind,label}){
   }
  });
  function end(e){
+  const selected=selectionDrag;
+  if(selected&&data.length){
+    const rect=canvas.getBoundingClientRect();
+    const l=hoveredBarIndex(selected.from-rect.left,rect.width,windowRange);
+    const r=hoveredBarIndex(selected.to-rect.left,rect.width,windowRange);
+    selectionDrag=null;selection.hidden=true;
+    if(dragMoved&&l!==null&&r!==null&&Math.abs(r-l)>=4){
+      windowRange=constrainRange(data.length,
+        rangeForSelection(windowRange,data.length,l,r).start,
+        rangeForSelection(windowRange,data.length,l,r).count);
+      lockedFocus=null;render();
+    }
+  }else if(!dragMoved&&e.pointerType!=="touch"&&e.button===0&&data.length){
+    const rect=canvas.getBoundingClientRect();
+    const i=hoveredBarIndex(e.clientX-rect.left,rect.width,windowRange);
+    if(i!==null){
+      lockedFocus={index:i};activeIndex=i;
+      inspect(i);updateFocusGuide();
+    }
+  }
   pointers.delete(e.pointerId);
-  pinch=null;dragX=null;
+  pinch=null;dragX=null;downX=null;dragMoved=false;
  }
  canvas.addEventListener("pointerup",end);
- canvas.addEventListener("pointercancel",e=>{end(e);hideHover();});
+ canvas.addEventListener("pointercancel",e=>{
+   selectionDrag=null;selection.hidden=true;dragMoved=true;
+   end(e);hideHover();
+ });
  canvas.addEventListener("lostpointercapture",end);
  canvas.addEventListener("pointerleave",hideHover);
  canvas.addEventListener("pointerdown",e=>{
