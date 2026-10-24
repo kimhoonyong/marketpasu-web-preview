@@ -2,9 +2,13 @@ import {mountCandleChart} from "./candle-chart.mjs";
 
 const BASE="http://127.0.0.1:8765";
 function el(id){return document.getElementById(id);}
+function isoKstToday(){
+ const parts=new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+ const part=(type)=>parts.find(x=>x.type===type)?.value;
+ return part("year")+"-"+part("month")+"-"+part("day");
+}
 function koreaDay(){
- const d=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"});
- let date=new Date(d+"T00:00:00Z");
+ let date=new Date(isoKstToday()+"T00:00:00Z");
  // Display the last weekday as starting point; Korean holidays may still lack bars.
  while(date.getUTCDay()===0||date.getUTCDay()===6)date.setUTCDate(date.getUTCDate()-1);
  return date.toISOString().slice(0,10);
@@ -31,7 +35,7 @@ export function setupAutoCharts(){
  const daily=mountCandleChart(el("chart-daily"),{kind:"daily",label:"일봉"});
  const minute=mountCandleChart(el("chart-minute"),{kind:"minute",label:"분봉"});
  date.value=koreaDay();
- date.max=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"});
+ date.max=isoKstToday();
  let chosen=null,searchId=0,chartId=0,timer=null;
  async function health(){
   try{
