@@ -115,6 +115,40 @@ def load_credentials(path):
                     provider._token()
                 requester.assert_not_called()
 
+    def test_missing_module_retry_succeeds_after_theme_is_restored(self):
+        now=[0.0]
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            resolver=ExistingRestAuth(theme_root=root,env={},
+                                       clock=lambda:now[0],retry_seconds=15)
+            self.assertFalse(resolver.ready())
+            self.assertEqual(resolver.status(),"EXISTING_MODULE_NOT_FOUND")
+            (root/"data").mkdir()
+            (root/"data"/"kiwoom_rest_credentials.bin").write_bytes(b"ENCRYPTED_TEST_FIXTURE_NOT_REAL")
+            (root/"secure_credentials.py").write_text(
+                "def load_credentials(path): return {'app_key':'FAKE_APP','app_secret':'FAKE_SECRET'}",
+                encoding="utf-8")
+            # Do not attempt potentially expensive repeated imports every page refresh.
+            now[0]=10.0
+            self.assertFalse(resolver.ready())
+            now[0]=16.0
+            self.assertTrue(resolver.ready())
+            self.assertEqual(resolver.status(),"SCOUT_CREDENTIALS_READY")
+            self.assertEqual(resolver.credentials()["KIWOOM_APP_KEY"],"FAKE_APP")
+
+    def test_failed_loader_retry_does_not_expose_exception_or_credentials(self):
+        now=[0.0]
+        root,_=self.make_theme(
+            "def load_credentials(path): raise RuntimeError('SENSITIVE_VALUE_MUST_NOT_PRINT')")
+        resolver=ExistingRestAuth(theme_root=root,env={},clock=lambda:now[0])
+        output=io.StringIO()
+        with redirect_stdout(output),redirect_stderr(output):
+            self.assertFalse(resolver.ready())
+            self.assertEqual(resolver.status(),"EXISTING_AUTH_LOAD_FAILED")
+            now[0]=30.0
+            self.assertFalse(resolver.ready())
+        self.assertNotIn("SENSITIVE_VALUE_MUST_NOT_PRINT",output.getvalue())
+
     def test_existing_module_is_loaded_once_per_session(self):
         root,_=self.make_theme("def load_credentials(path): return {'app_key':'A','app_secret':'B'}")
         resolver=ExistingRestAuth(theme_root=root,env={})
